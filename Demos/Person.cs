@@ -15,8 +15,9 @@ namespace Database
 		// Sometimes it's nice to have an integer person ID, instead of just bookmarks.
 		// Bookmarks are byte arrays, they take memory allocations to deal with.
 		// Fortunately, ESENT provides auto-incremented columns, which do great being a primary index, BTW.
-		[EseAutoId]
-		private int id;
+		[EseAutoId( "id" )]
+		private int m_id;
+		public int id { get { return m_id; } }
 
 		// Enum column
 		public enum eSex { Male, Female, Other };
@@ -26,11 +27,11 @@ namespace Database
 		// Short Unicode text column.
 		[EseShortText( maxChars = 71 )]
 		// See http://stackoverflow.com/a/30509/126995 for why "71"
-		public string name;
+		public string name { get; private set; }
 
 		// Multi-values ASCII text column.
 		[EseMultiText( bUnicode = false, maxChars = 32 )]
-		public List<string> phones;
+		public List<string> phones { get; private set; }
 
 		public Person() { }
 
