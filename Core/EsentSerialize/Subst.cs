@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Collections.Generic;
 
 namespace EsentSerialize
 {
@@ -29,6 +30,11 @@ namespace EsentSerialize
 
 		[DllImport( "kernel32.dll" )]
 		static extern uint QueryDosDevice( string lpDeviceName, IntPtr lpTargetPath, uint ucchMax );
+
+		static HashSet<T> ToHashSet<T>(this IEnumerable<T> e)
+		{
+			return new HashSet<T>( e );
+		}
 
 		/// <summary>Find the free drive letter, and mount the specified path to that.</summary>
 		/// <param name="path"></param>

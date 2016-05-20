@@ -1,6 +1,6 @@
 ﻿using EsentSerialization.Attributes;
 
-namespace WsaDemo81.Database
+namespace Database
 {
 	[EseTable( "FiltersTest" )]
 	[EsePrimaryIndex( "id", "+id\0\0" )]

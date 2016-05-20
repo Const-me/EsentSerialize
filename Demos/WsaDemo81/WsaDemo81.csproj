@@ -43,11 +43,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\FiltersTest.cs">
+      <Link>Database\FiltersTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Person.cs">
+      <Link>Database\Person.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Database\FiltersTest.cs" />
-    <Compile Include="Database\Person.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

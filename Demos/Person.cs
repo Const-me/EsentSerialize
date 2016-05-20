@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WsaDemo81.Database
+namespace Database
 {
 	[EseTable( "persons" )]
 	[EsePrimaryIndex( "id", "+id\0\0" )]

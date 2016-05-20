@@ -5,8 +5,8 @@ using System.Diagnostics;
 using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using WsaDemo81.Database;
-using TestFilter = System.Linq.Expressions.Expression<System.Func<WsaDemo81.Database.FiltersTest, bool>>;
+using Database;
+using TestFilter = System.Linq.Expressions.Expression<System.Func<Database.FiltersTest, bool>>;
 
 namespace WsaDemo81
 {
