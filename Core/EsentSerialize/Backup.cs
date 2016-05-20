@@ -59,36 +59,39 @@ namespace EsentSerialization
 
 			// Backup the files.
 			foreach( string strFileName in arrFiles )
+				BackupFile( idInstance, archive, compressionLevel, buff, strFileName );
+		}
+
+		static void BackupFile( JET_INSTANCE idInstance, ZipArchive archive, CompressionLevel compressionLevel, byte[] buff, string strFileName )
+		{
+			JET_HANDLE hFile;
+			long fsLow, fsHigh;
+			Api.JetOpenFileInstance( idInstance, strFileName, out hFile, out fsLow, out fsHigh );
+
+			ulong ulFileSize = ( (ulong)fsLow & (ulong)uint.MaxValue ) | ( ( (ulong)fsHigh & (ulong)uint.MaxValue ) << 32 );
+
+			try
 			{
-				JET_HANDLE hFile;
-				long fsLow, fsHigh;
-				Api.JetOpenFileInstance( idInstance, strFileName, out hFile, out fsLow, out fsHigh );
-
-				ulong ulFileSize = ( (ulong)fsLow & (ulong)uint.MaxValue ) | ( ( (ulong)fsHigh & (ulong)uint.MaxValue ) << 32 );
-
-				try
+				ulong ulRemaining = ulFileSize;
+				string shortName = Path.GetFileName( strFileName );
+				ZipArchiveEntry entry = archive.CreateEntry( shortName, compressionLevel );
+				using( Stream stm = entry.Open() )
 				{
-					ulong ulRemaining = ulFileSize;
-					string shortName = Path.GetFileName( strFileName );
-					ZipArchiveEntry entry = archive.CreateEntry( shortName, compressionLevel );
-					using( Stream stm = entry.Open() )
+					while( ulRemaining > 0 )
 					{
-						while( ulRemaining > 0 )
-						{
-							int cbRead;
-							Api.JetReadFileInstance( idInstance, hFile, buff, iBuffSize, out cbRead );
-							if( 0 == cbRead )
-								throw new EndOfStreamException( "Error backing up file " + strFileName );
-							stm.Write( buff, 0, cbRead );
-							ulRemaining -= (ulong)cbRead;
-						}
-						stm.Flush();
+						int cbRead;
+						Api.JetReadFileInstance( idInstance, hFile, buff, iBuffSize, out cbRead );
+						if( 0 == cbRead )
+							throw new EndOfStreamException( "Error backing up file " + strFileName );
+						stm.Write( buff, 0, cbRead );
+						ulRemaining -= (ulong)cbRead;
 					}
+					stm.Flush();
 				}
-				finally
-				{
-					Api.JetCloseFileInstance( idInstance, hFile );
-				}
+			}
+			finally
+			{
+				Api.JetCloseFileInstance( idInstance, hFile );
 			}
 		}
 	}
