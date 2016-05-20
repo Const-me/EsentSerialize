@@ -57,5 +57,10 @@ namespace EsentSerialization
 		}
 
 		public static readonly IEqualityComparer<byte[]> EqualityComparer = new ByteArrayComparer();
+
+		public static bool isEmpty( this byte[] arr )
+		{
+			return null == arr || arr.Length <= 0;
+		}
 	}
 }

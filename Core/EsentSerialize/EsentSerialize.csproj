@@ -7,7 +7,7 @@
     <ProjectGuid>{7679E23C-77C8-4898-8529-8D6E33941248}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EsentSerialize</RootNamespace>
+    <RootNamespace>EsentSerialization</RootNamespace>
     <AssemblyName>EsentSerialize</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -37,6 +37,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
@@ -108,6 +110,12 @@
     </Compile>
     <Compile Include="..\EsentSerialize81\Attributes\OptionallyNullableColumn.cs">
       <Link>Attributes\OptionallyNullableColumn.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Cursors\BookmarkedRecordset.cs">
+      <Link>Cursors\BookmarkedRecordset.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Cursors\BookmarkedRow.cs">
+      <Link>Cursors\BookmarkedRow.cs</Link>
     </Compile>
     <Compile Include="..\EsentSerialize81\Cursors\Cursor.cs">
       <Link>Cursors\Cursor.cs</Link>
@@ -190,6 +198,7 @@
     <Compile Include="..\EsentSerialize81\Utils\ReflectionUtils.cs">
       <Link>Utils\ReflectionUtils.cs</Link>
     </Compile>
+    <Compile Include="Backup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subst.cs" />
   </ItemGroup>

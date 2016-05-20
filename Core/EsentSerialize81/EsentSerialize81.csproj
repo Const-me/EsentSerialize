@@ -57,6 +57,8 @@
     <Compile Include="Attributes\Indices\EsePrimaryIndexAttribute.cs" />
     <Compile Include="Attributes\Indices\EseTupleIndexAttribute.cs" />
     <Compile Include="Attributes\OptionallyNullableColumn.cs" />
+    <Compile Include="Cursors\BookmarkedRecordset.cs" />
+    <Compile Include="Cursors\BookmarkedRow.cs" />
     <Compile Include="Cursors\Cursor.cs" />
     <Compile Include="Cursors\EseCursorBase.cs" />
     <Compile Include="Cursors\Recordset.cs" />
