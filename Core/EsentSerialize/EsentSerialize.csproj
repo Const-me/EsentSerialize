@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7679E23C-77C8-4898-8529-8D6E33941248}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EsentSerialize</RootNamespace>
+    <AssemblyName>EsentSerialize</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Esent.Interop, Version=1.9.3.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ManagedEsent.1.9.3.3\lib\net40\Esent.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Assembly.cs">
+      <Link>Properties\Assembly.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize10\Utils\FindFiles.cs">
+      <Link>Utils\FindFiles.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Blobs\EseByteArrayAttribute.cs">
+      <Link>Attributes\ColumnTypes\Blobs\EseByteArrayAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Blobs\EseDCSAttribute.cs">
+      <Link>Attributes\ColumnTypes\Blobs\EseDCSAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Blobs\EseLongTextAttribute.cs">
+      <Link>Attributes\ColumnTypes\Blobs\EseLongTextAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Misc\DateTime.cs">
+      <Link>Attributes\ColumnTypes\Misc\DateTime.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Misc\ShortText.cs">
+      <Link>Attributes\ColumnTypes\Misc\ShortText.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\AutoId.cs">
+      <Link>Attributes\ColumnTypes\Numeric\AutoId.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\bool.cs">
+      <Link>Attributes\ColumnTypes\Numeric\bool.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\byte.cs">
+      <Link>Attributes\ColumnTypes\Numeric\byte.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\double.cs">
+      <Link>Attributes\ColumnTypes\Numeric\double.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\EnumAttribute.cs">
+      <Link>Attributes\ColumnTypes\Numeric\EnumAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\int32.cs">
+      <Link>Attributes\ColumnTypes\Numeric\int32.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\Int32Array.cs">
+      <Link>Attributes\ColumnTypes\Numeric\Int32Array.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\uint32.cs">
+      <Link>Attributes\ColumnTypes\Numeric\uint32.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\EseColumnAttrubuteBase.cs">
+      <Link>Attributes\EseColumnAttrubuteBase.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\EseTableAttribute.cs">
+      <Link>Attributes\EseTableAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\EseTextFieldBase.cs">
+      <Link>Attributes\EseTextFieldBase.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\Indices\EseIndexAttribute.cs">
+      <Link>Attributes\Indices\EseIndexAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\Indices\EsePrimaryIndexAttribute.cs">
+      <Link>Attributes\Indices\EsePrimaryIndexAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\Indices\EseTupleIndexAttribute.cs">
+      <Link>Attributes\Indices\EseTupleIndexAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\OptionallyNullableColumn.cs">
+      <Link>Attributes\OptionallyNullableColumn.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Cursors\Cursor.cs">
+      <Link>Cursors\Cursor.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Cursors\EseCursorBase.cs">
+      <Link>Cursors\EseCursorBase.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Cursors\Recordset.cs">
+      <Link>Cursors\Recordset.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Cursors\RecordsetFilters.cs">
+      <Link>Cursors\RecordsetFilters.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\EsentDatabase.cs">
+      <Link>EsentDatabase.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Interfaces\ColumnIndex.cs">
+      <Link>Interfaces\ColumnIndex.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Interfaces\iSerializerSession.cs">
+      <Link>Interfaces\iSerializerSession.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Interfaces\iSerializerTransaction.cs">
+      <Link>Interfaces\iSerializerTransaction.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Interfaces\iTypeSerializer.cs">
+      <Link>Interfaces\iTypeSerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Linq\FilterQuery.cs">
+      <Link>Linq\FilterQuery.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Linq\Queries.cs">
+      <Link>Linq\Queries.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Linq\Query.cs">
+      <Link>Linq\Query.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\SchemaUpdater\DatabaseSchemaUpdater.cs">
+      <Link>SchemaUpdater\DatabaseSchemaUpdater.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Serializer\EseSerializer.cs">
+      <Link>Serializer\EseSerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Serializer\TypeSerializer.ColumnInfo.cs">
+      <Link>Serializer\TypeSerializer.ColumnInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Serializer\TypeSerializer.cs">
+      <Link>Serializer\TypeSerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Serializer\TypeSerializer.IndexInfo.cs">
+      <Link>Serializer\TypeSerializer.IndexInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Sessions\iSerializerSessionImpl.cs">
+      <Link>Sessions\iSerializerSessionImpl.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Sessions\SerializerSession.cs">
+      <Link>Sessions\SerializerSession.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Sessions\SerializerTransaction.cs">
+      <Link>Sessions\SerializerTransaction.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Sessions\SessionPool.cs">
+      <Link>Sessions\SessionPool.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Sessions\SessionPool.Sessions.cs">
+      <Link>Sessions\SessionPool.Sessions.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Utils\ByteArray.cs">
+      <Link>Utils\ByteArray.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Utils\Ext.cs">
+      <Link>Utils\Ext.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Utils\Global.cs">
+      <Link>Utils\Global.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Utils\MiscUtils.cs">
+      <Link>Utils\MiscUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Utils\ReflectionUtils.cs">
+      <Link>Utils\ReflectionUtils.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Subst.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

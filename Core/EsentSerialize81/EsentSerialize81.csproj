@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EF208738-29BC-49FD-933F-19B6BECAC717}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EsentSerialization</RootNamespace>
+    <AssemblyName>EsentSerialize81</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Assembly.cs">
+      <Link>Properties\Assembly.cs</Link>
+    </Compile>
+    <Compile Include="Attributes\ColumnTypes\Blobs\EseByteArrayAttribute.cs" />
+    <Compile Include="Attributes\ColumnTypes\Blobs\EseDCSAttribute.cs" />
+    <Compile Include="Attributes\ColumnTypes\Blobs\EseLongTextAttribute.cs" />
+    <Compile Include="Attributes\ColumnTypes\Misc\DateTime.cs" />
+    <Compile Include="Attributes\ColumnTypes\Misc\ShortText.cs" />
+    <Compile Include="Attributes\ColumnTypes\Numeric\AutoId.cs" />
+    <Compile Include="Attributes\ColumnTypes\Numeric\bool.cs" />
+    <Compile Include="Attributes\ColumnTypes\Numeric\byte.cs" />
+    <Compile Include="Attributes\ColumnTypes\Numeric\double.cs" />
+    <Compile Include="Attributes\ColumnTypes\Numeric\EnumAttribute.cs" />
+    <Compile Include="Attributes\ColumnTypes\Numeric\int32.cs" />
+    <Compile Include="Attributes\ColumnTypes\Numeric\Int32Array.cs" />
+    <Compile Include="Attributes\ColumnTypes\Numeric\uint32.cs" />
+    <Compile Include="Attributes\EseColumnAttrubuteBase.cs" />
+    <Compile Include="Attributes\EseTableAttribute.cs" />
+    <Compile Include="Attributes\EseTextFieldBase.cs" />
+    <Compile Include="Attributes\Indices\EseIndexAttribute.cs" />
+    <Compile Include="Attributes\Indices\EsePrimaryIndexAttribute.cs" />
+    <Compile Include="Attributes\Indices\EseTupleIndexAttribute.cs" />
+    <Compile Include="Attributes\OptionallyNullableColumn.cs" />
+    <Compile Include="Cursors\Cursor.cs" />
+    <Compile Include="Cursors\EseCursorBase.cs" />
+    <Compile Include="Cursors\Recordset.cs" />
+    <Compile Include="Cursors\RecordsetFilters.cs" />
+    <Compile Include="EsentDatabase.cs" />
+    <Compile Include="Interfaces\ColumnIndex.cs" />
+    <Compile Include="Interfaces\iSerializerSession.cs" />
+    <Compile Include="Interfaces\iSerializerTransaction.cs" />
+    <Compile Include="Interfaces\iTypeSerializer.cs" />
+    <Compile Include="Linq\Queries.cs" />
+    <Compile Include="Linq\Query.cs" />
+    <Compile Include="Linq\FilterQuery.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SchemaUpdater\DatabaseSchemaUpdater.cs" />
+    <Compile Include="Serializer\EseSerializer.cs" />
+    <Compile Include="Serializer\TypeSerializer.ColumnInfo.cs" />
+    <Compile Include="Serializer\TypeSerializer.cs" />
+    <Compile Include="Serializer\TypeSerializer.IndexInfo.cs" />
+    <Compile Include="Sessions\iSerializerSessionImpl.cs" />
+    <Compile Include="Sessions\SerializerSession.cs" />
+    <Compile Include="Sessions\SerializerTransaction.cs" />
+    <Compile Include="Sessions\SessionPool.cs" />
+    <Compile Include="Sessions\SessionPool.Sessions.cs" />
+    <Compile Include="Utils\ByteArray.cs" />
+    <Compile Include="Utils\Directory.cs" />
+    <Compile Include="Utils\Ext.cs" />
+    <Compile Include="Utils\File.cs" />
+    <Compile Include="Utils\FileIO\FileApi.cs" />
+    <Compile Include="Utils\FileIO\FileAttributes.cs" />
+    <Compile Include="Utils\FileIO\FindFiles.cs" />
+    <Compile Include="Utils\FileIO\NativeMethods.cs" />
+    <Compile Include="Utils\FileIO\SafeSearchHandle.cs" />
+    <Compile Include="Utils\FileIO\WIN32_FILE_ATTRIBUTE_DATA.cs" />
+    <Compile Include="Utils\FileIO\WIN32_FIND_DATA.cs" />
+    <Compile Include="Utils\Global.cs" />
+    <Compile Include="Utils\MiscUtils.cs" />
+    <Compile Include="Utils\ReflectionUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Esent.Interop.Wsa, Version=1.9.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ManagedEsent.1.9.3.3\lib\netcore45\Esent.Interop.Wsa.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
