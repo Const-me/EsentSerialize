@@ -81,6 +81,7 @@ namespace EsentSerialization.Linq
 		static readonly MethodInfo miLessOrEqual = getMethodInfo( () => Queries.lessOrEqual( null,null ) );
 		static readonly MethodInfo miGreaterOrEqual = getMethodInfo( () => Queries.greaterOrEqual( null,null ) );
 		static readonly MethodInfo miStringContains = getMethodInfo( () => "".Contains( "" ) );
+		static readonly MethodInfo miContains = getMethodInfo( () => Queries.Contains( null, null ) );
 
 		static IEnumerable<expression> parseQuery( ParameterExpression eParam, Expression body )
 		{
@@ -105,6 +106,8 @@ namespace EsentSerialization.Linq
 						return parseBinary( eParam, mce.Arguments[ 0 ], eOperation.LessThanOrEqual, mce.Arguments[ 1 ] );
 					if( mce.Method == miGreaterOrEqual )
 						return parseBinary( eParam, mce.Arguments[ 0 ], eOperation.GreaterThanOrEqual, mce.Arguments[ 1 ] );
+					if( mce.Method == miContains )
+						return parseContains( eParam, mce.Arguments[ 0 ], mce.Arguments[ 1 ] );
 					if( isContainsMethod( mce.Method ) )
 						return parseContains( eParam, mce.Object, mce.Arguments[ 0 ] );
 					throw new NotSupportedException( "Method {0}::{1} is not supported".formatWith( mce.Method.DeclaringType.FullName, mce.Method.Name ) );

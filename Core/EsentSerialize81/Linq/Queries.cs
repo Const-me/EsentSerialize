@@ -1,5 +1,6 @@
 ﻿using EsentSerialization.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -104,7 +105,7 @@ namespace EsentSerialization
 		/// <para>The table must have the index to perform the query. This method doesn't fall back to the MS-provided LINQ when there's no index, it will throw an exception instead.
 		/// This is by design: ESENT indices can be faster than linear table scan by orders of magnitudes. If you need to filter usnig linear scan, call Recordset.all() and then filter however you like using the full power of LINQ.</para>
 		/// <para>Only a small subset of expressions is supported by the query compiler.</para>
-		/// <para>It's recommended to precompile your queries on startup.</para>
+		/// <para>It's recommended to precompile your queries on startup to save some CPU time.</para>
 		/// <seealso cref="filter" />
 		/// </remarks>
 		public static IEnumerable<tRow> where<tRow>( this Recordset<tRow> rs, Expression<Func<tRow, bool>> exp ) where tRow : new()
@@ -114,14 +115,21 @@ namespace EsentSerialization
 		}
 
 		/// <summary>When encountered in queries, this static method is equal to "&lt;=" operator.</summary>
-		/// <remarks>You might need that if you want to query by string column, or binary column, or some other column type that doesn't have comparison operators in the .NET type mapped to that column.</remarks>
+		/// <remarks>You need that if you want to query by string column, or binary column, or some other column type that doesn't have comparison operators in the .NET type mapped to that column.</remarks>
 		public static bool lessOrEqual( object a, object b )
 		{
 			return false;
 		}
 		/// <summary>When encountered in queries, this static method is equal to "&gt;=" operator.</summary>
-		/// <remarks>You might need that if you want to query by string column, or binary column, or some other column type that doesn't have comparison operators in the .NET type mapped to that column.</remarks>
+		/// <remarks>You need that if you want to query by string column, or binary column, or some other column type that doesn't have comparison operators in the .NET type mapped to that column.</remarks>
 		public static bool greaterOrEqual( object a, object b )
+		{
+			return false;
+		}
+
+		/// <summary>When encountered in queries, this static method checks the value's present in a multivalued column.</summary>
+		/// <remarks>You need that if you want to query by multi-valued column that's mapped to array CLR type. For generic List this also work, but for them you can also use List.Contains method.</remarks>
+		public static bool Contains( IEnumerable arr, object o )
 		{
 			return false;
 		}
