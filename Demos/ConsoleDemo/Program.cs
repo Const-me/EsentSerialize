@@ -55,7 +55,9 @@ namespace ConsoleDemo
 				PrintPersons( rs.where( p => p.name.Contains( "Smith" ) ) );
 
 				Console.WriteLine( "Phone" );
-				PrintPersons( rs.where( p => p.phones.Contains( "+1 800 642 7676" ) ) );
+				PrintPersons( rs.where( p => Queries.Contains( p.phones, "+1 800 642 7676" ) ) );
+				// The equivalent:
+				// PrintPersons( rs.where( p => p.phones.Contains( "+1 800 642 7676" ) ) );
 			}
 		}
 
