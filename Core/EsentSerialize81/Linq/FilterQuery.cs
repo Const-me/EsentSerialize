@@ -47,15 +47,17 @@ namespace EsentSerialization.Linq
 			public readonly MemberInfo column;
 			public readonly eOperation op;
 			public readonly Func<object> filterValue;
+			public readonly bool multivalued;
 
 			public IndexForColumn[] indices { get; private set; }
 			public IndexForColumn selectedIndex { get; private set; }
 
-			public expression( MemberInfo column, eOperation op, Func<object> filterValue )
+			public expression( MemberInfo column, eOperation op, Func<object> filterValue, bool multivalued = false )
 			{
 				this.column = column;
 				this.op = op;
 				this.filterValue = filterValue;
+				this.multivalued = multivalued;
 			}
 			public void lookupIndices( iTypeSerializer ser )
 			{
@@ -103,9 +105,22 @@ namespace EsentSerialization.Linq
 						return parseBinary( eParam, mce.Arguments[ 0 ], eOperation.LessThanOrEqual, mce.Arguments[ 1 ] );
 					if( mce.Method == miGreaterOrEqual )
 						return parseBinary( eParam, mce.Arguments[ 0 ], eOperation.GreaterThanOrEqual, mce.Arguments[ 1 ] );
+					if( isContainsMethod( mce.Method ) )
+						return parseContains( eParam, mce.Object, mce.Arguments[ 0 ] );
 					throw new NotSupportedException( "Method {0}::{1} is not supported".formatWith( mce.Method.DeclaringType.FullName, mce.Method.Name ) );
 			}
 			throw new NotSupportedException( "The expression {0} is not supported".formatWith( body.NodeType.ToString() ) );
+		}
+
+		static bool isContainsMethod( MethodInfo mi )
+		{
+			if( mi.Name == "Contains" )
+			{
+				Type tp = mi.DeclaringType;
+				if( tp.isGenericType() && tp.GetGenericTypeDefinition() == typeof( List<> ) )
+					return true;
+			}
+			return false;
 		}
 
 		class HasParam : ExpressionVisitor
@@ -148,6 +163,22 @@ namespace EsentSerialization.Linq
 				op = op.invert();
 			}
 			var res = new expression( mi, op, val );
+			return new expression[ 1 ] { res };
+		}
+
+		static expression[] parseContains( ParameterExpression eParam, Expression eLeft, Expression eRight )
+		{
+			HasParam hp = new HasParam();
+			bool leftParam = hp.hasParameter( eLeft );
+			bool rightParam = hp.hasParameter( eRight );
+			if( !leftParam )
+				throw new NotSupportedException( "Expression is not supported: a column must be on the left." );
+			if( rightParam )
+				throw new NotSupportedException( "Expression is not supported: method argument can't contain columns." );
+			MemberInfo mi = parseColumn( eParam, eLeft );
+			Func<object> val = parseConstant( eRight );
+
+			var res = new expression( mi, eOperation.Equal, val, true );
 			return new expression[ 1 ] { res };
 		}
 
@@ -199,16 +230,17 @@ namespace EsentSerialization.Linq
 			if( hsInds.Count <= 0 )
 				throw new NotSupportedException( "Failed to parse query {0}: no single index covers all referenced columns".formatWith( exp ) );
 
+			bool multi = experessions.Any( e => e.multivalued );
 			foreach( string i in hsInds )
 			{
-				var res = tryIndex<tRow>( experessions, i );
+				var res = tryIndex<tRow>( experessions, multi, i );
 				if( null != res )
 					return res;
 			}
 			throw new NotSupportedException( "Failed to parse query {0}: no suitable index found".formatWith( exp ) );
 		}
 
-		static Query<tRow> tryIndex<tRow>( expression[] exprs, string indName ) where tRow : new()
+		static Query<tRow> tryIndex<tRow>( expression[] exprs, bool multi, string indName ) where tRow : new()
 		{
 			// Choose the index
 			foreach( var i in exprs )
@@ -241,7 +273,7 @@ namespace EsentSerialization.Linq
 							Debug.WriteLine( "Warning: ignoring extra conditions on the column {0}", eq.column.Name );
 						vals.Add( eq.filterValue );
 						var arr = vals.ToArray();
-						return new Query<tRow>( rs => findEqual( rs, indName, arr ) );
+						return new Query<tRow>( rs => findEqual( rs, indName, arr ), multi );
 					}
 
 					expression[] less = group.Where( e => e.op == eOperation.LessThanOrEqual ).ToArray();
@@ -250,7 +282,7 @@ namespace EsentSerialization.Linq
 						Debug.WriteLine( "Warning: ignoring extra conditions on the column {0}", eq.column.Name );
 					Func<object> lastFrom = greater.Select( e => e.filterValue ).FirstOrDefault();
 					Func<object> lastTo = less.Select( e => e.filterValue ).FirstOrDefault();
-					return new Query<tRow>( rs => findBetween( rs, indName, vals.ToArray(), lastFrom, lastTo ) );
+					return new Query<tRow>( rs => findBetween( rs, indName, vals.ToArray(), lastFrom, lastTo ), multi );
 				}
 				else
 				{

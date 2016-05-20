@@ -119,5 +119,8 @@ namespace EsentSerialization.Attributes
 			Api.MakeKey( cur.idSession, cur.idTable, null, flags );
 			return true;
 		}
+
+		/// <summary>True when the column can contain multiple values per record.</summary>
+		public bool isMultiValued { get { return getColumnDef().grbit.HasFlag( ColumndefGrbit.ColumnMultiValued ); } }
 	}
 }

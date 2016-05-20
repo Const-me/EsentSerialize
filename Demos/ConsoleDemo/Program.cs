@@ -16,6 +16,7 @@ namespace ConsoleDemo
 				new Person( Person.eSex.Male, "John Smith", new string[]{ "+1 800 123 4567", "+1 800 123 4568" } ),
 				new Person( Person.eSex.Female, "Mary Jane", new string[]{ "555-1212" } ),
 				new Person( Person.eSex.Other, "Microsoft", new string[]{ "+1 800 642 7676", "1-800-892-5234" } ),
+				new Person( Person.eSex.Other, "Contoso Ltd.", new string[]{ "+1 800 642 7676", "+1 800 642 7676", "+1 800 642 7676", "+1 800 555 7676" } ),
 			};
 
 			Cursor<Person> curPerson;
@@ -52,6 +53,9 @@ namespace ConsoleDemo
 
 				Console.WriteLine( @"Names containing ""Smith"":" );
 				PrintPersons( rs.where( p => p.name.Contains( "Smith" ) ) );
+
+				Console.WriteLine( "Phone" );
+				PrintPersons( rs.where( p => p.phones.Contains( "+1 800 642 7676" ) ) );
 			}
 		}
 

@@ -12,7 +12,7 @@ namespace EsentSerialization.Linq
 
 		public readonly bool multivalues;
 
-		public Query( Action<Recordset<tRow>> act, bool multivalues = false )
+		public Query( Action<Recordset<tRow>> act, bool multivalues )
 		{
 			query = act;
 			this.multivalues = multivalues;

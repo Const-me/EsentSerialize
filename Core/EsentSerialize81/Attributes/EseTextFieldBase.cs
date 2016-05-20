@@ -22,7 +22,11 @@ namespace EsentSerialization.Attributes
 			set { m_bUnicode = value; }
 		}
 
+#if NETFX_CORE
 		static readonly Encoding nonUnicodeEncoding = new UTF8Encoding( false, true );
+#else
+		static readonly Encoding nonUnicodeEncoding = Encoding.ASCII;
+#endif
 
 		/// <summary>Get the System.Text.Encoding to use.</summary>
 		/// <returns>Either Unicode or ASCII.</returns>

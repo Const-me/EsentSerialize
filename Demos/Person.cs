@@ -9,6 +9,7 @@ namespace Database
 	[EsePrimaryIndex( "id", "+id\0\0" )]
 	[EseIndex( "sex", "+sex\0\0" )]
 	[EseTupleIndex( "name" )]
+	[EseIndex( "phones", "+phones\0\0" )]
 	public class Person
 	{
 		// Sometimes it's nice to have an integer person ID, instead of just bookmarks.
@@ -29,7 +30,7 @@ namespace Database
 
 		// Multi-values ASCII text column.
 		[EseMultiText( bUnicode = false, maxChars = 32 )]
-		private List<string> phones;
+		public List<string> phones;
 
 		public Person() { }
 

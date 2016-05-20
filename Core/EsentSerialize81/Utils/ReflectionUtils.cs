@@ -14,6 +14,11 @@ namespace EsentSerialization
 			return mi.GetCustomAttributes<EseColumnAttrubuteBase>().ToArray();
 		}
 
+		public static EseColumnAttrubuteBase getColumnAttribute( this MemberInfo mi )
+		{
+			return mi.GetCustomAttributes<EseColumnAttrubuteBase>().First();
+		}
+
 		public static EseTableAttribute getTableAttribute( this Type tp )
 		{
 			if( null == tp )
@@ -94,6 +99,15 @@ namespace EsentSerialization
 			return tp.GetTypeInfo()
 				.includeBaseClasses()
 				.SelectMany( ti => ti.GetCustomAttributes<T>() );
+		}
+
+		public static bool isGenericType( this Type tp )
+		{
+#if NETFX_CORE
+			return tp.GetTypeInfo().IsGenericType;
+#else
+			return tp.IsGenericType;
+#endif
 		}
 	}
 }

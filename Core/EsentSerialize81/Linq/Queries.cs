@@ -41,7 +41,7 @@ namespace EsentSerialization
 			return rs.orderBy( keySelector, true );
 		}
 
-		static string sortIndex( this iTypeSerializer ser, MemberInfo mi, out bool indexDirectionPositive )
+		static string sortIndex( this iTypeSerializer ser, MemberInfo mi, out bool indexDirectionPositive, out bool multi )
 		{
 			IndexForColumn[] indices = ser.indicesFromColumn( mi );
 
@@ -64,6 +64,7 @@ namespace EsentSerialization
 				throw new ArgumentException( "No sort index found for the column {0}".formatWith( mi.Name ) );
 
 			indexDirectionPositive = found.indexDirectionPositive;
+			multi = mi.getColumnAttribute().isMultiValued;
 			return found.indexName;
 		}
 
@@ -76,13 +77,13 @@ namespace EsentSerialization
 
 			IndexForColumn[] indices = ser.indicesFromColumn( me.Member );
 
-			bool indexDirectionPositive;
+			bool indexDirectionPositive, multi;
 
-			string ind = ser.sortIndex( me.Member, out indexDirectionPositive );
+			string ind = ser.sortIndex( me.Member, out indexDirectionPositive, out multi );
 
 			bool shouldInvert = descending ^ ( !indexDirectionPositive);
 
-			return new Query<tRow>( r => r.filterSort( ind, shouldInvert ) );
+			return new Query<tRow>( r => r.filterSort( ind, shouldInvert ), multi );
 		}
 
 		static IEnumerable<tRow> orderBy<tRow, tKey>( this Recordset<tRow> rs, Expression<Func<tRow, tKey>> keySelector, bool flip ) where tRow : new()
