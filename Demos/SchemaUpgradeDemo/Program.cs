@@ -16,8 +16,7 @@ namespace SchemaUpgradeDemo
 				new Person( Person.eSex.Other, "Microsoft", new string[]{ "+1 800 642 7676", "1-800-892-5234" } ),
 			};
 
-			Cursor<Person> curPerson;
-			sess.getTable( out curPerson );
+			var curPerson = sess.Cursor<Person>();
 
 			using( var trans = sess.BeginTransaction() )
 			{

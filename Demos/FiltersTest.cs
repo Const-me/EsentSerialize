@@ -43,8 +43,7 @@ namespace Database
 
 		public static void populateWithDebugData( iSerializerSession sess )
 		{
-			Cursor<FiltersTest> curTest;
-			sess.getTable( out curTest );
+			var curTest = sess.Cursor<FiltersTest>();
 
 			using( var trans = sess.BeginTransaction() )
 			{

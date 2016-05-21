@@ -32,9 +32,7 @@ namespace DictionaryDemo
 			using( var sess = sessionPool.GetSession() )
 			using( var trans = sess.BeginTransaction() )
 			{
-				Recordset<DictionaryEntry> rs;
-				sess.getTable( out rs );
-				return rs.Count();
+				return sess.Recordset<DictionaryEntry>().Count();
 			}
 		} }
 
@@ -55,8 +53,7 @@ namespace DictionaryDemo
 				using( var sess = sessionPool.GetSession() )
 				using( var trans = sess.BeginTransaction() )
 				{
-					Recordset<DictionaryEntry> rs;
-					sess.getTable( out rs );
+					var rs = sess.Recordset<DictionaryEntry>();
 					if( !rs.applyFilter() )
 						yield break;
 					do
@@ -74,8 +71,7 @@ namespace DictionaryDemo
 			using( var sess = sessionPool.GetSession() )
 			using( var trans = sess.BeginTransaction() )
 			{
-				Recordset<DictionaryEntry> rs;
-				sess.getTable( out rs );
+				var rs = sess.Recordset<DictionaryEntry>();
 				rs.filterFindEqual( "key", key );
 				if( !rs.applyFilter() )
 					return false;
@@ -90,8 +86,7 @@ namespace DictionaryDemo
 			using( var sess = sessionPool.GetSession() )
 			using( var trans = sess.BeginTransaction() )
 			{
-				Recordset<DictionaryEntry> rs;
-				sess.getTable( out rs );
+				var rs = sess.Recordset<DictionaryEntry>();
 				rs.filterFindEqual( "key", key );
 				if( !rs.applyFilter() )
 				{
@@ -110,8 +105,7 @@ namespace DictionaryDemo
 				using( var sess = sessionPool.GetSession() )
 				using( var trans = sess.BeginTransaction() )
 				{
-					Recordset<DictionaryEntry> rs;
-					sess.getTable( out rs );
+					var rs = sess.Recordset<DictionaryEntry>();
 					foreach (var e in rs.all())
 						yield return e.value;
 				}
@@ -123,8 +117,7 @@ namespace DictionaryDemo
 			using( var sess = sessionPool.GetSession() )
 			using( var trans = sess.BeginTransaction() )
 			{
-				Recordset<DictionaryEntry> rs;
-				sess.getTable( out rs );
+				var rs = sess.Recordset<DictionaryEntry>();
 				rs.filterFindEqual( "key", key );
 				if( rs.applyFilter() )
 				{
@@ -168,8 +161,7 @@ namespace DictionaryDemo
 			using( var sess = sessionPool.GetSession() )
 			using( var trans = sess.BeginTransaction() )
 			{
-				Recordset<DictionaryEntry> rs;
-				sess.getTable( out rs );
+				var rs = sess.Recordset<DictionaryEntry>();
 				rs.EraseAll();
 				trans.Commit();
 			}
@@ -185,8 +177,7 @@ namespace DictionaryDemo
 			using( var sess = sessionPool.GetSession() )
 			using( var trans = sess.BeginTransaction() )
 			{
-				Cursor<DictionaryEntry> cur;
-				sess.getTable( out cur );
+				var cur = sess.Cursor<DictionaryEntry>();
 				cur.ResetIndex();
 				if( !cur.TryMoveFirst() )
 					yield break;
@@ -209,8 +200,7 @@ namespace DictionaryDemo
 			using( var sess = sessionPool.GetSession() )
 			using( var trans = sess.BeginTransaction() )
 			{
-				Recordset<DictionaryEntry> rs;
-				sess.getTable( out rs );
+				var rs = sess.Recordset<DictionaryEntry>();
 				rs.filterFindEqual( "key", key );
 				if( !rs.applyFilter() )
 					return null;

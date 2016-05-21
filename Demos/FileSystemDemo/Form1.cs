@@ -46,12 +46,8 @@ namespace Test1
 			InitializeComponent();
 
 			pool = _pool;
-
 			sess = pool.GetSession();
-
-			Recordset<EfsEntry> _rs;
-			sess.getTable( out _rs );
-			rs = _rs;
+			rs = sess.Recordset<EfsEntry>();
 
 			EFS.Initialize( rs );
 

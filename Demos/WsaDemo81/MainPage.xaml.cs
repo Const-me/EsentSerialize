@@ -27,8 +27,7 @@ namespace WsaDemo81
 
 		void testPersons( iSerializerSession sess )
 		{
-			Recordset<Person> rs;
-			sess.getTable( out rs );
+			Recordset<Person> rs = sess.Recordset<Person>();
 
 			Debug.WriteLine( "Total count: {0}", rs.Count() );
 
@@ -44,8 +43,7 @@ namespace WsaDemo81
 
 		void testFilters( iSerializerSession sess )
 		{
-			Recordset<FiltersTest> rs;
-			sess.getTable( out rs );
+			Recordset<FiltersTest> rs = sess.Recordset<FiltersTest>();
 
 			TestFilter[] filters = new TestFilter[]
 			{

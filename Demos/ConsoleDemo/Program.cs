@@ -16,8 +16,7 @@ namespace ConsoleDemo
 
 		static void RunTests( iSerializerSession sess )
 		{
-			Recordset<Person> rs;
-			sess.getTable( out rs );
+			var rs = sess.Recordset<Person>();
 
 			using( var trans = sess.BeginTransaction() )
 			{

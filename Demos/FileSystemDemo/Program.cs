@@ -23,8 +23,7 @@ namespace Test1
 					using(var sess = sp.GetSession())
 					using( var trans = sess.BeginTransaction() )
 					{
-						Cursor<EseFileSystem.EfsEntry> cur;
-						sess.getTable( out cur );
+						var cur = sess.Cursor<EseFileSystem.EfsEntry>();
 						cur.Add( EseFileSystem.EfsEntry.NewRoot() );
 						trans.Commit();
 					}

@@ -34,7 +34,7 @@ namespace EsentSerialization
 		/// <param name="sess"></param>
 		public EditableObjectList( iSerializerSession sess )
 		{
-			sess.getTable( out m_table );
+			m_table = sess.Cursor<tRow>();
 			var bl = new BookmarkedRecordset<tRow>( m_table );
 			foreach( var r in bl.all() )
 				base.Add( r );

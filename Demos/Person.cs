@@ -66,9 +66,7 @@ namespace Database
 
 		public static void populateWithDebugData( iSerializerSession sess )
 		{
-			Cursor<Person> curTest;
-			sess.getTable( out curTest );
-
+			var curTest = sess.Cursor<Person>();
 			using( var trans = sess.BeginTransaction() )
 			{
 				curTest.AddRange( debugData() );
