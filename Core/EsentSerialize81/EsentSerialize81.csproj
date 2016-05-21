@@ -72,6 +72,7 @@
     <Compile Include="Interfaces\iSerializerSession.cs" />
     <Compile Include="Interfaces\iSerializerTransaction.cs" />
     <Compile Include="Interfaces\iTypeSerializer.cs" />
+    <Compile Include="Linq\FilterQuery.visitors.cs" />
     <Compile Include="Linq\Queries.cs" />
     <Compile Include="Linq\Query.cs" />
     <Compile Include="Linq\FilterQuery.cs" />

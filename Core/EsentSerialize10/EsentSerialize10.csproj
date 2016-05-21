@@ -144,6 +144,9 @@
     <Compile Include="..\EsentSerialize81\Linq\FilterQuery.cs">
       <Link>Linq\FilterQuery.cs</Link>
     </Compile>
+    <Compile Include="..\EsentSerialize81\Linq\FilterQuery.visitors.cs">
+      <Link>Linq\FilterQuery.visitors.cs</Link>
+    </Compile>
     <Compile Include="..\EsentSerialize81\Linq\Queries.cs">
       <Link>Linq\Queries.cs</Link>
     </Compile>

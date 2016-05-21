@@ -8,7 +8,7 @@ using System.Reflection;
 namespace EsentSerialization.Linq
 {
 	/// <summary>This static class parses filter queries from C# expression tree into ESENT recordset operations.</summary>
-	static class FilterQuery
+	static partial class FilterQuery
 	{
 		enum eOperation : byte
 		{
@@ -126,25 +126,6 @@ namespace EsentSerialization.Linq
 			return false;
 		}
 
-		class HasParam : ExpressionVisitor
-		{
-			readonly ParameterExpression eRecord;
-			public HasParam( ParameterExpression r ) { eRecord = r; }
-			bool found;
-			protected override Expression VisitParameter( ParameterExpression node )
-			{
-				if( node == eRecord )
-					found = true;
-				return base.VisitParameter( node );
-			}
-			public bool hasParameter( Expression exp )
-			{
-				found = false;
-				this.Visit( exp );
-				return found;
-			}
-		}
-
 		static expression[] parseBinary( ParameterExpression eRecord, ParameterExpression eArgument, Expression eLeft, eOperation op, Expression eRight )
 		{
 			HasParam hp = new HasParam( eRecord );
@@ -219,9 +200,36 @@ namespace EsentSerialization.Linq
 
 		public static SearchQuery<tRow> query<tRow, tArg1>( iTypeSerializer ser, Expression<Func<tRow, tArg1, bool>> exp ) where tRow : new()
 		{
-			ParameterExpression eRecord = exp.Parameters[ 0 ];
-			ParameterExpression eArgument = exp.Parameters[ 1 ];
-			return queryImpl<tRow>( ser, exp.Body, eRecord, eArgument, 1 );
+			if( typeof( tArg1 ) == typeof( object ) )
+			{
+				ParameterExpression eRecord = exp.Parameters[ 0 ];
+				ParameterExpression eArgument = exp.Parameters[ 1 ];
+				return queryImpl<tRow>( ser, exp.Body, eRecord, eArgument, 1 );
+			}
+
+			ParameterExpression r = exp.Parameters[ 0 ];
+			ParameterExpression arg = exp.Parameters[ 1 ];
+			ConvertParamType cpt = new ConvertParamType( arg );
+
+			Expression<Func<tRow, object, bool>> inv = Expression.Lambda<Func<tRow, object, bool>>( cpt.Visit( exp.Body ), r, cpt.newParam );
+			return query<tRow, object>( ser, inv );
+		}
+
+		static SearchQuery<tRow> queryWithParamsArray<tRow>( iTypeSerializer ser, LambdaExpression exp ) where tRow : new()
+		{
+			ConvertParamsToArray cpa = new ConvertParamsToArray( exp.Parameters );
+			Expression newBody = cpa.Visit( exp.Body );
+			return queryImpl<tRow>( ser, newBody, cpa.pRecord, cpa.pArray, exp.Parameters.Count - 1 );
+		}
+
+		public static SearchQuery<tRow> query<tRow, tArg1, tArg2>( iTypeSerializer ser, Expression<Func<tRow, tArg1, tArg2, bool>> exp ) where tRow : new()
+		{
+			return queryWithParamsArray<tRow>( ser, exp );
+		}
+
+		public static SearchQuery<tRow> query<tRow, tArg1, tArg2, tArg3>( iTypeSerializer ser, Expression<Func<tRow, tArg1, tArg2, tArg3, bool>> exp ) where tRow : new()
+		{
+			return queryWithParamsArray<tRow>( ser, exp );
 		}
 
 		// For mode then 1 parameter, see this:
