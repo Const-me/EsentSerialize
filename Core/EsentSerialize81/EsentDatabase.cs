@@ -29,7 +29,12 @@ namespace EsentSerialization
 				get
 				{
 					if( String.IsNullOrWhiteSpace( folderName ) )
+					{
+						if( !String.IsNullOrWhiteSpace( folderLocation ) )
+							return folderLocation;
+
 						throw new ArgumentNullException( "folderName must not be empty" );  //< 'coz in Database.drop we wipe the whole content of the folder.
+					}
 					string appData = folderLocation;
 					if( String.IsNullOrWhiteSpace( appData ) )
 					{
@@ -47,7 +52,7 @@ namespace EsentSerialization
 		static string databasePath;
 
 		/// <summary>Open the database.</summary>
-		public static SessionPool open( Settings settings, Type[] rowTypes )
+		public static SessionPool open( Settings settings, params Type[] rowTypes )
 		{
 			string path = settings.databasePath;
 			databasePath = path;
