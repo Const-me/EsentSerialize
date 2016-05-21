@@ -128,10 +128,13 @@ namespace EsentSerialization.Linq
 
 		class HasParam : ExpressionVisitor
 		{
+			readonly ParameterExpression eRecord;
+			public HasParam( ParameterExpression r ) { eRecord = r; }
 			bool found;
 			protected override Expression VisitParameter( ParameterExpression node )
 			{
-				found = true;
+				if( node == eRecord )
+					found = true;
 				return base.VisitParameter( node );
 			}
 			public bool hasParameter( Expression exp )
@@ -144,7 +147,7 @@ namespace EsentSerialization.Linq
 
 		static expression[] parseBinary( ParameterExpression eRecord, ParameterExpression eArgument, Expression eLeft, eOperation op, Expression eRight )
 		{
-			HasParam hp = new HasParam();
+			HasParam hp = new HasParam( eRecord );
 			bool leftParam = hp.hasParameter( eLeft );
 			bool rightParam = hp.hasParameter( eRight );
 			if( !( leftParam ^ rightParam ) )
@@ -171,7 +174,7 @@ namespace EsentSerialization.Linq
 
 		static expression[] parseContains( ParameterExpression eRecord, ParameterExpression eArgument, Expression eLeft, Expression eRight )
 		{
-			HasParam hp = new HasParam();
+			HasParam hp = new HasParam( eRecord );
 			bool leftParam = hp.hasParameter( eLeft );
 			bool rightParam = hp.hasParameter( eRight );
 			if( !leftParam )
@@ -341,7 +344,7 @@ namespace EsentSerialization.Linq
 
 		static SearchQuery<tRow> fullTextQuery<tRow>( iTypeSerializer ser, ParameterExpression eRecord, ParameterExpression eArgument, Expression eLeft, Expression eRight, int argsCount ) where tRow : new()
 		{
-			HasParam hp = new HasParam();
+			HasParam hp = new HasParam( eRecord );
 			
 			bool leftParam = hp.hasParameter( eLeft );
 			if( !leftParam )
