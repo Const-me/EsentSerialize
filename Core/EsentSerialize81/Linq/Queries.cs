@@ -100,9 +100,20 @@ namespace EsentSerialization
 			return FilterQuery.query( ser, exp );
 		}
 
-		/// <summary>Compile query to filter the table by index, with singe query parameter.</summary>
-		/// <seealso cref="where" />
+		/// <summary>Compile query to filter the table by index, where query has one parameter.</summary>
 		public static SearchQuery<tRow> filter<tRow, tArg1>( iTypeSerializer ser, Expression<Func<tRow, tArg1, bool>> exp ) where tRow : new()
+		{
+			return FilterQuery.query( ser, exp );
+		}
+
+		/// <summary>Compile query to filter the table by index, where query has two parameter.</summary>
+		public static SearchQuery<tRow> filter<tRow, tArg1, tArg2>( iTypeSerializer ser, Expression<Func<tRow, tArg1, tArg2, bool>> exp ) where tRow : new()
+		{
+			return FilterQuery.query( ser, exp );
+		}
+
+		/// <summary>Compile query to filter the table by index, where query has three parameter.</summary>
+		public static SearchQuery<tRow> filter<tRow, tArg1, tArg2, tArg3>( iTypeSerializer ser, Expression<Func<tRow, tArg1, tArg2, tArg3, bool>> exp ) where tRow : new()
 		{
 			return FilterQuery.query( ser, exp );
 		}
