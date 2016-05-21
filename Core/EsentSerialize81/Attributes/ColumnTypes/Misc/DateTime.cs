@@ -16,6 +16,8 @@ namespace EsentSerialization.Attributes
 		/// <summary>Initialize with non-default column name.</summary>
 		public EseDateTimeAttribute( string _columnName ) : base( _columnName ) { }
 
+		/// <summary>The <see cref="DateTimeKind" /> stored in the database.</summary>
+		/// <remarks>This only affects de-serialization. When serializing, int64 ticks are stored in the DB regardless on the kind.</remarks>
 		public DateTimeKind kind { get; set; } = DateTimeKind.Utc;
 
 		/// <summary>Get column definition.</summary>

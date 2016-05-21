@@ -12,9 +12,10 @@ namespace EsentSerialization
 		/// <summary>Class holding various user-adjustable parameters of the database.</summary>
 		public class Settings
 		{
+			/// <summary>Construct with the default values.</summary>
 			public Settings() { }
 
-			/// <summary>Construct with absolute folder location.</summary>
+			/// <summary>Construct with absolute database folder location.</summary>
 			public Settings( string path )
 			{
 				folderName = null;

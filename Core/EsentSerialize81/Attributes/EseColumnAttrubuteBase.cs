@@ -20,7 +20,7 @@ namespace EsentSerialization.Attributes
 	/// <para>The specific classes are in the <see cref="Attributes" /> namespace.</para>
 	/// <para>If you need to, you can create your own column type attributes, by inheriting from this base class.</para>
 	/// <para>If you'll also apply [Obsolete] attribute to this field/property, the column won't be normally created in the DB,
-	/// only by <see cref="Microsoft.Isam.Esent.Serialization.DatabaseSchemaUpdater"/> class.</para>
+	/// only by <see cref="EsentSerialization.DatabaseSchemaUpdater"/> class.</para>
 	/// </remarks>
 	[AttributeUsage( AttributeTargets.Field | AttributeTargets.Property )]
 	public abstract class EseColumnAttrubuteBase : Attribute

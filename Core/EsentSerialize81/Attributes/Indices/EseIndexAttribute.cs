@@ -126,7 +126,7 @@ namespace EsentSerialization.Attributes
 
 		/// <summary>Set this to true to declare index as obsolete.</summary>
 		/// <remarks>Obsolete indices aren't created in the DB, they can't normally be used to search/filter records,
-		/// but they can be created by <see cref="Microsoft.Isam.Esent.Serialization.DatabaseSchemaUpdater"/> class.</remarks>
+		/// but they can be created by <see cref="EsentSerialization.DatabaseSchemaUpdater"/> class.</remarks>
 		public bool Obsolete = false;
 	}
 }

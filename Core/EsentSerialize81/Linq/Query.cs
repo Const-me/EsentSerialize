@@ -11,13 +11,13 @@ namespace EsentSerialization.Linq
 		/// <summary>True if any of the column affected by this query is multivalued, or if the index is tuple index.</summary>
 		public readonly bool multivalues;
 
-		/// <param name="act">Action to actually filter and/or sort those recordset/</param>
 		/// <param name="multivalues">True to use uniq() for fetching the results.</param>
 		public Query( bool multivalues )
 		{
 			this.multivalues = multivalues;
 		}
 
+		/// <summary>Run the query.</summary>
 		public abstract void query( Recordset<tRow> rs, params object[] args );
 	}
 
@@ -35,6 +35,7 @@ namespace EsentSerialization.Linq
 			m_query = act;
 		}
 
+		/// <summary>Run the query.</summary>
 		public override void query( Recordset<tRow> rs, params object[] args )
 		{
 			if( null != args && args.Length > 0 )
@@ -51,6 +52,7 @@ namespace EsentSerialization.Linq
 
 		/// <summary>Construct the query</summary>
 		/// <param name="act">Action to actually filter and/or sort those recordset/</param>
+		/// <param name="nArguments">How many arguments in the query, can be 0 = this query takes no arguments.</param>
 		/// <param name="multivalues">True to use uniq() for fetching the results.</param>
 		public SearchQuery( Action<Recordset<tRow>, object> act, int nArguments, bool multivalues ) :
 			base( multivalues )
@@ -59,6 +61,7 @@ namespace EsentSerialization.Linq
 			this.nArguments = nArguments;
 		}
 
+		/// <summary>Run the query.</summary>
 		public override void query( Recordset<tRow> rs, params object[] args )
 		{
 			if( args.Length != nArguments )

@@ -5,8 +5,8 @@ using Microsoft.Isam.Esent.Interop;
 namespace EsentSerialization
 {
 	/// <summary>This generic class represents opened table cursor, and implements operations like add and remove.</summary>
-	/// <remarks>For the search/sort/query functionality use <see cref="Microsoft.Isam.Esent.Serialization.Recordset{tRow}" />
-	/// or <see cref="Microsoft.Isam.Esent.Serialization.BookmarkedRecordset{tRow}" />.<br />
+	/// <remarks>For the search/sort/query functionality use <see cref="Recordset{tRow}" />
+	/// or <see cref="BookmarkedRecordset{tRow}" />.<br />
 	/// For data binding use either <see cref="EditableObjectList{tRow}" /> ( small to medium datasets ) 
 	/// or <see cref="VirtualMode{tRow}" /> ( large datasets ).</remarks>
 	/// <typeparam name="tRow">Type of the records stored in the table (a type marked with <see cref="Attributes.EseTableAttribute">[EseTable]</see> attribute).</typeparam>
