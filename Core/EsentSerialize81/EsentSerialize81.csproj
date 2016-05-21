@@ -37,9 +37,11 @@
     <Compile Include="..\Assembly.cs">
       <Link>Properties\Assembly.cs</Link>
     </Compile>
+    <Compile Include="Attributes\ColumnTypes\Blobs\BinaryStream.cs" />
     <Compile Include="Attributes\ColumnTypes\Blobs\EseByteArrayAttribute.cs" />
     <Compile Include="Attributes\ColumnTypes\Blobs\EseDCSAttribute.cs" />
     <Compile Include="Attributes\ColumnTypes\Blobs\EseLongTextAttribute.cs" />
+    <Compile Include="Attributes\ColumnTypes\Blobs\StreamValue.cs" />
     <Compile Include="Attributes\ColumnTypes\Misc\DateTime.cs" />
     <Compile Include="Attributes\ColumnTypes\Misc\ShortText.cs" />
     <Compile Include="Attributes\ColumnTypes\Numeric\AutoId.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="Sessions\SessionPool.cs" />
     <Compile Include="Sessions\SessionPool.Sessions.cs" />
     <Compile Include="Utils\ByteArray.cs" />
+    <Compile Include="Utils\ColumnStreamWithPulse.cs" />
     <Compile Include="Utils\Directory.cs" />
     <Compile Include="Utils\Ext.cs" />
     <Compile Include="Utils\File.cs" />

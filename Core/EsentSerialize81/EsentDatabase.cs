@@ -12,6 +12,15 @@ namespace EsentSerialization
 		/// <summary>Class holding various user-adjustable parameters of the database.</summary>
 		public class Settings
 		{
+			public Settings() { }
+
+			/// <summary>Construct with absolute folder location.</summary>
+			public Settings( string path )
+			{
+				folderName = null;
+				folderLocation = path;
+			}
+
 			/// <summary>Database folder name, default is "db", located in ApplicationData.Current.LocalFolder</summary>
 			public string folderName = "db";
 

@@ -169,5 +169,20 @@ namespace EsentSerialization
 				u.Save();
 			}
 		}
+
+		/// <summary>Resolve column name to JET_COLUMNID.</summary>
+		/// <param name="fName">ESE column name to resolve.</param>
+		/// <returns>Column ID.</returns>
+		/// <remarks>
+		/// <para>Column IDs are persistent for the lifetime of the serializer: i.e. all sessions will get the same result.</para>
+		/// <para>Knowing the Column ID, you may use Esent.Interop functionality in conjunction with the ESENT serialization framework:
+		/// see <see cref="idSession">idSession</see> and <see cref="idTable">idTable</see> properties.
+		/// This is useful for some special cases:
+		/// to fetch values from secondary index to save HDD seeks, to use Api.EscrowUpdate method, and so on.</para>
+		/// </remarks>
+		public JET_COLUMNID GetColumnId( string fName )
+		{
+			return m_serializer.GetColumnId( this, fName );
+		}
 	}
 }

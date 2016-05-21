@@ -110,6 +110,9 @@
     <Compile Include="..\Assembly.cs">
       <Link>Properties\Assembly.cs</Link>
     </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Blobs\BinaryStream.cs">
+      <Link>Attributes\ColumnTypes\Blobs\BinaryStream.cs</Link>
+    </Compile>
     <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Blobs\EseByteArrayAttribute.cs">
       <Link>Attributes\ColumnTypes\Blobs\EseByteArrayAttribute.cs</Link>
     </Compile>
@@ -118,6 +121,9 @@
     </Compile>
     <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Blobs\EseLongTextAttribute.cs">
       <Link>Attributes\ColumnTypes\Blobs\EseLongTextAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Blobs\StreamValue.cs">
+      <Link>Attributes\ColumnTypes\Blobs\StreamValue.cs</Link>
     </Compile>
     <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Misc\DateTime.cs">
       <Link>Attributes\ColumnTypes\Misc\DateTime.cs</Link>
@@ -238,6 +244,9 @@
     </Compile>
     <Compile Include="..\EsentSerialize81\Utils\ByteArray.cs">
       <Link>Utils\ByteArray.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Utils\ColumnStreamWithPulse.cs">
+      <Link>Utils\ColumnStreamWithPulse.cs</Link>
     </Compile>
     <Compile Include="..\EsentSerialize81\Utils\Ext.cs">
       <Link>Utils\Ext.cs</Link>
