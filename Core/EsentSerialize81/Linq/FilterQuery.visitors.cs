@@ -6,7 +6,7 @@ namespace EsentSerialization.Linq
 {
 	static partial class FilterQuery
 	{
-		/// <summary>A visitor that finds specific parameter in the tree.</summary>
+		/// <summary>Visitor that searches the specific parameter in the tree.</summary>
 		class HasParam : ExpressionVisitor
 		{
 			readonly ParameterExpression eRecord;
@@ -18,6 +18,8 @@ namespace EsentSerialization.Linq
 					found = true;
 				return base.VisitParameter( node );
 			}
+
+			/// <summary>Search for the parameter.</summary>
 			public bool hasParameter( Expression exp )
 			{
 				found = false;

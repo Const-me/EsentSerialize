@@ -42,14 +42,25 @@ namespace EsentSerialization.Linq
 			return dictInvert[ op ];
 		}
 
+		/// <summary>Single part of the filter expression.</summary>
 		class expression
 		{
+			/// <summary>The ESENT column, always on the left side of the expression</summary>
 			public readonly MemberInfo column;
+
+			/// <summary>Comparison operator</summary>
 			public readonly eOperation op;
+
+			/// <summary>The "constant" value (possibly with arguments), always on the right side of the expression</summary>
 			public readonly Func<object, object> filterValue;
+
+			/// <summary>True if the column can have multiple values per record.</summary>
 			public readonly bool multivalued;
 
+			/// <summary>All ESENT indices that index the column.</summary>
 			public IndexForColumn[] indices { get; private set; }
+
+			/// <summary>The currently selected index</summary>
 			public IndexForColumn selectedIndex { get; private set; }
 
 			public expression( MemberInfo column, eOperation op, Func<object, object> filterValue, bool multivalued = false )
@@ -59,11 +70,14 @@ namespace EsentSerialization.Linq
 				this.filterValue = filterValue;
 				this.multivalued = multivalued;
 			}
+
+			/// <summary>Look up the ESENT indices</summary>
 			public void lookupIndices( iTypeSerializer ser )
 			{
 				indices = ser.indicesFromColumn( column );
 			}
 
+			/// <summary>Select the index by name</summary>
 			public void selectIndex( string name )
 			{
 				selectedIndex = indices.FirstOrDefault( ii => ii.indexName == name );
@@ -72,6 +86,7 @@ namespace EsentSerialization.Linq
 			}
 		}
 
+		/// <summary>Get MethodInfo from the expression that calls the method.</summary>
 		static MethodInfo getMethodInfo( Expression<Func<bool>> exp )
 		{
 			MethodCallExpression mce = (MethodCallExpression)exp.Body;
@@ -83,6 +98,7 @@ namespace EsentSerialization.Linq
 		static readonly MethodInfo miStringContains = getMethodInfo( () => "".Contains( "" ) );
 		static readonly MethodInfo miContains = getMethodInfo( () => Queries.Contains( null, null ) );
 
+		/// <summary>Parse C# expression into the set of AND expression.</summary>
 		static IEnumerable<expression> parseQuery( ParameterExpression eRecord, ParameterExpression eArgument, Expression body )
 		{
 			switch( body.NodeType )
@@ -237,7 +253,7 @@ namespace EsentSerialization.Linq
 
 		static SearchQuery<tRow> queryImpl<tRow>( iTypeSerializer ser, Expression query, ParameterExpression eRecord, ParameterExpression eArgument, int nArguments ) where tRow : new()
 		{
-			// Full text search queries are handled separately
+			// Full text search queries are handled differently: the only case where MethodCallExpression is allowed on the top level
 			var mce = query as MethodCallExpression;
 			if( null != mce && mce.Method == miStringContains )
 				return fullTextQuery<tRow>( ser, eRecord, eArgument, mce.Object, mce.Arguments[ 0 ], nArguments );
@@ -270,6 +286,8 @@ namespace EsentSerialization.Linq
 			throw new NotSupportedException( "Failed to parse query {0}: no suitable index found".formatWith( query ) );
 		}
 
+		/// <summary>Try to use the index to implement the query.</summary>
+		/// <returns>null if failed to use the index.</returns>
 		static SearchQuery<tRow> tryIndex<tRow>( expression[] exprs, bool multi, string indName, int argsCount ) where tRow : new()
 		{
 			// Choose the index
@@ -295,7 +313,7 @@ namespace EsentSerialization.Linq
 				expression[] group = groups[ i ].ToArray();
 				if( isLast )
 				{
-					// On the last column being queried, we support inequality operators 
+					// On the last column being queried, we support inequality operators.
 					expression eq = group.FirstOrDefault( e => e.op == eOperation.Equal );
 					if( null != eq )
 					{
