@@ -23,32 +23,32 @@
 					to check if the new version is available.
 				</para>
 
-				<para>This documentation is for version 2.3 of the library.</para>
+				<para>This documentation is for version 3.0 of the library.</para>
 
 			</summary>
 		</member>
 
-		<!-- Microsoft.Isam.Esent.Serialization namespace topic -->
-		<member name="N:Microsoft.Isam.Esent.Serialization">
+		<!-- EsentSerialization namespace topic -->
+		<member name="N:EsentSerialization">
 			<summary>
 				<para>This namespace contains classes to access the ESENT database.</para>
 				<para>To access the database, first you need to create either
-					<see cref="T:Microsoft.Isam.Esent.Serialization.EseSerializer">EseSerializer</see> instance
+					<see cref="T:EsentSerialization.EseSerializer">EseSerializer</see> instance
 					if you're creating a desktop application where you have full control over the threads,
-					or <see cref="T:Microsoft.Isam.Esent.Serialization.SessionPool">SessionPool</see> instance
+					or <see cref="T:EsentSerialization.SessionPool">SessionPool</see> instance
 					if you're creating e.g. WCF server application or other type of highly multithreaded software system,
-					or <see cref="T:Microsoft.Isam.Esent.Serialization.AspSessionPool">AspSessionPool</see> instance 
+					or <see cref="T:EsentSerialization.AspSessionPool">AspSessionPool</see> instance 
 					if you're building an ASP.NET web application.
 				</para>
 
 				<para>
 					Each of them provides you the way to create instances of
-					<see cref="T:Microsoft.Isam.Esent.Serialization.iSerializerSession">iSerializerSession</see>
+					<see cref="T:EsentSerialization.iSerializerSession">iSerializerSession</see>
 					interface: see
-					<see cref="M:Microsoft.Isam.Esent.Serialization.EseSerializer.OpenDatabase(System.Boolean)">EseSerializer.OpenDatabase</see>,
-					<see cref="M:Microsoft.Isam.Esent.Serialization.SessionPool.GetSession">SessionPool.GetSession</see>,
+					<see cref="M:EsentSerialization.EseSerializer.OpenDatabase(System.Boolean)">EseSerializer.OpenDatabase</see>,
+					<see cref="M:EsentSerialization.SessionPool.GetSession">SessionPool.GetSession</see>,
 					and
-					<see cref="M:Microsoft.Isam.Esent.Serialization.AspSessionPool.GetSession(System.Web.HttpContext)">AspSessionPool.GetSession</see> methods.
+					<see cref="M:EsentSerialization.AspSessionPool.GetSession(System.Web.HttpContext)">AspSessionPool.GetSession</see> methods.
 				</para>
 				<para>
 					If you're using EseSerializer and your application uses reasonable count of threads
@@ -65,28 +65,28 @@
 				</para>
 
 				<para>
-					You can then use <see cref="T:Microsoft.Isam.Esent.Serialization.iSerializerSession">iSerializerSession</see> interface
+					You can then use <see cref="T:EsentSerialization.iSerializerSession">iSerializerSession</see> interface
 					to get individual tables from the session: see
-					<see cref="M:Microsoft.Isam.Esent.Serialization.iSerializerSession.getTable``1(Microsoft.Isam.Esent.Serialization.Cursor{``0}@)">getTable( Cursor&lt;tRow&gt; )</see>,
-					<see cref="M:Microsoft.Isam.Esent.Serialization.iSerializerSession.getTable``1(Microsoft.Isam.Esent.Serialization.Recordset{``0}@)">getTable( Recordset&lt;tRow&gt; )</see>, and
-					<see cref="M:Microsoft.Isam.Esent.Serialization.iSerializerSession.getTable``1(Microsoft.Isam.Esent.Serialization.BookmarkedRecordset{``0}@)">getTable( BookmarkedRecordset&lt;tRow&gt; )</see> methods.
+					<see cref="M:EsentSerialization.iSerializerSession.getTable``1(EsentSerialization.Cursor{``0}@)">getTable( Cursor&lt;tRow&gt; )</see>,
+					<see cref="M:EsentSerialization.iSerializerSession.getTable``1(EsentSerialization.Recordset{``0}@)">getTable( Recordset&lt;tRow&gt; )</see>, and
+					<see cref="M:EsentSerialization.iSerializerSession.getTable``1(EsentSerialization.BookmarkedRecordset{``0}@)">getTable( BookmarkedRecordset&lt;tRow&gt; )</see> methods.
 				</para>
 				
 				<para>
 					Cursors/recordsets are cheap: by default they share the DB cursor that was already opened and stored in the session.<br />
 					If you do need an exclusive copy of the table cursor that is not shared by all cursors/recordsets within the same session, you can create it
-					by calling <see cref="M:Microsoft.Isam.Esent.Serialization.Recordset`1.CreateOwnCursor">Recordset.CreateOwnCursor</see> method for recordsets,
-					or <see cref="M:Microsoft.Isam.Esent.Serialization.Cursor`1.CreateOwnCopy">Cursor.CreateOwnCopy</see> for cursors.
+					by calling <see cref="M:EsentSerialization.Recordset`1.CreateOwnCursor">Recordset.CreateOwnCursor</see> method for recordsets,
+					or <see cref="M:EsentSerialization.Cursor`1.CreateOwnCopy">Cursor.CreateOwnCopy</see> for cursors.
 					In this case, you must properly dispose the recordset/cursor.
 					Unless you've used the Cursor.CreateOwnCopy or Recordset.CreateOwnCursor API,
 					it's not necessary to dispose the cursors / recordsets.
 				</para>
 
 				<para>
-					And, you can use <see cref="T:Microsoft.Isam.Esent.Serialization.iSerializerSession">iSerializerSession</see> interface
+					And, you can use <see cref="T:EsentSerialization.iSerializerSession">iSerializerSession</see> interface
 					to begin database transactions: see the
-					<see cref="M:Microsoft.Isam.Esent.Serialization.iSerializerSession.BeginTransaction">iSerializerSession.BeginTransaction</see> method,
-					that returns a new instance of <see cref="T:Microsoft.Isam.Esent.Serialization.iSerializerTransaction">iSerializerTransaction</see> interface.
+					<see cref="M:EsentSerialization.iSerializerSession.BeginTransaction">iSerializerSession.BeginTransaction</see> method,
+					that returns a new instance of <see cref="T:EsentSerialization.iSerializerTransaction">iSerializerTransaction</see> interface.
 				</para>
 
 				<para>
@@ -98,26 +98,26 @@
 			</summary>
 		</member>
 
-		<!-- Microsoft.Isam.Esent.Serialization.Attributes namespace topic -->
-		<member name="N:Microsoft.Isam.Esent.Serialization.Attributes">
+		<!-- EsentSerialization.Attributes namespace topic -->
+		<member name="N:EsentSerialization.Attributes">
 			<summary>
 				<para>This namespace contains attribute classes to define your database schema.</para>
 				<para>
 					You declare the table by applying
-					<see cref="T:Microsoft.Isam.Esent.Serialization.Attributes.EseTableAttribute">[EseTable]</see>
+					<see cref="T:EsentSerialization.Attributes.EseTableAttribute">[EseTable]</see>
 					to your record class.
 				</para>
 				<para>
 					You declare the columns by applying column attributes to the fields and/or properties of your record class.
 					All the column attributes are located in the
-					<see cref="N:Microsoft.Isam.Esent.Serialization.Attributes">Attributes</see> namespace,
+					<see cref="N:EsentSerialization.Attributes">Attributes</see> namespace,
 					and are derived from
-					<see cref="T:Microsoft.Isam.Esent.Serialization.EseColumnAttrubuteBase">EseColumnAttrubuteBase</see> class.<br />
+					<see cref="T:EsentSerialization.Attributes.EseColumnAttrubuteBase">EseColumnAttrubuteBase</see> class.<br />
 					If you need to, you can extend the library by creating your own column classes.
 				</para>
 				<para>
 					You declare the indices by applying
-					<see cref="T:Microsoft.Isam.Esent.Serialization.Attributes.EseIndexAttribute">[EseIndex]</see> (and/or derived attributes)
+					<see cref="T:EsentSerialization.Attributes.EseIndexAttribute">[EseIndex]</see> (and/or derived attributes)
 					to your record class.
 				</para>
 			</summary>
@@ -127,7 +127,7 @@
 					with 4 columns of different types, and 2 secondary indices.<br />
 				</para>
 				<!-- A sample code, copy-pasted from the demo. -->
-				<code lang="C#">using Microsoft.Isam.Esent.Serialization.Attributes;
+				<code lang="C#">using EsentSerialization.Attributes;
 
 [EseTable( "persons" )]
 [EsePrimaryIndex( "id", "+id\0\0" )]

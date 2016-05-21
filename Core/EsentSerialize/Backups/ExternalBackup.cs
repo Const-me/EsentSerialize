@@ -6,15 +6,25 @@ using System.IO.Compression;
 
 namespace EsentSerialization
 {
-	// NB! I don't know how to restore that backup:
-	// http://stackoverflow.com/q/4289430/126995
+	/// <summary>Backups and restores the database.</summary>
+	/// <remarks>
+	/// <para>Due to the limitations of managed ESENT API, this class only present in the desktop version of the library.</para>
+	/// <para>It's safe to backup the database while it's active.</para>
+	/// </remarks>
 	public static partial class Backup
 	{
+		/// <summary>Perform an external backup, compressing all files into a single ZIP archive.</summary>
+		/// <param name="serializer"></param>
+		/// <param name="stm">The ZIP archive will be written to this stream.</param>
 		public static void ExternalBackup( this EseSerializer serializer, Stream stm )
 		{
 			ExternalBackup( serializer, stm, CompressionLevel.Optimal );
 		}
 
+		/// <summary>Perform an external backup, compressing all files into a single ZIP archive.</summary>
+		/// <param name="serializer"></param>
+		/// <param name="stm">Destination backup stream</param>
+		/// <param name="compressionLevel">Compression level</param>
 		public static void ExternalBackup( this EseSerializer serializer, Stream stm, CompressionLevel compressionLevel )
 		{
 			using( ZipArchive archive = new ZipArchive( stm, ZipArchiveMode.Create, false ) )

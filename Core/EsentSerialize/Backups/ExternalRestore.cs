@@ -6,17 +6,24 @@ namespace EsentSerialization
 {
 	public static partial class Backup
 	{
-		public static void ExternalRestore( Stream source, EsentDatabase.Settings settings )
+		/// <summary>Restore the external backup.</summary>
+		/// <remarks>The ZIP archive backup is first unpacked to a temporary folder, then ESENT restores the database.</remarks>
+		/// <param name="source">Source backup stream</param>
+		/// <param name="settings">Database settings</param>
+		/// <param name="tempFolder">Temporary folder to unpack the archive. Can be null, in this case a new folder will be created in %TEMP%. This folder will be removed after the restore is complete.</param>
+		public static void ExternalRestore( Stream source, EsentDatabase.Settings settings, string tempFolder = null )
 		{
-			string dir = Path.Combine( Path.GetTempPath(), Guid.NewGuid().ToString( "D" ) );
-			Directory.CreateDirectory( dir );
+			if( String.IsNullOrWhiteSpace( tempFolder ) )
+				tempFolder = Path.Combine( Path.GetTempPath(), Guid.NewGuid().ToString( "D" ) );
+			if( !Directory.Exists( tempFolder ) )
+				Directory.CreateDirectory( tempFolder );
 
 			using( ZipArchive archive = new ZipArchive( source, ZipArchiveMode.Read ) )
-				archive.ExtractToDirectory( dir );
+				archive.ExtractToDirectory( tempFolder );
 
-			StreamingRestore( dir, settings );
+			StreamingRestore( tempFolder, settings );
 
-			Directory.Delete( dir, true );
+			Directory.Delete( tempFolder, true );
 		}
 	}
 }
