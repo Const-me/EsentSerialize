@@ -22,16 +22,16 @@ namespace Database
 		// Enum column
 		public enum eSex { Male, Female, Other };
 		[EseEnum]
-		public eSex sex { get; private set; }
+		public eSex sex { get; set; }
 
 		// Short Unicode text column.
 		[EseShortText( maxChars = 71 )]
 		// See http://stackoverflow.com/a/30509/126995 for why "71"
-		public string name { get; private set; }
+		public string name { get; set; }
 
 		// Multi-values ASCII text column.
 		[EseMultiText( bUnicode = false, maxChars = 32 )]
-		public List<string> phones { get; private set; }
+		public List<string> phones { get; set; }
 
 		public Person() { }
 
