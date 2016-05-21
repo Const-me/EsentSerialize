@@ -1,4 +1,6 @@
-﻿namespace EsentSerialization
+﻿using EsentSerialization.Attributes;
+
+namespace EsentSerialization
 {
 	/// <summary>This readonly class returns index found for the column.</summary>
 	public class IndexForColumn
@@ -10,7 +12,7 @@
 		public readonly string indexName;
 
 		/// <summary>Index attribute</summary>
-		public readonly Attributes.EseIndexAttribute attrib;
+		public readonly EseIndexAttribute attrib;
 
 		/// <summary>Zero-based position of the column within the index, i.e. 0 if this is the first column in this index./</summary>
 		public readonly int columnIndex;
@@ -18,7 +20,7 @@
 		/// <summary>True if the direction specification is '+', false if '-'.</summary>
 		public readonly bool indexDirectionPositive;
 
-		internal IndexForColumn( bool primary, string indexName, Attributes.EseIndexAttribute attrib, int columnIndex, bool indexDirectionPositive )
+		internal IndexForColumn( bool primary, string indexName, EseIndexAttribute attrib, int columnIndex, bool indexDirectionPositive )
 		{
 			this.primary = primary;
 			this.indexName = indexName;
