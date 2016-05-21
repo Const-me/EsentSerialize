@@ -85,8 +85,7 @@ namespace EsentSerialization
 			this.session = sess;
 			sess.AddType( typeof( DatabaseSchema ) );
 
-			Cursor<DatabaseSchema> cursor;
-			sess.getTable( out cursor );
+			var cursor = sess.Cursor<DatabaseSchema>();
 			if( cursor.TryMoveFirst() )
 				this.DatabaseSchemaVersion = cursor.getCurrent().schemaVersion;
 			else
@@ -105,8 +104,7 @@ namespace EsentSerialization
 			{
 				this.actUpgrade();
 
-				Cursor<DatabaseSchema> cursor;
-				this.session.getTable( out cursor );
+				var cursor = session.Cursor<DatabaseSchema>();
 				if( cursor.TryMoveFirst() )
 				{
 					DatabaseSchema schema = cursor.getCurrent();

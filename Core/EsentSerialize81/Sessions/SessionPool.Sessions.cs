@@ -108,21 +108,24 @@ namespace EsentSerialization
 				get { return this.session.idDatabase; }
 			}
 
-			void iSerializerSession.getTable<tRow>( out Cursor<tRow> res )
+			Cursor<tRow> iSerializerSession.Cursor<tRow>()
 			{
-				this.session.getTable( out res );
+				return session.Cursor<tRow>();
 			}
 
-			void iSerializerSession.getTable<tRow>( bool bReadOnly, out Cursor<tRow> res )
+			Cursor<tRow> iSerializerSession.Cursor<tRow>( bool bReadOnly )
 			{
-				this.session.getTable( bReadOnly, out res );
+				return session.Cursor<tRow>( bReadOnly );
 			}
 
-			void iSerializerSession.getTable<tRow>( out Recordset<tRow> res )
+			Recordset<tRow> iSerializerSession.Recordset<tRow>()
 			{
-				this.session.getTable( out res );
+				return session.Recordset<tRow>();
 			}
-
+			BookmarkedRecordset<tRow> iSerializerSession.BookmarkedRecordset<tRow>()
+			{
+				return session.BookmarkedRecordset<tRow>();
+			}
 
 			iSerializerTransaction iSerializerSession.BeginTransaction()
 			{

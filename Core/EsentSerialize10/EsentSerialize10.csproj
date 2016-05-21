@@ -114,6 +114,12 @@
     <Compile Include="..\EsentSerialize81\Attributes\OptionallyNullableColumn.cs">
       <Link>Attributes\OptionallyNullableColumn.cs</Link>
     </Compile>
+    <Compile Include="..\EsentSerialize81\Cursors\BookmarkedRecordset.cs">
+      <Link>Cursors\BookmarkedRecordset.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Cursors\BookmarkedRow.cs">
+      <Link>Cursors\BookmarkedRow.cs</Link>
+    </Compile>
     <Compile Include="..\EsentSerialize81\Cursors\Cursor.cs">
       <Link>Cursors\Cursor.cs</Link>
     </Compile>

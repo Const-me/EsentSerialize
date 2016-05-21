@@ -22,11 +22,13 @@ namespace EsentSerialization
 		JET_DBID idDatabase { get; }
 
 		/// <summary>Get the Cursor object for a table.</summary>
-		void getTable<tRow>( out Cursor<tRow> res ) where tRow : new();
+		Cursor<tRow> Cursor<tRow>() where tRow : new();
 		/// <summary>Same as above, but the returned cursor is optionally read-only.</summary>
-		void getTable<tRow>( bool bReadOnly, out Cursor<tRow> res ) where tRow : new();
+		Cursor<tRow> Cursor<tRow>( bool bReadOnly ) where tRow : new();
 		/// <summary>Get the Recordset object for a table.</summary>
-		void getTable<tRow>( out Recordset<tRow> res ) where tRow : new();
+		Recordset<tRow> Recordset<tRow>() where tRow : new();
+		/// <summary>Get the BookmarkedRecordset object for a table.</summary>
+		BookmarkedRecordset<tRow> BookmarkedRecordset<tRow>() where tRow : new();
 
 		/// <summary>Begins a transaction.</summary>
 		/// <remarks><para>You must ( commit or rollback ) and/or Dispose() the returned transaction,

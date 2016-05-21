@@ -129,25 +129,30 @@ namespace EsentSerialization
 			return res;
 		}
 
-		public void getTable<tRow>( out Cursor<tRow> res ) where tRow : new()
+		public Cursor<tRow> Cursor<tRow>() where tRow : new()
 		{
 			sTable tbl = findTable( typeof( tRow ) );
-			res = new Cursor<tRow>( this, tbl.serializer, tbl.idTable, tbl.bIsReadonly );
+			return new Cursor<tRow>( this, tbl.serializer, tbl.idTable, tbl.bIsReadonly );
 		}
 
-		public void getTable<tRow>( bool bReadOnly, out Cursor<tRow> res ) where tRow : new()
+		public Cursor<tRow> Cursor<tRow>( bool bReadOnly ) where tRow : new()
 		{
 			sTable tbl = findTable( typeof( tRow ) );
 			if( tbl.bIsReadonly && ( !bReadOnly ) )
 				throw new NotSupportedException( "Can't provide read-write access to the table that was opened as read-only." );
-			res = new Cursor<tRow>( this, tbl.serializer, tbl.idTable, bReadOnly );
+			return new Cursor<tRow>( this, tbl.serializer, tbl.idTable, bReadOnly );
 		}
 
-		public void getTable<tRow>( out Recordset<tRow> res ) where tRow : new()
+		public Recordset<tRow> Recordset<tRow>() where tRow : new()
 		{
-			Cursor<tRow> cur;
-			getTable( out cur );
-			res = cur.Recordset();
+			Cursor<tRow> cur = Cursor<tRow>();
+			return cur.Recordset();
+		}
+
+		public BookmarkedRecordset<tRow> BookmarkedRecordset<tRow>() where tRow : new()
+		{
+			Cursor<tRow> cur = Cursor<tRow>();
+			return new BookmarkedRecordset<tRow>( cur );
 		}
 
 		readonly Stack<iSerializerTransaction> m_transactions = new Stack<iSerializerTransaction>();
