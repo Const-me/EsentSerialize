@@ -115,10 +115,10 @@ namespace EsentSerialization
 		/// <para>It's recommended to precompile your queries on startup to save some CPU time.</para>
 		/// <seealso cref="filter" />
 		/// </remarks>
-		public static IEnumerable<tRow> where<tRow>( this Recordset<tRow> rs, Expression<Func<tRow, bool>> exp, params object[] args ) where tRow : new()
+		public static IEnumerable<tRow> where<tRow>( this Recordset<tRow> rs, Expression<Func<tRow, bool>> exp ) where tRow : new()
 		{
 			Query<tRow> q = filter( rs.cursor.serializer, exp );
-			return rs.all( q, args );
+			return rs.all( q );
 		}
 
 		/// <summary>When encountered in queries, this static method is equal to "&lt;=" operator.</summary>
