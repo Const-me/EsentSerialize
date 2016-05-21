@@ -184,5 +184,19 @@ namespace EsentSerialization
 		{
 			return m_serializer.GetColumnId( this, fName );
 		}
+
+#if !NETFX_CORE
+		/// <summary>Duplicate the cursor, and take the ownership of the copy.</summary>
+		/// <remarks><b>NB:</b> this can only be done for a non-table owning cursor.</remarks>
+		protected void Duplicate()
+		{
+			Debug.Assert( !m_bOwnsTable );
+			JET_TABLEID idNewTable = JET_TABLEID.Nil;
+
+			Api.JetDupCursor( idSession, idTable, out idNewTable, DupCursorGrbit.None );
+			m_idTable = idNewTable;
+			m_bOwnsTable = true;
+		}
+#endif
 	}
 }

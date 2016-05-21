@@ -470,6 +470,26 @@ namespace EsentSerialization
 				.LastOrDefault();
 		}
 
+#if !NETFX_CORE
+		/// <summary>Duplicate the ESENT cursor to get the own copy for this recordset.</summary>
+		/// <remarks>This is required e.g. when you're fetching records from the recordset, and process them in a way that requires another query to the same table.<br/>
+		/// This operation also clears the search/sort filter.<br/>
+		/// <b>NB!</b> After you've called this method, you must dispose the cursor. Here's the recommended usage:
+		/// <code>            rsAux.CreateOwnCursor();
+		///using( rsAux )
+		///{
+		///	// Use rsAux to query the table.
+		///}</code>
+		///</remarks>
+		public void CreateOwnCursor()
+		{
+			Debug.Assert( m_cursor != null );
+			m_cursor = m_cursor.CreateOwnCopy();
+
+			// Filter object has cached cursor reference, that's why we reconstruct the filter.
+			filterClear( m_filter.bInverse );
+		}
+
 		/// <summary>The function computes the intersection between multiple sets of index entries
 		/// from different secondary indices over the same table.</summary>
 		/// <remarks><para>This operation is useful for finding the set of records in a table that match two or more criteria
@@ -523,5 +543,6 @@ namespace EsentSerialization
 					return cur.getCurrent();
 				} );
 		}
+#endif
 	}
 }

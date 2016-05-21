@@ -169,5 +169,15 @@ namespace EsentSerialization
 		{
 			return new Recordset<tRow>( this );
 		}
+
+#if !NETFX_CORE
+		/// <summary>Duplicate the cursor within the session, so the returned copy has its own position, selected index, index range.</summary>
+		public Cursor<tRow> CreateOwnCopy()
+		{
+			var res = new Cursor<tRow>( session, serializer, idTable, bReadOnly );
+			res.Duplicate();
+			return res;
+		}
+#endif
 	}
 }

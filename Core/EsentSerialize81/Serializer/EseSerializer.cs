@@ -13,8 +13,7 @@ namespace EsentSerialization
 	/// <para>It owns the database's JET_INSTANCE, and it owns a collection of the <see cref="TypeSerializer" /> objects for every record type.</para>
 	/// <para>You should not attempt to create more then one EseSerializer instance in the same process:
 	/// the DB instance name is hard-coded.</para>
-	/// <para>In the same process, you may use either EseSerializer, <see cref="SessionPool"/>,
-	/// or <see cref="AspSessionPool"/>, but not both.</para>
+	/// <para>In the same process, you may use either EseSerializer or <see cref="SessionPool"/> but not both.</para>
 	/// <para>Here's the recommended C# code for a desktop or console application:</para>
 	///<code lang="C#">            // The application entry point
 	///static void Main()
