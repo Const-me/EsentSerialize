@@ -11,18 +11,18 @@ namespace EsentSerialization
 	public static class Queries
 	{
 		/// <summary>Run a pre-compiled query, return all matching records.</summary>
-		public static IEnumerable<tRow> all<tRow>( this Recordset<tRow> rs, Query<tRow> q ) where tRow : new()
+		public static IEnumerable<tRow> all<tRow>( this Recordset<tRow> rs, Query<tRow> q, params object[] args ) where tRow : new()
 		{
-			q.query( rs );
+			q.query( rs, args );
 			if( q.multivalues )
 				return rs.uniq();
 			return rs.all();
 		}
 
 		/// <summary>Run a pre-compiled query, return count of matching records.</summary>
-		public static int count<tRow>( this Recordset<tRow> rs, Query<tRow> q ) where tRow : new()
+		public static int count<tRow>( this Recordset<tRow> rs, Query<tRow> q, params object[] args ) where tRow : new()
 		{
-			q.query( rs );
+			q.query( rs, args );
 			if( q.multivalues )
 				return rs.CountUniq();
 			return rs.Count();
@@ -100,6 +100,13 @@ namespace EsentSerialization
 			return FilterQuery.query( ser, exp );
 		}
 
+		/// <summary>Compile query to filter the table by index, with singe query parameter.</summary>
+		/// <seealso cref="where" />
+		public static SearchQuery<tRow> filter<tRow, tArg1>( iTypeSerializer ser, Expression<Func<tRow, tArg1, bool>> exp ) where tRow : new()
+		{
+			return FilterQuery.query( ser, exp );
+		}
+
 		/// <summary>Functionally similar to Enumerable.Where</summary>
 		/// <remarks>
 		/// <para>The table must have the index to perform the query. This method doesn't fall back to the MS-provided LINQ when there's no index, it will throw an exception instead.
@@ -108,10 +115,10 @@ namespace EsentSerialization
 		/// <para>It's recommended to precompile your queries on startup to save some CPU time.</para>
 		/// <seealso cref="filter" />
 		/// </remarks>
-		public static IEnumerable<tRow> where<tRow>( this Recordset<tRow> rs, Expression<Func<tRow, bool>> exp ) where tRow : new()
+		public static IEnumerable<tRow> where<tRow>( this Recordset<tRow> rs, Expression<Func<tRow, bool>> exp, params object[] args ) where tRow : new()
 		{
 			Query<tRow> q = filter( rs.cursor.serializer, exp );
-			return rs.all( q );
+			return rs.all( q, args );
 		}
 
 		/// <summary>When encountered in queries, this static method is equal to "&lt;=" operator.</summary>

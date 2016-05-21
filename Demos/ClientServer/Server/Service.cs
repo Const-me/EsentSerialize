@@ -14,6 +14,7 @@ namespace Server
 	{
 		readonly SessionPool sessionPool;
 		readonly Query<Person> orderBySex;
+		readonly Query<Person> filterBySex;
 
 		public Service( SessionPool sessionsPool )
 		{
@@ -22,7 +23,8 @@ namespace Server
 			using( var sess = sessionPool.GetSession() )
 			{
 				iTypeSerializer ser = sess.serializer.FindSerializerForType( typeof( Person ) );
-				orderBySex = Queries.sort<Person,Person.eSex>( ser, p => p.sex, false );
+				orderBySex = Queries.sort<Person, Person.eSex>( ser, p => p.sex, false );
+				filterBySex = Queries.filter( ser, ( Person p, Person.eSex arg ) => p.sex == arg );
 			}
 		}
 
@@ -68,7 +70,7 @@ namespace Server
 		PersonMessage[] iPersonsService.queryBySex( PersonMessage.eSex value )
 		{
 			return withRecordset( rs =>
-				array( rs.where( p => p.sex == value.toRecord() ) ) );
+				array( rs.all( filterBySex, value ) ) );
 		}
 
 		PersonMessage[] iPersonsService.queryByNameSubstring( string substring )
