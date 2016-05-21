@@ -46,7 +46,10 @@ rmdir /s /q .\Output\html\scripts
 
 move /y .\Output\html\styles\highlight.css .\Output\styles\highlight.css
 rmdir /s /q .\Output\html\styles
-		
+
+mkdir .\Output\art
+copy /y %DOCBUILDER%SerializationLogo.png .\Output\art\SerializationLogo.png
+
 Echo 9. Generate HTML help project
 XslTransform /xsl:%DOCBUILDER%ReflectionToChmProject.xsl reflection.xml /out:Output\test.hhp
 

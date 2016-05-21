@@ -9,20 +9,30 @@
 		<member name="N:EsentSerialization">
 			<summary>
 				<para>
-					ESENT Serialization .NET class library is an object persistence framework that uses
-					<a href="http://en.wikipedia.org/wiki/Extensible_Storage_Engine" target="_blank" >Extensible Storage Engine</a>
-					data storage technology.<br />
-					Since Extensible Storage Engine is a Windows built-in component, no installation or administration is required.
+					<img alt="ESENT Serialization Class Library" src="../art/SerializationLogo.png" /><br />
+					
+					ESENT Serialization .NET class library is an object persistence framework that uses <a href="http://en.wikipedia.org/wiki/Extensible_Storage_Engine" target="_blank" >Extensible Storage Engine</a>
+					storage technology.<br />
+					Since Extensible Storage Engine is Windows built-in component, no installation or administration is required.
 					And due to the ESE feature set, it's eminently suitable for both desktop applications, and highly-loaded servers.
 					ESE is a core of Microsoft Exchange Server and Active Directory, and it's also used by Windows Mail and Windows Desktop Search.
 				</para>
 
+				<para>This documentation is for version 3.0 of the library.
+				As of version 3.0, the library supports 3 targets:
+				<ul>
+					<li>Windows desktops, requires .NET 4.5.0 or above.
+					Due to the limitations of Managed ESENT, some APIs like backup/restore and cursor duplication are only available in the desktop version of the library.</li>
+					<li>Windows 8.1 Store</li>
+					<li>Windows 10 Universal, including Windows Mobile 10.</li>
+				</ul>
+				Technically, it also works on Windows Phone 8.1, however ESENT isn't part of the official API surface there,
+				so you won't be able to publish your app in the store if you'll use ESENT in your Phone 8.1 app.</para>
+
 				<para>
-					Since version 3.0, the project is <a href="https://github.com/Const-me/EsentSerialize">hosted on github</a>.
+					Since version 3.0, the project is <a href="https://github.com/Const-me/EsentSerialize" target="_blank" >hosted on GitHub</a>.
 					Between 2.0 and 3.0, it was hosted <a href="http://esentserialize.codeplex.com" target="_blank" >on CodePlex</a>.
 				</para>
-
-				<para>This documentation is for version 3.0 of the library.</para>
 
 				<para>This namespace contains classes to access the ESENT database.</para>
 				<para>

@@ -25,9 +25,15 @@
 		<xsl:text>[OPTIONS]&#x0a;</xsl:text>
 		<xsl:text>Compatibility=1.1 or later&#x0a;</xsl:text>
 		<xsl:text>Compiled file=EsentSerialization.chm&#x0a;</xsl:text>
-		<xsl:text>Contents file=</xsl:text><xsl:value-of select="$project" /><xsl:text>.hhc&#x0a;</xsl:text>
-		<xsl:text>Index file=</xsl:text><xsl:value-of select="$project" /><xsl:text>.hhk&#x0a;</xsl:text>
-		<xsl:text>Default Topic=html/</xsl:text><xsl:value-of select="$topic" /><xsl:text>.htm&#x0a;</xsl:text>
+		<xsl:text>Contents file=</xsl:text>
+		<xsl:value-of select="$project" />
+		<xsl:text>.hhc&#x0a;</xsl:text>
+		<xsl:text>Index file=</xsl:text>
+		<xsl:value-of select="$project" />
+		<xsl:text>.hhk&#x0a;</xsl:text>
+		<xsl:text>Default Topic=html/</xsl:text>
+		<xsl:value-of select="$topic" />
+		<xsl:text>.htm&#x0a;</xsl:text>
 		<!-- <xsl:text>Display compile progress=No&#x0a;</xsl:text> -->
 		<xsl:text>Full-text search=Yes&#x0a;</xsl:text>
 		<xsl:text>Language=0x409 English (United States)&#x0a;</xsl:text>
@@ -35,13 +41,13 @@
 
 		<xsl:text>[FILES]&#x0a;</xsl:text>
 		<xsl:text>icons\*.gif&#x0a;</xsl:text>
-    <xsl:text>art\*.gif&#x0a;</xsl:text>
-    <xsl:text>media\*.gif&#x0a;</xsl:text>
-    <xsl:text>scripts\*.js&#x0a;</xsl:text>
-    <xsl:text>styles\*.css&#x0a;</xsl:text>
-    <xsl:text>html\*.htm&#x0a;</xsl:text>
+		<xsl:text>art\*.png&#x0a;</xsl:text>
+		<xsl:text>media\*.gif&#x0a;</xsl:text>
+		<xsl:text>scripts\*.js&#x0a;</xsl:text>
+		<xsl:text>styles\*.css&#x0a;</xsl:text>
+		<xsl:text>html\*.htm&#x0a;</xsl:text>
 
-    <xsl:text>[INFOTYPES]&#x0a;</xsl:text>
+		<xsl:text>[INFOTYPES]&#x0a;</xsl:text>
 	</xsl:template>
 
 </xsl:stylesheet>
