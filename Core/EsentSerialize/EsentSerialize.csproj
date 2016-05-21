@@ -198,7 +198,7 @@
     <Compile Include="..\EsentSerialize81\Utils\ReflectionUtils.cs">
       <Link>Utils\ReflectionUtils.cs</Link>
     </Compile>
-    <Compile Include="Backup.cs" />
+    <Compile Include="ExternalBackup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subst.cs" />
   </ItemGroup>

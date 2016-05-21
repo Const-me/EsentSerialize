@@ -1,11 +1,14 @@
 ﻿using Microsoft.Isam.Esent.Interop;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 
 namespace EsentSerialization
 {
-	public static class Backup
+	// NB! I don't know how to restore that backup:
+	// http://stackoverflow.com/q/4289430/126995
+	public static class ExternalBackup
 	{
 		public static void BackupDatabase( this EseSerializer serializer, Stream stm )
 		{
@@ -15,7 +18,9 @@ namespace EsentSerialization
 		public static void BackupDatabase( this EseSerializer serializer, Stream stm, CompressionLevel compressionLevel )
 		{
 			using( ZipArchive archive = new ZipArchive( stm, ZipArchiveMode.Create, false ) )
+			{
 				BackupDatabaseImpl( serializer.idInstance, archive, CompressionLevel.Optimal );
+			}
 		}
 
 		const int iBuffSize = 256 * 1024;
@@ -64,6 +69,8 @@ namespace EsentSerialization
 
 		static void BackupFile( JET_INSTANCE idInstance, ZipArchive archive, CompressionLevel compressionLevel, byte[] buff, string strFileName )
 		{
+			Debug.WriteLine( "Backing up {0}", (object)strFileName );
+
 			JET_HANDLE hFile;
 			long fsLow, fsHigh;
 			Api.JetOpenFileInstance( idInstance, strFileName, out hFile, out fsLow, out fsHigh );
