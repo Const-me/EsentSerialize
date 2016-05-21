@@ -5,8 +5,8 @@
 	</assembly>
 	<members>
 
-		<!-- Project root topic -->
-		<member name="N:">
+		<!-- EsentSerialization namespace topic -->
+		<member name="N:EsentSerialization">
 			<summary>
 				<para>
 					ESENT Serialization .NET class library is an object persistence framework that uses
@@ -18,49 +18,21 @@
 				</para>
 
 				<para>
-					You may want to take a look at
-					<a href="http://esentserialize.codeplex.com" target="_blank" >the project's homepage on CodePlex.</a>
-					to check if the new version is available.
+					Since version 3.0, the project is <a href="https://github.com/Const-me/EsentSerialize">hosted on github</a>.
+					Between 2.0 and 3.0, it was hosted <a href="http://esentserialize.codeplex.com" target="_blank" >on CodePlex</a>.
 				</para>
 
 				<para>This documentation is for version 3.0 of the library.</para>
 
-			</summary>
-		</member>
-
-		<!-- EsentSerialization namespace topic -->
-		<member name="N:EsentSerialization">
-			<summary>
 				<para>This namespace contains classes to access the ESENT database.</para>
-				<para>To access the database, first you need to create either
-					<see cref="T:EsentSerialization.EseSerializer">EseSerializer</see> instance
-					if you're creating a desktop application where you have full control over the threads,
-					or <see cref="T:EsentSerialization.SessionPool">SessionPool</see> instance
-					if you're creating e.g. WCF server application or other type of highly multithreaded software system,
-					or <see cref="T:EsentSerialization.AspSessionPool">AspSessionPool</see> instance 
-					if you're building an ASP.NET web application.
+				<para>
+					To access the database, first you need to open/create the database. Since version 3.0, the <see cref="T:EsentSerialization.EsentDatabase">EsentDatabase</see> static class is
+					the recommended way to do that regardless on the runtime environment.
 				</para>
 
 				<para>
-					Each of them provides you the way to create instances of
-					<see cref="T:EsentSerialization.iSerializerSession">iSerializerSession</see>
-					interface: see
-					<see cref="M:EsentSerialization.EseSerializer.OpenDatabase(System.Boolean)">EseSerializer.OpenDatabase</see>,
-					<see cref="M:EsentSerialization.SessionPool.GetSession">SessionPool.GetSession</see>,
-					and
-					<see cref="M:EsentSerialization.AspSessionPool.GetSession(System.Web.HttpContext)">AspSessionPool.GetSession</see> methods.
-				</para>
-				<para>
-					If you're using EseSerializer and your application uses reasonable count of threads
-					(like my <a href="http://const.me/projects/SMS-control-center/" target="_blank" >SMS Control Center software</a>, where there's a GUI thread,
-					a lazy DB backup thread that only wakes up once in 40 minutes, and one thread for every GSM gateway),
-					then it's a good idea to keep iSerializerSession for the lifetime of the thread who uses the session.
-					Sessions obtained from EseSerializer are expensive: they're the only owner of the underlying DB session and table cursors,
-					so when you dispose them, the underlying DB resources are disposed as well.</para>
-
-				<para>
-					If however you're using SessionPool or AspSessionPool,
-					then don't forget to release a session to the pool by disposing it as soon as you've done with it.
+					Once the DB is opened, you'll get the instance of <see cref="T:EsentSerialization.SessionPool">SessionPool</see> class, from which you can get DB sessions.
+					Don't forget to release session to the pool by disposing it as soon as you've done using it.
 					Sessions obtained from a session pool are cheap: when you dispose them, no DB sessions/cursor are disposed, instead they are recycled to the pool.
 				</para>
 
@@ -80,6 +52,9 @@
 					In this case, you must properly dispose the recordset/cursor.
 					Unless you've used the Cursor.CreateOwnCopy or Recordset.CreateOwnCursor API,
 					it's not necessary to dispose the cursors / recordsets.
+				</para>
+				<para>
+					<b>NB!</b> Due to the limitation of Managed ESENT API, cursor duplication is only supported in the desktop version of the library.
 				</para>
 
 				<para>

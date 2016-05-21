@@ -4,10 +4,12 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Collections.Generic;
 
-namespace EsentSerialize
+namespace EsentSerialization
 {
 	/// <summary>This utility class maps drive letters just like command line 'subst.exe'.</summary>
-	/// <remarks><para>When ESENT is asked to open/create a database located in "A:\BBB\CCC\DDD",
+	/// <remarks>
+	/// <para>This class is only available in the desktop version of the library.</para>
+	/// <para>When ESENT is asked to open/create a database located in "A:\BBB\CCC\DDD",
 	/// the database engine first scans the folders "A:", "A:\BBB" and "A:\BBB\CCC", looking for reparse points.</para>
 	/// <para>If the user who's running the code has no permission to access any of those folders (which happenned on my shared Windows hosting),
 	/// this behavior will result in EsentFileAccessDeniedException.</para>
