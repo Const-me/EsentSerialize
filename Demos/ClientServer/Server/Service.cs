@@ -33,9 +33,7 @@ namespace Server
 			using( var sess = sessionPool.GetSession() )
 			using( var trans = sess.BeginTransaction() )
 			{
-				Recordset<Person> rs;
-				sess.getTable( out rs );
-				return produce( rs );
+				return produce( sess.Recordset<Person>() );
 			}
 		}
 
@@ -49,8 +47,7 @@ namespace Server
 			using( var sess = sessionPool.GetSession() )
 			using( var trans = sess.BeginTransaction() )
 			{
-				Cursor<Person> cur;
-				sess.getTable( out cur );
+				Cursor<Person> cur = sess.Cursor<Person>();
 				cur.Add( msg.toRecord() );
 				trans.Commit();
 			}
