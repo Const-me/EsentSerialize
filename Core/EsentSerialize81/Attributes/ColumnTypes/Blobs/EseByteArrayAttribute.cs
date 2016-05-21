@@ -41,6 +41,7 @@ namespace EsentSerialization.Attributes
 			set { maxKB = value * 1024.0; }
 		}
 
+		/// <summary>Always true.</summary>
 		public override bool bFieldNullable { get { return true; } }
 
 		/// <summary>Get column definition.</summary>

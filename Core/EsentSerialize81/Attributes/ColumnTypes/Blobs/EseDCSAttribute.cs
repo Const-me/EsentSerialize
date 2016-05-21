@@ -15,10 +15,7 @@ namespace EsentSerialization.Attributes
 	/// <i>"Instances of this class are thread safe except when the instance is used with an implementation of the IDataContractSurrogateor DataContractResolver".</i><br/>
 	/// That's why no locks is ever needed, even when different threads are [de]serializing the same column of different records,
 	/// which is perfectly legal way of using the library.</para>
-	/// <para>The data contract serializer is more efficient then XML serializer
-	/// that is used by the <see cref="EseXmlSerializedAttribute">[EseXmlSerialized]</see> column.</para>
-	/// <para>This column uses the .NET Binary XML Format, a Microsoft-specific binary representation for XML Information Sets
-	/// that generally yields a smaller footprint than the equivalent XML 1.0 representation.</para>
+	/// <para>This column uses the .NET Binary XML Format, a Microsoft-specific binary representation for XML Information Sets that generally yields a smaller footprint than the equivalent XML 1.0 representation.</para>
 	/// </remarks>
 	public sealed class EseDCSAttribute : EseColumnAttrubuteBase
 	{
