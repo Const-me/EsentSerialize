@@ -39,6 +39,10 @@ namespace EsentSerialization
 			// Database patch files and transaction log files that should become part of the backup file set
 			BackupFiles( idInstance, destination, level, buff, Api.JetGetLogInfoInstance );
 
+			// For some mysterious reason, including zero-length patch file enables the backup to be restored with JetRestoreInstance API.
+			string patchName = Path.ChangeExtension( EseSerializer.s_FileName, "pat" );
+			destination.CreateEntry( patchName );
+
 			// Delete any transaction log files that will no longer be needed once the current backup completes successfully.
 			Api.JetTruncateLogInstance( idInstance );
 

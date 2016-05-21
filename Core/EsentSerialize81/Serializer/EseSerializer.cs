@@ -31,7 +31,7 @@ namespace EsentSerialization
 	///		// Run your software; use 'sess' variable to access the DB.
 	///	}
 	///}</code></remarks>
-	public partial class EseSerializer : IDisposable
+	public class EseSerializer : IDisposable
 	{
 		readonly string m_instanceName;
 		JET_INSTANCE m_idInstance;
@@ -46,7 +46,7 @@ namespace EsentSerialization
 		public string pathDatabase { get { return m_pathDatabase; } }
 
 		const string s_BaseName = "j11";
-		const string s_FileName = "-esent.db";
+		internal const string s_FileName = "-esent.db";
 
 		readonly object syncRoot = new object();
 

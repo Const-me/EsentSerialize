@@ -72,6 +72,7 @@ namespace WinFormsDemoApp
 
 		private void btnBackup_Click( object sender, EventArgs e )
 		{
+			// External backup
 			string strFilter = "ZIP archives (*.zip)|*.zip";
 
 			string strLocation;
@@ -92,8 +93,9 @@ namespace WinFormsDemoApp
 
 		private void backup_Click( object sender, EventArgs e )
 		{
-			// btnBackup_Click( sender, e );
+			btnBackup_Click( sender, e ); return;
 
+			// Streaming backup
 			FolderBrowserDialog fbd = new FolderBrowserDialog();
 
 			DialogResult result = fbd.ShowDialog();
