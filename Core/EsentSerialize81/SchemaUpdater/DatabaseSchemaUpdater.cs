@@ -20,8 +20,7 @@ namespace EsentSerialization
 	/// <para>
 	/// You need to perform schema upgrade in the first session of the database before any tables are opened.<br />
 	/// If you've constructed EseSerializer directly, pass false to <see cref="EseSerializer.OpenDatabase">OpenDatabase</see> method when creating that first session, then perform the upgrade, then open the tables you need.<br />
-	/// If you're using SessionPool, set the <see cref="SessionPool.updateSchema">updateSchema</see> delegate to your method that will handle the schema upgrade for you.<br />
-	/// AspSessionPool <see cref="AspSessionPool.updateSchema">has this as well</see>.
+	/// If you're using SessionPool, set the <see cref="SessionPool.updateSchema">updateSchema</see> delegate to your method that will handle the schema upgrade for you.
 	/// </para>
 	/// <para>
 	/// To simplify upgrade code, it's recommended to perform upgrades sequentially. You can even do that in separate transactions, by calling <see cref="Execute"/> method several times.<br />

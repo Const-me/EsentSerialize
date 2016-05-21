@@ -19,12 +19,9 @@ namespace EsentSerialization
 		Exclusive
 	}
 
-	/// <summary>This class maintains the pool of the ESENT sessions,
-	/// to implement e.g. multithreaded software processing network requests.</summary>
-	/// <remarks>
-	/// <para>This class encapsulates a <see cref="EseSerializer" /> instance.
-	/// In the same process, you may use either <see cref="EseSerializer"/>, SessionPool, or <see cref="AspSessionPool"/>, but not both.</para>
-	/// </remarks>
+	/// <summary>This class maintains the pool of the ESENT sessions, to implement e.g. multithreaded software processing network requests.</summary>
+	/// <remarks>This class encapsulates a <see cref="EseSerializer" /> instance.
+	/// In the same process at the same time, you may use either <see cref="EseSerializer"/> or SessionPool, but not both.</remarks>
 	public partial class SessionPool : IDisposable
 	{
 		/// <summary>The folder where the DB is located.</summary>

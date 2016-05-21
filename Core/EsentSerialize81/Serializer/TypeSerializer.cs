@@ -518,6 +518,7 @@ namespace EsentSerialization
 		readonly object syncRoot = new object();
 		Dictionary<MemberInfo, IndexForColumn[]> dictSortIndices = null;
 
+		/// <summary>Query schema for the indices that index the DB column identified by the record class member.</summary>
 		public IndexForColumn[] indicesFromColumn( MemberInfo mi )
 		{
 			lock( syncRoot )

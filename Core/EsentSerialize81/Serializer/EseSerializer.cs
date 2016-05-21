@@ -78,9 +78,6 @@ namespace EsentSerialization
 
 		/// <summary>Construct the serializer.</summary>
 		/// <param name="strFolder">Database folder</param>
-		/// <param name="bEncryptDatabase">Set to true to encrypt the database.</param>
-		/// <param name="bSubstituteDriveLetter" >Set to true to use <see cref="Subst.Mount">Subst.Mount</see>
-		/// before opening the DB.</param>
 		/// <param name="typesToAdd">Record types to add.</param>
 		public EseSerializer( string strFolder, IEnumerable<Type> typesToAdd ):
 			this( strFolder )
