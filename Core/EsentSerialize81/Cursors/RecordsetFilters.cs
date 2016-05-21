@@ -2,10 +2,9 @@
 // Doing so will improve performance a bit, for the price of removing some arguments checks.
 #define bVerifyBookmarkIsInRange
 
-using System;
-using Microsoft.Isam.Esent.Interop;
-using System.Linq;
 using EsentSerialization.Attributes;
+using Microsoft.Isam.Esent.Interop;
+using System;
 
 namespace EsentSerialization
 {
