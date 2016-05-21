@@ -18,43 +18,6 @@ namespace WsaDemo81
 			this.InitializeComponent();
 		}
 
-		static IEnumerable<FiltersTest> populateFt()
-		{
-			for( byte i = 0; i < 16; i++ )
-				for( byte j = 0; j < 16; j++ )
-					for( byte k = 0; k < 16; k++ )
-						yield return new FiltersTest()
-						{
-							c1 = k,
-							c2 = j,
-							c3 = i
-						};
-		}
-
-		static void PopulateDemoDatabase( iSerializerSession sess )
-		{
-			Person[] personsTest = new Person[]
-			{
-				new Person( Person.eSex.Female, "Jenifer Smith", new string[0] ),
-				new Person( Person.eSex.Male, "Konstantin", new string[]{ "+7 926 139 63 18" } ),
-				new Person( Person.eSex.Male, "John Smith", new string[]{ "+1 800 123 4567", "+1 800 123 4568" } ),
-				new Person( Person.eSex.Female, "Mary Jane", new string[]{ "555-1212" } ),
-				new Person( Person.eSex.Other, "Microsoft", new string[]{ "+1 800 642 7676", "1-800-892-5234" } ),
-			};
-
-			Cursor<Person> curPerson;
-			Cursor<FiltersTest> curTest;
-			sess.getTable( out curPerson );
-			sess.getTable( out curTest );
-
-			using( var trans = sess.BeginTransaction() )
-			{
-				curPerson.AddRange( personsTest );
-				curTest.AddRange( populateFt() );
-				trans.Commit();
-			}
-		}
-
 		static void PrintPersons( IEnumerable<Person> arr )
 		{
 			foreach( var p in arr )
@@ -108,7 +71,10 @@ namespace WsaDemo81
 				using( var sess = db.GetSession() )
 				{
 					if( db.isNewDatabase )
-						PopulateDemoDatabase( sess );
+					{
+						Person.populateWithDebugData( sess );
+						FiltersTest.populateWithDebugData( sess );
+					}
 					testPersons( sess );
 					// testFilters( sess );
 				}

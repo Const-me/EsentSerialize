@@ -1,4 +1,6 @@
-﻿using EsentSerialization.Attributes;
+﻿using EsentSerialization;
+using EsentSerialization.Attributes;
+using System.Collections.Generic;
 
 namespace Database
 {
@@ -24,6 +26,31 @@ namespace Database
 		public override string ToString()
 		{
 			return string.Format( "[{0}]", id );
+		}
+
+		static IEnumerable<FiltersTest> debugData()
+		{
+			for( byte i = 0; i < 16; i++ )
+				for( byte j = 0; j < 16; j++ )
+					for( byte k = 0; k < 16; k++ )
+						yield return new FiltersTest()
+						{
+							c1 = k,
+							c2 = j,
+							c3 = i
+						};
+		}
+
+		public static void populateWithDebugData( iSerializerSession sess )
+		{
+			Cursor<FiltersTest> curTest;
+			sess.getTable( out curTest );
+
+			using( var trans = sess.BeginTransaction() )
+			{
+				curTest.AddRange( debugData() );
+				trans.Commit();
+			}
 		}
 	}
 }

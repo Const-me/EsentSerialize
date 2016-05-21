@@ -7,28 +7,6 @@ namespace ConsoleDemo
 {
 	class Program
 	{
-		static void PopulateDemoDatabase( iSerializerSession sess )
-		{
-			Person[] personsTest = new Person[]
-			{
-				new Person( Person.eSex.Female, "Jenifer Smith", new string[0] ),
-				new Person( Person.eSex.Male, "Konstantin", new string[]{ "+7 926 139 63 18" } ),
-				new Person( Person.eSex.Male, "John Smith", new string[]{ "+1 800 123 4567", "+1 800 123 4568" } ),
-				new Person( Person.eSex.Female, "Mary Jane", new string[]{ "555-1212" } ),
-				new Person( Person.eSex.Other, "Microsoft", new string[]{ "+1 800 642 7676", "1-800-892-5234" } ),
-				new Person( Person.eSex.Other, "Contoso Ltd.", new string[]{ "+1 800 642 7676", "+1 800 642 7676", "+1 800 642 7676", "+1 800 555 7676" } ),
-			};
-
-			Cursor<Person> curPerson;
-			sess.getTable( out curPerson );
-
-			using( var trans = sess.BeginTransaction() )
-			{
-				curPerson.AddRange( personsTest );
-				trans.Commit();
-			}
-		}
-
 		static void PrintPersons( IEnumerable<Person> arr )
 		{
 			foreach( var p in arr )
@@ -73,7 +51,10 @@ namespace ConsoleDemo
 			using( var sess = pool.GetSession() )
 			{
 				if( pool.isNewDatabase )
-					PopulateDemoDatabase( sess );
+				{
+					Person.populateWithDebugData( sess );
+					FiltersTest.populateWithDebugData( sess );
+				}
 				RunTests( sess );
 			}
 		}

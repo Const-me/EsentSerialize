@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EsentSerialization;
 
 namespace Database
 {
@@ -48,6 +49,31 @@ namespace Database
 		{
 			return String.Format( @"Person {{ id={0}, name=""{1}"", sex={2}, phones={3} }}",
 				id, name, sex, String.Join( "; ", phones.ToArray() ) );
+		}
+
+		static IEnumerable<Person> debugData()
+		{
+			Person[] personsTest = new Person[]
+			{
+				new Person( Person.eSex.Female, "Jenifer Smith", new string[0] ),
+				new Person( Person.eSex.Male, "Konstantin", new string[]{ "+7 926 139 63 18" } ),
+				new Person( Person.eSex.Male, "John Smith", new string[]{ "+1 800 123 4567", "+1 800 123 4568" } ),
+				new Person( Person.eSex.Female, "Mary Jane", new string[]{ "555-1212" } ),
+				new Person( Person.eSex.Other, "Microsoft", new string[]{ "+1 800 642 7676", "1-800-892-5234" } ),
+			};
+			return personsTest;
+		}
+
+		public static void populateWithDebugData( iSerializerSession sess )
+		{
+			Cursor<Person> curTest;
+			sess.getTable( out curTest );
+
+			using( var trans = sess.BeginTransaction() )
+			{
+				curTest.AddRange( debugData() );
+				trans.Commit();
+			}
 		}
 	}
 }
