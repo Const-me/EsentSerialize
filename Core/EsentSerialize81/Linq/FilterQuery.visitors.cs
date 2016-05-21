@@ -76,8 +76,8 @@ namespace EsentSerialization.Linq
 					Expression replace = Expression.ArrayIndex( objArray, ind );
 					ParameterExpression p = args[ i ];
 
-					if( p.GetType() != typeof( object ) )
-						replace = Expression.Convert( replace, p.GetType() );
+					if( p.Type != typeof( object ) )
+						replace = Expression.Convert( replace, p.Type );
 
 					replacements[ p ] = replace;
 				}
