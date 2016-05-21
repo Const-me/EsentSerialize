@@ -111,6 +111,9 @@
     <Compile Include="..\EsentSerialize81\Attributes\Indices\EsePrimaryIndexAttribute.cs">
       <Link>Attributes\Indices\EsePrimaryIndexAttribute.cs</Link>
     </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\Indices\EseSimpleIndex.cs">
+      <Link>Attributes\Indices\EseSimpleIndex.cs</Link>
+    </Compile>
     <Compile Include="..\EsentSerialize81\Attributes\Indices\EseTupleIndexAttribute.cs">
       <Link>Attributes\Indices\EseTupleIndexAttribute.cs</Link>
     </Compile>
