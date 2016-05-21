@@ -61,7 +61,8 @@ namespace EsentSerialization
 
 		static string databasePath;
 
-		/// <summary>Open the database.</summary>
+		/// <summary>Open database using the provided settings, open some tables.</summary>
+		/// <param name="rowTypes">ESENT tables to open, identified by their record types.</param>
 		public static SessionPool open( Settings settings, params Type[] rowTypes )
 		{
 			string path = settings.databasePath;
@@ -69,13 +70,14 @@ namespace EsentSerialization
 			return new SessionPool( path, settings.maxConcurrentSessions, rowTypes );
 		}
 
-		/// <summary>Open the database.</summary>
+		/// <summary>Open database using default settings, open some tables.</summary>
+		/// <param name="rowTypes">ESENT tables to open, identified by their record types.</param>
 		public static SessionPool open( params Type[] rowTypes )
 		{
 			return open( new Settings(), rowTypes );
 		}
 
-		/// <summary>Open the database.</summary>
+		/// <summary>Open database using the provided settings, open all tables from the specified assembly.</summary>
 		public static SessionPool open( Settings settings, Assembly ass )
 		{
 			string path = settings.databasePath;
@@ -83,7 +85,7 @@ namespace EsentSerialization
 			return new SessionPool( path, settings.maxConcurrentSessions, ass );
 		}
 
-		/// <summary>Open the database.</summary>
+		/// <summary>Open database using default settings, open all tables from the specified assembly.</summary>
 		public static SessionPool open( Assembly ass )
 		{
 			return open( new Settings(), ass );

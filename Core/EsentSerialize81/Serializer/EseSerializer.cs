@@ -19,7 +19,7 @@ namespace EsentSerialization
 	///static void Main()
 	///{
 	///	string strDatabasePath = Environment.ExpandEnvironmentVariables( @"%APPDATA%\MyCompany\MySoftware" );
-	///	using( EseSerializer serializer = new EseSerializer( strDatabasePath, false, true ) )
+	///	using( EseSerializer serializer = new EseSerializer( strDatabasePath ) )
 	///	using( iSerializerSession sess = serializer.OpenDatabase( true ) )
 	///	{
 	///		if( serializer.isNewDatabase )
