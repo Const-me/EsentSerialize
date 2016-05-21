@@ -60,13 +60,8 @@ namespace EsentSerialization
 			}
 		}
 
-		/// <summary>Construct the serializer.</summary>
-		/// <param name="strFolder">Database folder</param>
-		/// <param name="bEncryptDatabase">Set to true to encrypt the database.</param>
-		/// <param name="bSubstituteDriveLetter" >Set to true to use <see cref="Subst.Mount">Subst.Mount</see>
-		/// before opening the DB.</param>
-		/// <param name="typesToAdd">Record types to add.</param>
-		public EseSerializer( string strFolder, IEnumerable<Type> typesToAdd )
+		/// <summary>Internal constructor that initializes the parameters but doesn't call JetInit.</summary>
+		internal EseSerializer( string strFolder )
 		{
 			if( !Directory.Exists( strFolder ) )
 				Directory.CreateDirectory( strFolder );
@@ -75,6 +70,21 @@ namespace EsentSerialization
 
 			m_instanceName = "EseSerializer";
 
+			JET_INSTANCE i;
+			Api.JetCreateInstance( out i, m_instanceName );
+			SetupInstanceParams( i, strFolder );
+			m_idInstance = i;
+		}
+
+		/// <summary>Construct the serializer.</summary>
+		/// <param name="strFolder">Database folder</param>
+		/// <param name="bEncryptDatabase">Set to true to encrypt the database.</param>
+		/// <param name="bSubstituteDriveLetter" >Set to true to use <see cref="Subst.Mount">Subst.Mount</see>
+		/// before opening the DB.</param>
+		/// <param name="typesToAdd">Record types to add.</param>
+		public EseSerializer( string strFolder, IEnumerable<Type> typesToAdd ):
+			this( strFolder )
+		{
 			if( null != typesToAdd )
 			{
 				foreach( Type t in typesToAdd )
@@ -85,11 +95,7 @@ namespace EsentSerialization
 				}
 			}
 
-			JET_INSTANCE i;
-			Api.JetCreateInstance( out i, m_instanceName );
-			SetupInstanceParams( i, strFolder );
-			Api.JetInit( ref i );
-			m_idInstance = i;
+			Api.JetInit( ref m_idInstance );
 		}
 
 		/// <summary>This parameter specifies the minimum tuple length in a tuple index.</summary>

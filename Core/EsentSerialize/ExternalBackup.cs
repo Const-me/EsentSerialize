@@ -8,14 +8,14 @@ namespace EsentSerialization
 {
 	// NB! I don't know how to restore that backup:
 	// http://stackoverflow.com/q/4289430/126995
-	public static class ExternalBackup
+	public static partial class Backup
 	{
-		public static void BackupDatabase( this EseSerializer serializer, Stream stm )
+		public static void ExternalBackup( this EseSerializer serializer, Stream stm )
 		{
-			BackupDatabase( serializer, stm, CompressionLevel.Optimal );
+			ExternalBackup( serializer, stm, CompressionLevel.Optimal );
 		}
 
-		public static void BackupDatabase( this EseSerializer serializer, Stream stm, CompressionLevel compressionLevel )
+		public static void ExternalBackup( this EseSerializer serializer, Stream stm, CompressionLevel compressionLevel )
 		{
 			using( ZipArchive archive = new ZipArchive( stm, ZipArchiveMode.Create, false ) )
 			{

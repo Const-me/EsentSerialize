@@ -85,8 +85,23 @@ namespace WinFormsDemoApp
 			}
 
 			using( var s = new FileStream( strLocation, FileMode.Create ) )
-				m_sess.serializer.BackupDatabase( s );
+				m_sess.serializer.ExternalBackup( s );
 
+			MessageBox.Show( this, "Backup complete", null, MessageBoxButtons.OK, MessageBoxIcon.Information );
+		}
+
+		private void backup_Click( object sender, EventArgs e )
+		{
+			// btnBackup_Click( sender, e );
+
+			FolderBrowserDialog fbd = new FolderBrowserDialog();
+
+			DialogResult result = fbd.ShowDialog();
+
+			if( string.IsNullOrWhiteSpace( fbd.SelectedPath ) )
+				return;
+
+			m_sess.serializer.StreamingBackup( fbd.SelectedPath );
 			MessageBox.Show( this, "Backup complete", null, MessageBoxButtons.OK, MessageBoxIcon.Information );
 		}
 	}

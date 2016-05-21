@@ -200,6 +200,7 @@
     </Compile>
     <Compile Include="ExternalBackup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamingBackup.cs" />
     <Compile Include="Subst.cs" />
   </ItemGroup>
   <ItemGroup>

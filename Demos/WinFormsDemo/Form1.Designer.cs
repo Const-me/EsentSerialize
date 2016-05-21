@@ -35,6 +35,7 @@
 			this.colPhones = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnOk = new System.Windows.Forms.Button();
+			this.backup = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -108,6 +109,16 @@
 			this.btnOk.Text = "OK";
 			this.btnOk.UseVisualStyleBackColor = true;
 			// 
+			// backup
+			// 
+			this.backup.Location = new System.Drawing.Point(13, 226);
+			this.backup.Name = "backup";
+			this.backup.Size = new System.Drawing.Size(75, 23);
+			this.backup.TabIndex = 3;
+			this.backup.Text = "Backup...";
+			this.backup.UseVisualStyleBackColor = true;
+			this.backup.Click += new System.EventHandler(this.backup_Click);
+			// 
 			// Form1
 			// 
 			this.AcceptButton = this.btnOk;
@@ -115,6 +126,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnCancel;
 			this.ClientSize = new System.Drawing.Size(437, 262);
+			this.Controls.Add(this.backup);
 			this.Controls.Add(this.btnOk);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.dataGridView1);
@@ -134,6 +146,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn colName;
 		private System.Windows.Forms.DataGridViewComboBoxColumn colSex;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colPhones;
+		private System.Windows.Forms.Button backup;
 	}
 }
 
