@@ -352,5 +352,18 @@ namespace EsentSerialization
 					return;
 			}
 		}
+
+		/// <summary>Get type serializer for the specified record type.</summary>
+		/// <remarks>If called before the first sessions is created, this will create a new session, potentially triggering schema update.</remarks>
+		public iTypeSerializer serializerForType<tRecord>()
+		{
+			lock( this.syncRoot )
+			{
+				if( m_allSessions.Count > 0 )
+					return m_serializer.FindSerializerForType( typeof( tRecord ) );
+				using( var sess = GetSession() )
+					return sess.serializer.FindSerializerForType( typeof( tRecord ) );
+			}
+		}
 	}
 }

@@ -96,6 +96,12 @@ namespace EsentSerialization
 			return new SortQuery<tRow>( r => r.filterSort( ind, shouldInvert ), multi );
 		}
 
+		/// <summary>Compile query to sort the table by the index.</summary>
+		public static SortQuery<tRow> sort<tRow, tKey>( this SessionPool pool, Expression<Func<tRow, tKey>> exp, bool descending ) where tRow : new()
+		{
+			return sort( pool.serializerForType<tRow>(), exp, descending );
+		}
+
 		static IEnumerable<tRow> orderBy<tRow, tKey>( this Recordset<tRow> rs, Expression<Func<tRow, tKey>> keySelector, bool flip ) where tRow : new()
 		{
 			Query<tRow> q = sort( rs.cursor.serializer, keySelector, flip );
@@ -109,10 +115,22 @@ namespace EsentSerialization
 			return FilterQuery.query( ser, exp );
 		}
 
+		/// <summary>Compile query to sort the table by the index.</summary>
+		public static SearchQuery<tRow> filter<tRow>( this SessionPool pool, Expression<Func<tRow, bool>> exp ) where tRow : new()
+		{
+			return FilterQuery.query( pool.serializerForType<tRow>(), exp );
+		}
+
+
 		/// <summary>Compile query to filter the table by index, where query has one parameter.</summary>
 		public static SearchQuery<tRow> filter<tRow, tArg1>( iTypeSerializer ser, Expression<Func<tRow, tArg1, bool>> exp ) where tRow : new()
 		{
 			return FilterQuery.query( ser, exp );
+		}
+		/// <summary>Compile query to filter the table by index, where query has one parameter.</summary>
+		public static SearchQuery<tRow> filter<tRow, tArg1>( this SessionPool pool, Expression<Func<tRow, tArg1, bool>> exp ) where tRow : new()
+		{
+			return FilterQuery.query( pool.serializerForType<tRow>(), exp );
 		}
 
 		/// <summary>Compile query to filter the table by index, where query has two parameter.</summary>
@@ -120,11 +138,21 @@ namespace EsentSerialization
 		{
 			return FilterQuery.query( ser, exp );
 		}
+		/// <summary>Compile query to filter the table by index, where query has two parameter.</summary>
+		public static SearchQuery<tRow> filter<tRow, tArg1, tArg2>( this SessionPool pool, Expression<Func<tRow, tArg1, tArg2, bool>> exp ) where tRow : new()
+		{
+			return FilterQuery.query( pool.serializerForType<tRow>(), exp );
+		}
 
 		/// <summary>Compile query to filter the table by index, where query has three parameter.</summary>
 		public static SearchQuery<tRow> filter<tRow, tArg1, tArg2, tArg3>( iTypeSerializer ser, Expression<Func<tRow, tArg1, tArg2, tArg3, bool>> exp ) where tRow : new()
 		{
 			return FilterQuery.query( ser, exp );
+		}
+		/// <summary>Compile query to filter the table by index, where query has three parameter.</summary>
+		public static SearchQuery<tRow> filter<tRow, tArg1, tArg2, tArg3>( this SessionPool pool, Expression<Func<tRow, tArg1, tArg2, tArg3, bool>> exp ) where tRow : new()
+		{
+			return FilterQuery.query( pool.serializerForType<tRow>(), exp );
 		}
 
 		/// <summary>Functionally similar to Enumerable.Where</summary>
