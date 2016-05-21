@@ -72,7 +72,7 @@ namespace EsentSerialization.Linq
 
 				for( int i = 1; i < args.Count; i++ )
 				{
-					Expression ind = Expression.Constant( i, typeof( int ) );
+					Expression ind = Expression.Constant( i - 1, typeof( int ) );
 					Expression replace = Expression.ArrayIndex( objArray, ind );
 					ParameterExpression p = args[ i ];
 
