@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<doc>
+	<assembly>
+		<name>EsentSerialization</name>
+	</assembly>
+	<members>
+
+		<!-- Project root topic -->
+		<member name="N:">
+			<summary>
+				<para>
+					ESENT Serialization .NET class library is an object persistence framework that uses
+					<a href="http://en.wikipedia.org/wiki/Extensible_Storage_Engine" target="_blank" >Extensible Storage Engine</a>
+					data storage technology.<br />
+					Since Extensible Storage Engine is a Windows built-in component, no installation or administration is required.
+					And due to the ESE feature set, it's eminently suitable for both desktop applications, and highly-loaded servers.
+					ESE is a core of Microsoft Exchange Server and Active Directory, and it's also used by Windows Mail and Windows Desktop Search.
+				</para>
+
+				<para>
+					You may want to take a look at
+					<a href="http://esentserialize.codeplex.com" target="_blank" >the project's homepage on CodePlex.</a>
+					to check if the new version is available.
+				</para>
+
+				<para>This documentation is for version 2.3 of the library.</para>
+
+			</summary>
+		</member>
+
+		<!-- Microsoft.Isam.Esent.Serialization namespace topic -->
+		<member name="N:Microsoft.Isam.Esent.Serialization">
+			<summary>
+				<para>This namespace contains classes to access the ESENT database.</para>
+				<para>To access the database, first you need to create either
+					<see cref="T:Microsoft.Isam.Esent.Serialization.EseSerializer">EseSerializer</see> instance
+					if you're creating a desktop application where you have full control over the threads,
+					or <see cref="T:Microsoft.Isam.Esent.Serialization.SessionPool">SessionPool</see> instance
+					if you're creating e.g. WCF server application or other type of highly multithreaded software system,
+					or <see cref="T:Microsoft.Isam.Esent.Serialization.AspSessionPool">AspSessionPool</see> instance 
+					if you're building an ASP.NET web application.
+				</para>
+
+				<para>
+					Each of them provides you the way to create instances of
+					<see cref="T:Microsoft.Isam.Esent.Serialization.iSerializerSession">iSerializerSession</see>
+					interface: see
+					<see cref="M:Microsoft.Isam.Esent.Serialization.EseSerializer.OpenDatabase(System.Boolean)">EseSerializer.OpenDatabase</see>,
+					<see cref="M:Microsoft.Isam.Esent.Serialization.SessionPool.GetSession">SessionPool.GetSession</see>,
+					and
+					<see cref="M:Microsoft.Isam.Esent.Serialization.AspSessionPool.GetSession(System.Web.HttpContext)">AspSessionPool.GetSession</see> methods.
+				</para>
+				<para>
+					If you're using EseSerializer and your application uses reasonable count of threads
+					(like my <a href="http://const.me/projects/SMS-control-center/" target="_blank" >SMS Control Center software</a>, where there's a GUI thread,
+					a lazy DB backup thread that only wakes up once in 40 minutes, and one thread for every GSM gateway),
+					then it's a good idea to keep iSerializerSession for the lifetime of the thread who uses the session.
+					Sessions obtained from EseSerializer are expensive: they're the only owner of the underlying DB session and table cursors,
+					so when you dispose them, the underlying DB resources are disposed as well.</para>
+
+				<para>
+					If however you're using SessionPool or AspSessionPool,
+					then don't forget to release a session to the pool by disposing it as soon as you've done with it.
+					Sessions obtained from a session pool are cheap: when you dispose them, no DB sessions/cursor are disposed, instead they are recycled to the pool.
+				</para>
+
+				<para>
+					You can then use <see cref="T:Microsoft.Isam.Esent.Serialization.iSerializerSession">iSerializerSession</see> interface
+					to get individual tables from the session: see
+					<see cref="M:Microsoft.Isam.Esent.Serialization.iSerializerSession.getTable``1(Microsoft.Isam.Esent.Serialization.Cursor{``0}@)">getTable( Cursor&lt;tRow&gt; )</see>,
+					<see cref="M:Microsoft.Isam.Esent.Serialization.iSerializerSession.getTable``1(Microsoft.Isam.Esent.Serialization.Recordset{``0}@)">getTable( Recordset&lt;tRow&gt; )</see>, and
+					<see cref="M:Microsoft.Isam.Esent.Serialization.iSerializerSession.getTable``1(Microsoft.Isam.Esent.Serialization.BookmarkedRecordset{``0}@)">getTable( BookmarkedRecordset&lt;tRow&gt; )</see> methods.
+				</para>
+				
+				<para>
+					Cursors/recordsets are cheap: by default they share the DB cursor that was already opened and stored in the session.<br />
+					If you do need an exclusive copy of the table cursor that is not shared by all cursors/recordsets within the same session, you can create it
+					by calling <see cref="M:Microsoft.Isam.Esent.Serialization.Recordset`1.CreateOwnCursor">Recordset.CreateOwnCursor</see> method for recordsets,
+					or <see cref="M:Microsoft.Isam.Esent.Serialization.Cursor`1.CreateOwnCopy">Cursor.CreateOwnCopy</see> for cursors.
+					In this case, you must properly dispose the recordset/cursor.
+					Unless you've used the Cursor.CreateOwnCopy or Recordset.CreateOwnCursor API,
+					it's not necessary to dispose the cursors / recordsets.
+				</para>
+
+				<para>
+					And, you can use <see cref="T:Microsoft.Isam.Esent.Serialization.iSerializerSession">iSerializerSession</see> interface
+					to begin database transactions: see the
+					<see cref="M:Microsoft.Isam.Esent.Serialization.iSerializerSession.BeginTransaction">iSerializerSession.BeginTransaction</see> method,
+					that returns a new instance of <see cref="T:Microsoft.Isam.Esent.Serialization.iSerializerTransaction">iSerializerTransaction</see> interface.
+				</para>
+
+				<para>
+					It is highly recommended that the application always be in the context of a transaction when calling any ESE APIs.
+					If this is not done, the database engine will automatically wrap each ESE API call in a transaction on behalf of the application.
+					The cost of these very short transactions can add up quickly in some cases.
+				</para>
+
+			</summary>
+		</member>
+
+		<!-- Microsoft.Isam.Esent.Serialization.Attributes namespace topic -->
+		<member name="N:Microsoft.Isam.Esent.Serialization.Attributes">
+			<summary>
+				<para>This namespace contains attribute classes to define your database schema.</para>
+				<para>
+					You declare the table by applying
+					<see cref="T:Microsoft.Isam.Esent.Serialization.Attributes.EseTableAttribute">[EseTable]</see>
+					to your record class.
+				</para>
+				<para>
+					You declare the columns by applying column attributes to the fields and/or properties of your record class.
+					All the column attributes are located in the
+					<see cref="N:Microsoft.Isam.Esent.Serialization.Attributes">Attributes</see> namespace,
+					and are derived from
+					<see cref="T:Microsoft.Isam.Esent.Serialization.EseColumnAttrubuteBase">EseColumnAttrubuteBase</see> class.<br />
+					If you need to, you can extend the library by creating your own column classes.
+				</para>
+				<para>
+					You declare the indices by applying
+					<see cref="T:Microsoft.Isam.Esent.Serialization.Attributes.EseIndexAttribute">[EseIndex]</see> (and/or derived attributes)
+					to your record class.
+				</para>
+			</summary>
+			<remarks>
+				<para>
+					In the following code snippet, you can see the example of defining a "persons" table,
+					with 4 columns of different types, and 2 secondary indices.<br />
+				</para>
+				<!-- A sample code, copy-pasted from the demo. -->
+				<code lang="C#">using Microsoft.Isam.Esent.Serialization.Attributes;
+
+[EseTable( "persons" )]
+[EsePrimaryIndex( "id", "+id\0\0" )]
+[EseIndex( "sex", "+sex\0\0" )]
+[EseTupleIndex( "name" )]
+public class Person
+{
+	// Sometimes it's nice to have an integer person ID, instead of just bookmarks.
+	// Bookmarks are byte arrays, takes a memory allocations to deal with.
+	// Fortunately, ESENT provides auto-incremented columns, which do great being a primary index, BTW.
+	[EseAutoId( "id" )]
+	private int m_id;
+
+	public int id { get { return m_id; } }
+
+	// Enum column
+	public enum eSex { Male, Female, Other };
+	[EseEnum]
+	public eSex sex { get; set; }
+
+	// Short unicode text column.
+	[EseText( maxChars = 71 )]
+	// See http://stackoverflow.com/questions/30485//30509#30509 for why "71"
+	public string name { get; set; }
+
+	// Multi-values ASCII text column, each value no longer than 32 characters.
+	[EseMultiText( bUnicode = false, maxChars = 32 )]
+	public List&lt;string&gt; phones { get; private set; }
+
+	// This library requires your record class to have public parameterless constructor.
+	public Person() { }
+}</code>
+			</remarks>
+		</member>
+	</members>
+</doc>
