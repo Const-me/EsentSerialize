@@ -38,12 +38,7 @@ namespace EsentSerialization.Attributes
 		/// For example, a _strKey of "+abc\0-def\0+ghi\0\0" will index over the three columns
 		/// "abc" (in ascending order), "def" (in descending order), and "ghi" (in ascending order).</remarks>
 		/// <seealso cref="JET_INDEXCREATE" />
-		public EseIndexAttribute( string _strName, string _strKey )
-		{
-			strName = _strName;
-			strKey = _strKey;
-			flags = CreateIndexGrbit.None;
-		}
+		public EseIndexAttribute( string _strName, string _strKey ) : this( _strName, _strKey, CreateIndexGrbit.None ) { }
 
 		/// <summary>Declare the index, specifying the flags as well.</summary>
 		/// <param name="_strName">The name of the index.</param>
@@ -58,6 +53,10 @@ namespace EsentSerialization.Attributes
 		{
 			strName = _strName;
 			strKey = _strKey;
+#if WINDOWS_UWP
+			// Workaround for that nasty .NET Native bug that eats trailing nulls in my attributes.
+			strKey = strKey.TrimEnd( '\0' ) + "\0\0";
+#endif
 			flags = _flags;
 		}
 
