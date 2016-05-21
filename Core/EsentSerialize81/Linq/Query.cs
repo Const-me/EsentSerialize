@@ -8,6 +8,8 @@ namespace EsentSerialization.Linq
 	/// Performance-wise, it's a good idea to cache those queries: parsing C# AST isn't terribly fast, especially for complex queries.</remarks>
 	public class Query<tRow> where tRow : new()
 	{
+		// TODO: implement pre-compiled parametrized queries, so it's possible to compile them once, then efficiently invoke passing values for query arguments 
+
 		internal readonly Action<Recordset<tRow>> query;
 
 		public readonly bool multivalues;
