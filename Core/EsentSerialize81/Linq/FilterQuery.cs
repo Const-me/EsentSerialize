@@ -207,7 +207,7 @@ namespace EsentSerialization.Linq
 			return Expression.Lambda<Func<object>>( exp ).Compile();
 		}
 
-		public static Query<tRow> query<tRow>( iTypeSerializer ser, Expression<Func<tRow, bool>> exp ) where tRow : new()
+		public static SearchQuery<tRow> query<tRow>( iTypeSerializer ser, Expression<Func<tRow, bool>> exp ) where tRow : new()
 		{
 			// Full text search queries are handled separately
 			var mce = exp.Body as MethodCallExpression;
@@ -243,7 +243,7 @@ namespace EsentSerialization.Linq
 			throw new NotSupportedException( "Failed to parse query {0}: no suitable index found".formatWith( exp ) );
 		}
 
-		static Query<tRow> tryIndex<tRow>( expression[] exprs, bool multi, string indName ) where tRow : new()
+		static SearchQuery<tRow> tryIndex<tRow>( expression[] exprs, bool multi, string indName ) where tRow : new()
 		{
 			// Choose the index
 			foreach( var i in exprs )
@@ -276,7 +276,7 @@ namespace EsentSerialization.Linq
 							Debug.WriteLine( "Warning: ignoring extra conditions on the column {0}", eq.column.Name );
 						vals.Add( eq.filterValue );
 						var arr = vals.ToArray();
-						return new Query<tRow>( rs => findEqual( rs, indName, arr ), multi );
+						return new SearchQuery<tRow>( rs => findEqual( rs, indName, arr ), multi );
 					}
 
 					expression[] less = group.Where( e => e.op == eOperation.LessThanOrEqual ).ToArray();
@@ -285,7 +285,7 @@ namespace EsentSerialization.Linq
 						Debug.WriteLine( "Warning: ignoring extra conditions on the column {0}", eq.column.Name );
 					Func<object> lastFrom = greater.Select( e => e.filterValue ).FirstOrDefault();
 					Func<object> lastTo = less.Select( e => e.filterValue ).FirstOrDefault();
-					return new Query<tRow>( rs => findBetween( rs, indName, vals.ToArray(), lastFrom, lastTo ), multi );
+					return new SearchQuery<tRow>( rs => findBetween( rs, indName, vals.ToArray(), lastFrom, lastTo ), multi );
 				}
 				else
 				{
@@ -323,7 +323,7 @@ namespace EsentSerialization.Linq
 			rs.filterFindBetween( indName, from.ToArray(), to.ToArray() );
 		}
 
-		static Query<tRow> fullTextQuery<tRow>( iTypeSerializer ser, ParameterExpression eParam, Expression eLeft, Expression eRight ) where tRow : new()
+		static SearchQuery<tRow> fullTextQuery<tRow>( iTypeSerializer ser, ParameterExpression eParam, Expression eLeft, Expression eRight ) where tRow : new()
 		{
 			HasParam hp = new HasParam();
 			
@@ -344,7 +344,7 @@ namespace EsentSerialization.Linq
 
 			string indName = ind.indexName;
 			Action<Recordset<tRow>> act = rs => rs.filterFindSubstring( indName, arg() );
-			return new Query<tRow>( act, true );
+			return new SearchQuery<tRow>( act, true );
 		}
 	}
 }

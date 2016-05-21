@@ -70,7 +70,7 @@ namespace EsentSerialization
 		}
 
 		/// <summary>Compile query to sort the table by the index.</summary>
-		public static Query<tRow> sort<tRow, tKey>( iTypeSerializer ser, Expression<Func<tRow, tKey>> exp, bool descending ) where tRow : new()
+		public static SortQuery<tRow> sort<tRow, tKey>( iTypeSerializer ser, Expression<Func<tRow, tKey>> exp, bool descending ) where tRow : new()
 		{
 			var me = exp.Body as MemberExpression;
 			if( null == me )
@@ -84,7 +84,7 @@ namespace EsentSerialization
 
 			bool shouldInvert = descending ^ ( !indexDirectionPositive);
 
-			return new Query<tRow>( r => r.filterSort( ind, shouldInvert ), multi );
+			return new SortQuery<tRow>( r => r.filterSort( ind, shouldInvert ), multi );
 		}
 
 		static IEnumerable<tRow> orderBy<tRow, tKey>( this Recordset<tRow> rs, Expression<Func<tRow, tKey>> keySelector, bool flip ) where tRow : new()
@@ -95,7 +95,7 @@ namespace EsentSerialization
 
 		/// <summary>Compile query to filter the table by index.</summary>
 		/// <seealso cref="where" />
-		public static Query<tRow> filter<tRow>( iTypeSerializer ser, Expression<Func<tRow, bool>> exp ) where tRow : new()
+		public static SearchQuery<tRow> filter<tRow>( iTypeSerializer ser, Expression<Func<tRow, bool>> exp ) where tRow : new()
 		{
 			return FilterQuery.query( ser, exp );
 		}
