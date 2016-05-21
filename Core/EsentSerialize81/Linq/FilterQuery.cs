@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace EsentSerialization.Linq
 {
-	/// <summary>This static class parses filter queries from C# expression tree into ESENT recordset operations.</summary>
+	/// <summary>This static class parses filter queries from C# expression tree into ESENT recordset operations, also transforms the expressions.</summary>
 	static partial class FilterQuery
 	{
 		enum eOperation : byte

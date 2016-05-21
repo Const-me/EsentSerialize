@@ -7,7 +7,16 @@ using System.Reflection;
 
 namespace EsentSerialization
 {
-	/// <summary>This static class implements some LINQ-like operations on ESENT recordsets.</summary>
+	/// <summary>This static class implements LINQ-like operations on ESENT recordsets.</summary>
+	/// <remarks>
+	/// <para>This static class dramatically simplifies ESENT searches, exposing LINQ-like API.</para>
+	/// <para>This brings some performance overhead, but you can minimize the overhead by pre-compiling your queries. A pre-compiled query is just as efficient as manual recordset filtering.</para>
+	/// <para>Only a small subset of LINQ is supported: you can only search/sort if your table has index that supports the operation. If there’s no such index, you’ll get NotSupportedException while compiling the query.
+	/// The performance difference between index queries and sequential scan is too large, that’s why this class doesn’t fall back to sequential scan if unable to find the suitable index.</para>
+	/// <para>To compile a sort query, call Queries.sort, to compile a search query, call Queries.filter.</para>
+	/// <para>Search queries support arguments. To compile such query, call Queries.filter&lt;tRow, tArg1&gt or Queries.filter&lt;tRow, tArg1, tArg2&gt or Queries.filter&lt;tRow, tArg1, tArg2, tArg3&gt.
+	/// To supply values of the arguments when running a query, pass them in Queries.all variadic parameters. If you’ll fail to supply correct count of arguments, or correct types of arguments, an exception will be thrown in runtime.</para>
+	/// </remarks>
 	public static class Queries
 	{
 		/// <summary>Run a pre-compiled query, return all matching records.</summary>
