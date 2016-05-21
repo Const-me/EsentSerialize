@@ -14,7 +14,7 @@ namespace EsentSerialization
 	/// <para>You should not attempt to create more then one EseSerializer instance in the same process:
 	/// the DB instance name is hard-coded.</para>
 	/// <para>In the same process, you may use either EseSerializer or <see cref="SessionPool"/> but not both.</para>
-	/// <para>Here's the recommended C# code for a desktop or console application:</para>
+	/// <para>Here's the C# code that creates and uses EseSerializer object:</para>
 	///<code lang="C#">            // The application entry point
 	///static void Main()
 	///{

@@ -49,9 +49,9 @@
 				<para>
 					You can then use <see cref="T:EsentSerialization.iSerializerSession">iSerializerSession</see> interface
 					to get individual tables from the session: see
-					<see cref="M:EsentSerialization.iSerializerSession.getTable``1(EsentSerialization.Cursor{``0}@)">getTable( Cursor&lt;tRow&gt; )</see>,
-					<see cref="M:EsentSerialization.iSerializerSession.getTable``1(EsentSerialization.Recordset{``0}@)">getTable( Recordset&lt;tRow&gt; )</see>, and
-					<see cref="M:EsentSerialization.iSerializerSession.getTable``1(EsentSerialization.BookmarkedRecordset{``0}@)">getTable( BookmarkedRecordset&lt;tRow&gt; )</see> methods.
+					<see cref="M:EsentSerialization.iSerializerSession.Cursor``1">Cursor</see>,
+					<see cref="M:EsentSerialization.iSerializerSession.Recordset``1">Recordset</see>, and
+					<see cref="M:EsentSerialization.iSerializerSession.BookmarkedRecordset``1">BookmarkedRecordset</see> methods.
 				</para>
 				
 				<para>
