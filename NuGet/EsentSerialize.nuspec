@@ -2,6 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>EsentSerialize</id>
+		<title>ESENT Serialize</title>
 		<version>3.0.0</version>
 		<authors>const.me</authors>
 		<licenseUrl>https://opensource.org/licenses/MS-PL</licenseUrl>
