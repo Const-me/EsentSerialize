@@ -73,6 +73,8 @@ namespace EsentSerialization
 			m_instanceName = settings.advanced.InstanceName;
 
 			SystemParameters.DatabasePageSize = settings.advanced.DatabasePageSize;
+			SystemParameters.EnableFileCache = settings.advanced.EnableFileCache;
+			SystemParameters.EnableViewCache = settings.advanced.EnableViewCache;
 
 			JET_INSTANCE i;
 			Api.JetCreateInstance( out i, m_instanceName );

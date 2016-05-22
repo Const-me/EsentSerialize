@@ -149,6 +149,18 @@ namespace EsentSerialization
 					m_IndexTuplesLengthMin = value;
 				}
 			}
+
+			/// <summary>When this parameter is True, the database engine will use the Windows file cache as a read cache for all of its various files.</summary>
+			/// <remarks>The default is False.</remarks>
+			public bool EnableFileCache = false;
+
+			/// <summary>When this parameter is True, the database engine will use database data directly from the Windows file cache rather than copying the cached data into its own private memory.</summary>
+			/// <remarks>
+			/// <para>The default is False.</para>
+			/// <para>The intent of this mode is to further reduce the amount of private memory used by the database engine to cache database data.</para>
+			/// <para>The view cache may only be used if the use of the Windows file cache is enabled by setting <see cref="EnableFileCache" /> to True.</para>
+			/// </remarks>
+			public bool EnableViewCache = false;
 		}
 	}
 }
