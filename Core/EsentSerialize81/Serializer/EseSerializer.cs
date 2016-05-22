@@ -130,7 +130,8 @@ namespace EsentSerialization
 				// On desktop and servers user can duplicate cursors, that's why we need to increase that limit.
 				cursorsPerSession = Math.Max( cursorsPerSession * 2, cursorsPerSession + 8 );
 #endif
-				Parameters.MaxCursors = cursorsPerSession * settings.maxConcurrentSessions;
+				// Both esent.dll ant this library use internal tables, e.g. for schema. Hence that 16 extra cursors.
+				Parameters.MaxCursors = cursorsPerSession * settings.maxConcurrentSessions + 16;
 			}
 
 			// Ext. parameters
