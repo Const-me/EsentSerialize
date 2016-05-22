@@ -195,7 +195,7 @@ namespace EsentSerialization
 		{
 			folderDatabase = settings.databasePath;
 
-			m_serializer = new EseSerializer( settings, null );
+			m_serializer = new EseSerializer( settings, arrTypes.Length, null );
 
 			SessionLimit = Math.Max( settings.maxConcurrentSessions, 0 );
 

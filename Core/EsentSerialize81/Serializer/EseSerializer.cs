@@ -61,7 +61,7 @@ namespace EsentSerialization
 		public readonly string FileName;
 
 		/// <summary>Internal constructor that initializes the parameters but doesn't call JetInit.</summary>
-		internal EseSerializer( EsentDatabase.Settings settings )
+		internal EseSerializer( EsentDatabase.Settings settings, int cursorsPerSession )
 		{
 			FileName = settings.advanced.FileName;
 			string strFolder = settings.databasePath;
@@ -76,15 +76,15 @@ namespace EsentSerialization
 
 			JET_INSTANCE i;
 			Api.JetCreateInstance( out i, m_instanceName );
-			SetupInstanceParams( settings.advanced, i, strFolder );
+			SetupInstanceParams( settings, i, strFolder, cursorsPerSession );
 			m_idInstance = i;
 		}
 
 		/// <summary>Construct the serializer.</summary>
 		/// <param name="settings">Database settings.</param>
 		/// <param name="typesToAdd">Record types to add.</param>
-		public EseSerializer( EsentDatabase.Settings settings, IEnumerable<Type> typesToAdd ):
-			this( settings )
+		public EseSerializer( EsentDatabase.Settings settings, int cursorsPerSession, IEnumerable<Type> typesToAdd ):
+			this( settings, cursorsPerSession )
 		{
 			if( null != typesToAdd )
 			{
@@ -98,11 +98,13 @@ namespace EsentSerialization
 			Api.JetInit( ref m_idInstance );
 		}
 
-		void SetupInstanceParams( EsentDatabase.AdvancedSettings settings, JET_INSTANCE i, string strFolder )
+		void SetupInstanceParams( EsentDatabase.Settings settings, JET_INSTANCE i, string strFolder, int cursorsPerSession )
 		{
 			InstanceParameters Parameters = new InstanceParameters( i );
 
-			m_pathDatabase = Path.Combine( strFolder, settings.FileName );
+			var adv = settings.advanced;
+
+			m_pathDatabase = Path.Combine( strFolder, adv.FileName );
 
 			// Mostly copy-pasted from Microsoft.Isam.Esent.Collections.Generic.PersistentDictionary<>.__ctor()
 			Parameters.SystemDirectory = strFolder;
@@ -110,18 +112,29 @@ namespace EsentSerialization
 			Parameters.TempDirectory = strFolder;
 			Parameters.AlternateDatabaseRecoveryDirectory = strFolder;
 			Parameters.CreatePathIfNotExist = true;
-			Parameters.BaseName = settings.BaseName;
+			Parameters.BaseName = adv.BaseName;
 			Parameters.EnableIndexChecking = false;
 			Parameters.CircularLog = true;
 			Parameters.CheckpointDepthMax = 0x4010000;
 			Parameters.PageTempDBMin = 0;
-			Parameters.MaxVerPages = settings.MaxVerPages;
+			Parameters.MaxVerPages = adv.MaxVerPages;
 
-			Parameters.LogFileSize = settings.kbLogFileSize;
-			Parameters.LogBuffers = settings.LogBuffers.Value;
+			Parameters.LogFileSize = adv.kbLogFileSize;
+			Parameters.LogBuffers = adv.LogBuffers.Value;
+
+			Parameters.MaxSessions = settings.maxConcurrentSessions;
+
+			if( cursorsPerSession > 0 )
+			{
+#if !NETFX_CORE
+				// On desktop and servers user can duplicate cursors, that's why we need to increase that limit.
+				cursorsPerSession = Math.Max( cursorsPerSession * 2, cursorsPerSession + 8 );
+#endif
+				Parameters.MaxCursors = cursorsPerSession * settings.maxConcurrentSessions;
+			}
 
 			// Ext. parameters
-			Api.JetSetSystemParameter( i, JET_SESID.Nil, Ext.JET_paramIndexTuplesLengthMin, settings.IndexTuplesLengthMin, null );
+			Api.JetSetSystemParameter( i, JET_SESID.Nil, Ext.JET_paramIndexTuplesLengthMin, adv.IndexTuplesLengthMin, null );
 		}
 
 		/// <summary>Add the record type to serializer.</summary>
