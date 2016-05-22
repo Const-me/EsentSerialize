@@ -14,7 +14,7 @@ namespace Test1
 			Application.SetCompatibleTextRenderingDefault( false );
 
 			EsentDatabase.Settings settings = new EsentDatabase.Settings(Environment.ExpandEnvironmentVariables( @"%APPDATA%\EseFileSystemDemo" ));
-			settings.maxConcurrentSessions = 5;
+			settings.PresetMedium();
 
 			using( var sp = EsentDatabase.open(settings, typeof( EseFileSystem.EfsEntry ) ) )
 			{

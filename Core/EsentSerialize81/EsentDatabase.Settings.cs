@@ -62,6 +62,28 @@ namespace EsentSerialization
 			/// <para>If however you're building something high-loaded, you'll want to adjust them.</para>
 			/// </remarks>
 			public readonly AdvancedSettings advanced = new AdvancedSettings();
+
+			/// <summary>Optimize settings for medium loads.</summary>
+			public void PresetMedium()
+			{
+				maxConcurrentSessions = Environment.ProcessorCount;
+
+				advanced.kbLogFileSize = 10 * 1024;   // 10 MB per log file
+				advanced.MaxVerPages = 1024; // max 16 MB in uncommitted transactions
+			}
+
+			/// <summary>Optimize settings for high-load environment.</summary>
+			/// <param name="largePages">True of you deal with large records and/or long streams, and would like to use 8kb pages instead of the default 4kb.</param>
+			public void PresetHeavyLoad( bool largePages )
+			{
+				if( largePages )
+					advanced.DatabasePageSize = 8192;
+
+				maxConcurrentSessions = Environment.ProcessorCount;
+
+				advanced.kbLogFileSize = 64 * 1024;   // 64 MB per log file
+				advanced.MaxVerPages = 8 * 1024; // max 128 MB in uncommitted transactions
+			}
 		}
 	}
 }
