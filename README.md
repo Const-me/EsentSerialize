@@ -1,7 +1,7 @@
 # EsentSerialize
 ESENT Serialization class library is built above Managed ESENT. It allows you to store your objects in the underlying extensible storage engine database. [Wikipedia has nice article](https://en.wikipedia.org/wiki/Extensible_Storage_Engine) outlining what’s so special about the extensible storage engine.
 
-The binaries are [published in NuGet](https://www.nuget.org/packages/EsentSerialize).
+The binaries are [published in NuGet](https://www.nuget.org/packages/EsentSerialize), the compiled documentation [here on the "Releases" page](https://github.com/Const-me/EsentSerialize/releases).
 
 ## Features
 * Serializes and deserializes objects. To mark the object to be your database record type, apply [EseTable] attribute to your record class, and column attributes to the class members.
