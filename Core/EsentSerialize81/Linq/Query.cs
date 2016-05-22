@@ -17,11 +17,12 @@ namespace EsentSerialization.Linq
 			this.multivalues = multivalues;
 		}
 
-		/// <summary>Run the query.</summary>
+		/// <summary>Run the query on the recordset, using specified argument values.</summary>
+		/// <remarks>Count of the query arguments must match the original LINQ expression from which this query was compiled.</remarks>
 		public abstract void query( Recordset<tRow> rs, params object[] args );
 	}
 
-	/// <summary>Pre-compiled sort for a recordset.</summary>
+	/// <summary>Pre-compiled sort query for a recordset.</summary>
 	public class SortQuery<tRow> : Query<tRow> where tRow : new()
 	{
 		internal readonly Action<Recordset<tRow>> m_query;
@@ -44,7 +45,7 @@ namespace EsentSerialization.Linq
 		}
 	}
 
-	/// <summary>Pre-compiled sort for a recordset.</summary>
+	/// <summary>Pre-compiled search query for a recordset, with optional query arguments.</summary>
 	public class SearchQuery<tRow> : Query<tRow> where tRow : new()
 	{
 		readonly Action<Recordset<tRow>, object> m_query;
