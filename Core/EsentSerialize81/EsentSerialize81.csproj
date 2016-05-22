@@ -67,6 +67,7 @@
     <Compile Include="Cursors\EseCursorBase.cs" />
     <Compile Include="Cursors\Recordset.cs" />
     <Compile Include="Cursors\RecordsetFilters.cs" />
+    <Compile Include="EsentDatabase.Adv.cs" />
     <Compile Include="EsentDatabase.cs" />
     <Compile Include="EsentDatabase.Settings.cs" />
     <Compile Include="Interfaces\ColumnIndex.cs" />

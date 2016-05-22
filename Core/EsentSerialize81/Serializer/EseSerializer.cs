@@ -34,6 +34,7 @@ namespace EsentSerialization
 	{
 		readonly string m_instanceName;
 		JET_INSTANCE m_idInstance;
+
 		/// <summary></summary>
 		public JET_INSTANCE idInstance { get { return m_idInstance; } }
 
@@ -44,13 +45,10 @@ namespace EsentSerialization
 		/// <summary>The full path of the main DB file, which is located inside the folderDatabase.</summary>
 		public string pathDatabase { get { return m_pathDatabase; } }
 
-		const string s_BaseName = "j11";
-		internal const string s_FileName = "-esent.db";
-
 		readonly object syncRoot = new object();
 
 		/// <summary>Close the DB.</summary>
-		public void /* IDisposable. */ Dispose()
+		public void Dispose()
 		{
 			if( JET_INSTANCE.Nil != idInstance )
 			{
@@ -60,26 +58,29 @@ namespace EsentSerialization
 		}
 
 		/// <summary>Internal constructor that initializes the parameters but doesn't call JetInit.</summary>
-		internal EseSerializer( string strFolder )
+		internal EseSerializer( EsentDatabase.Settings settings )
 		{
+			string strFolder = settings.databasePath;
 			if( !Directory.Exists( strFolder ) )
 				Directory.CreateDirectory( strFolder );
 
 			folderDatabase = strFolder;
 
-			m_instanceName = "EseSerializer";
+			m_instanceName = settings.advanced.InstanceName;
+
+			SystemParameters.DatabasePageSize = settings.advanced.DatabasePageSize;
 
 			JET_INSTANCE i;
 			Api.JetCreateInstance( out i, m_instanceName );
-			SetupInstanceParams( i, strFolder );
+			SetupInstanceParams( settings.advanced, i, strFolder );
 			m_idInstance = i;
 		}
 
 		/// <summary>Construct the serializer.</summary>
-		/// <param name="strFolder">Database folder</param>
+		/// <param name="settings">Database settings.</param>
 		/// <param name="typesToAdd">Record types to add.</param>
-		public EseSerializer( string strFolder, IEnumerable<Type> typesToAdd ):
-			this( strFolder )
+		public EseSerializer( EsentDatabase.Settings settings, IEnumerable<Type> typesToAdd ):
+			this( settings )
 		{
 			if( null != typesToAdd )
 			{
@@ -90,20 +91,14 @@ namespace EsentSerialization
 					m_tables.Add( new TypeSerializer( t, a ) );
 				}
 			}
-
 			Api.JetInit( ref m_idInstance );
 		}
 
-		/// <summary>This parameter specifies the minimum tuple length in a tuple index.</summary>
-		/// <remarks>The default value is 3.<br />
-		/// Set this parameter before the creation of EseSerializer, SessionPool or AspSessionPool.</remarks>
-		public static int s_paramIndexTuplesLengthMin = 3;
-
-		void SetupInstanceParams( JET_INSTANCE i, string strFolder )
+		void SetupInstanceParams( EsentDatabase.AdvancedSettings settings, JET_INSTANCE i, string strFolder )
 		{
 			InstanceParameters Parameters = new InstanceParameters( i );
 
-			m_pathDatabase = Path.Combine( strFolder, s_FileName );
+			m_pathDatabase = Path.Combine( strFolder, settings.FileName );
 
 			// Mostly copy-pasted from Microsoft.Isam.Esent.Collections.Generic.PersistentDictionary<>.__ctor()
 			Parameters.SystemDirectory = strFolder;
@@ -111,17 +106,18 @@ namespace EsentSerialization
 			Parameters.TempDirectory = strFolder;
 			Parameters.AlternateDatabaseRecoveryDirectory = strFolder;
 			Parameters.CreatePathIfNotExist = true;
-			Parameters.BaseName = s_BaseName;
+			Parameters.BaseName = settings.BaseName;
 			Parameters.EnableIndexChecking = false;
 			Parameters.CircularLog = true;
 			Parameters.CheckpointDepthMax = 0x4010000;
 			Parameters.PageTempDBMin = 0;
-			Parameters.MaxVerPages = 0x100;
+			Parameters.MaxVerPages = settings.MaxVerPages;
 
-			Parameters.LogFileSize = 512; // in KB
+			Parameters.LogFileSize = settings.kbLogFileSize;
+			Parameters.LogBuffers = settings.LogBuffers.Value;
 
 			// Ext. parameters
-			Api.JetSetSystemParameter( i, JET_SESID.Nil, Ext.JET_paramIndexTuplesLengthMin, s_paramIndexTuplesLengthMin, null );
+			Api.JetSetSystemParameter( i, JET_SESID.Nil, Ext.JET_paramIndexTuplesLengthMin, settings.IndexTuplesLengthMin, null );
 		}
 
 		/// <summary>Add the record type to serializer.</summary>

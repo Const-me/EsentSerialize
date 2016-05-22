@@ -188,17 +188,16 @@ namespace EsentSerialization
 
 		/// <summary>Construct the session pool.</summary>
 		/// <remarks>You should only create a single instance of this class.</remarks>
-		/// <param name="strFolder">Database folder. Must be writeable. The best place for the DB on UWP is ApplicationData.Current.LocalFolder, or some subfolder in that folder.</param>
-		/// <param name="maxSessions">Maximum number of concurrent ESENT sessions to open.</param>
+		/// <param name="settings">Database settings.</param>
 		/// <param name="arrTypes">The array of record types.
 		/// In every session returned by this pool, the corresponding tables will be already opened for you.</param>
-		public SessionPool( string strFolder, int maxSessions, params Type[] arrTypes )
+		public SessionPool( EsentDatabase.Settings settings, params Type[] arrTypes )
 		{
-			folderDatabase = strFolder;
+			folderDatabase = settings.databasePath;
 
-			m_serializer = new EseSerializer( folderDatabase, null );
+			m_serializer = new EseSerializer( settings, null );
 
-			SessionLimit = Math.Max( maxSessions, 0 );
+			SessionLimit = Math.Max( settings.maxConcurrentSessions, 0 );
 
 			if( SessionLimit > 0 )
 				m_semaphore = new Semaphore( SessionLimit, SessionLimit );
@@ -221,11 +220,10 @@ namespace EsentSerialization
 
 		/// <summary>Construct the session pool.</summary>
 		/// <remarks>You should only create a single instance of this class.</remarks>
-		/// <param name="strFolder">Database folder</param>
-		/// <param name="maxSessions">Maximum number of the ESENT sessions to open.</param>
+		/// <param name="settings">Database settings.</param>
 		/// <param name="ass">An assembly with the [EseTable] types to open.</param>
-		public SessionPool( string strFolder, int maxSessions, Assembly ass ) :
-			this( strFolder, maxSessions, typesInAssembly( ass ) )
+		public SessionPool( EsentDatabase.Settings settings, Assembly ass ) :
+			this( settings, typesInAssembly( ass ) )
 		{ }
 
 		List<Type> m_recordTypes;

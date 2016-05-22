@@ -55,6 +55,13 @@ namespace EsentSerialization
 					return Path.Combine( appData, folderName );
 				}
 			}
+
+			/// <summary>Advanced database settings.</summary>
+			/// <remarks>
+			/// <para>For an average mobile or desktop app, the defaults should work well enough.</para>
+			/// <para>If however you're building something high-loaded, you'll want to adjust them.</para>
+			/// </remarks>
+			public readonly AdvancedSettings advanced = new AdvancedSettings();
 		}
 	}
 }

@@ -132,6 +132,9 @@
     <Compile Include="..\EsentSerialize81\Cursors\RecordsetFilters.cs">
       <Link>Cursors\RecordsetFilters.cs</Link>
     </Compile>
+    <Compile Include="..\EsentSerialize81\EsentDatabase.Adv.cs">
+      <Link>EsentDatabase.Adv.cs</Link>
+    </Compile>
     <Compile Include="..\EsentSerialize81\EsentDatabase.cs">
       <Link>EsentDatabase.cs</Link>
     </Compile>

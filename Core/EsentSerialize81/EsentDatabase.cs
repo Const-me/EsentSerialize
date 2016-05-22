@@ -12,12 +12,12 @@ namespace EsentSerialization
 		static string databasePath;
 
 		/// <summary>Open database using the provided settings, open some tables.</summary>
+		/// <param name="settings">Database settings.</param>
 		/// <param name="rowTypes">ESENT tables to open, identified by their record types.</param>
 		public static SessionPool open( Settings settings, params Type[] rowTypes )
 		{
-			string path = settings.databasePath;
-			databasePath = path;
-			return new SessionPool( path, settings.maxConcurrentSessions, rowTypes );
+			databasePath = settings.databasePath;
+			return new SessionPool( settings, rowTypes );
 		}
 
 		/// <summary>Open database using default settings, open some tables.</summary>
@@ -30,9 +30,8 @@ namespace EsentSerialization
 		/// <summary>Open database using the provided settings, open all tables from the specified assembly.</summary>
 		public static SessionPool open( Settings settings, Assembly ass )
 		{
-			string path = settings.databasePath;
-			databasePath = path;
-			return new SessionPool( path, settings.maxConcurrentSessions, ass );
+			databasePath = settings.databasePath;
+			return new SessionPool( settings, ass );
 		}
 
 		/// <summary>Open database using default settings, open all tables from the specified assembly.</summary>
