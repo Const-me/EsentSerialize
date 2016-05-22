@@ -81,7 +81,7 @@ namespace EsentSerialization
 
 				maxConcurrentSessions = Environment.ProcessorCount;
 
-				advanced.kbLogFileSize = 64 * 1024;   // 64 MB per log file
+				advanced.kbLogFileSize = 30 * 1024;   // 30 MB per log file, the max.is 32
 				advanced.MaxVerPages = 8 * 1024; // max 128 MB in uncommitted transactions
 			}
 		}
