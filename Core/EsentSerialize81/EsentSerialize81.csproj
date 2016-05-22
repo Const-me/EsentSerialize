@@ -68,6 +68,7 @@
     <Compile Include="Cursors\Recordset.cs" />
     <Compile Include="Cursors\RecordsetFilters.cs" />
     <Compile Include="EsentDatabase.cs" />
+    <Compile Include="EsentDatabase.Settings.cs" />
     <Compile Include="Interfaces\ColumnIndex.cs" />
     <Compile Include="Interfaces\iSerializerSession.cs" />
     <Compile Include="Interfaces\iSerializerTransaction.cs" />

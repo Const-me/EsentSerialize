@@ -135,6 +135,9 @@
     <Compile Include="..\EsentSerialize81\EsentDatabase.cs">
       <Link>EsentDatabase.cs</Link>
     </Compile>
+    <Compile Include="..\EsentSerialize81\EsentDatabase.Settings.cs">
+      <Link>EsentDatabase.Settings.cs</Link>
+    </Compile>
     <Compile Include="..\EsentSerialize81\Interfaces\ColumnIndex.cs">
       <Link>Interfaces\ColumnIndex.cs</Link>
     </Compile>
