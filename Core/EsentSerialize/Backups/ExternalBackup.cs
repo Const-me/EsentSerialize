@@ -29,35 +29,35 @@ namespace EsentSerialization
 		{
 			using( ZipArchive archive = new ZipArchive( stm, ZipArchiveMode.Create, false ) )
 			{
-				BackupDatabaseImpl( serializer.idInstance, archive, CompressionLevel.Optimal );
+				BackupDatabaseImpl( serializer, archive, CompressionLevel.Optimal );
 			}
 		}
 
 		const int iBuffSize = 256 * 1024;
 		delegate void JetListFilesDelegate( JET_INSTANCE instance, out string files, int maxChars, out int actualChars );
 
-		static void BackupDatabaseImpl( JET_INSTANCE idInstance, ZipArchive destination, CompressionLevel level )
+		static void BackupDatabaseImpl( EseSerializer serializer, ZipArchive destination, CompressionLevel level )
 		{
 			// Start the backup process
-			Api.JetBeginExternalBackupInstance( idInstance, BeginExternalBackupGrbit.None );
+			Api.JetBeginExternalBackupInstance( serializer.idInstance, BeginExternalBackupGrbit.None );
 
 			byte[] buff = new byte[ iBuffSize ];
 
 			// Database files that should become part of the backup file set
-			BackupFiles( idInstance, destination, level, buff, Api.JetGetAttachInfoInstance );
+			BackupFiles( serializer.idInstance, destination, level, buff, Api.JetGetAttachInfoInstance );
 
 			// Database patch files and transaction log files that should become part of the backup file set
-			BackupFiles( idInstance, destination, level, buff, Api.JetGetLogInfoInstance );
+			BackupFiles( serializer.idInstance, destination, level, buff, Api.JetGetLogInfoInstance );
 
 			// For some mysterious reason, including zero-length patch file enables the backup to be restored with JetRestoreInstance API.
-			string patchName = Path.ChangeExtension( EseSerializer.s_FileName, "pat" );
+			string patchName = Path.ChangeExtension( serializer.FileName, "pat" );
 			destination.CreateEntry( patchName );
 
 			// Delete any transaction log files that will no longer be needed once the current backup completes successfully.
-			Api.JetTruncateLogInstance( idInstance );
+			Api.JetTruncateLogInstance( serializer.idInstance );
 
 			// End an external backup session
-			Api.JetEndExternalBackupInstance( idInstance );
+			Api.JetEndExternalBackupInstance( serializer.idInstance );
 		}
 
 		static void BackupFiles( JET_INSTANCE idInstance, ZipArchive archive, CompressionLevel compressionLevel, byte[] buff, JetListFilesDelegate listFilesProc )

@@ -20,7 +20,7 @@ namespace EsentSerialization
 		/// <param name="settings"></param>
 		public static void StreamingRestore( string src, EsentDatabase.Settings settings )
 		{
-			using( EseSerializer ser = new EseSerializer( settings.databasePath ) )
+			using( EseSerializer ser = new EseSerializer( settings ) )
 				Api.JetRestoreInstance( ser.idInstance, src, settings.databasePath, progress );
 		}
 

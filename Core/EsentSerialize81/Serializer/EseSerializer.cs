@@ -57,9 +57,13 @@ namespace EsentSerialization
 			}
 		}
 
+		/// <summary>Name of the main database file.</summary>
+		public readonly string FileName;
+
 		/// <summary>Internal constructor that initializes the parameters but doesn't call JetInit.</summary>
 		internal EseSerializer( EsentDatabase.Settings settings )
 		{
+			FileName = settings.advanced.FileName;
 			string strFolder = settings.databasePath;
 			if( !Directory.Exists( strFolder ) )
 				Directory.CreateDirectory( strFolder );
