@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace EsentSerialization
 {
-	/// <summary>This static utility class implements the most high-level entry-point of the library for a windows store app.</summary>
+	/// <summary>This static utility class implements the most high-level entry-point of the library.</summary>
 	public static class EsentDatabase
 	{
 		/// <summary>Class holding various user-adjustable parameters of the database.</summary>
