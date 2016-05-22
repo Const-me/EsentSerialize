@@ -5,12 +5,11 @@ The binaries are [published in NuGet](https://www.nuget.org/packages/EsentSerial
 
 ## Features
 * Serializes and deserializes objects. To mark the object to be your database record type, apply [EseTable] attribute to your record class, and column attributes to the class members. 
-* Works on Windows desktops (.NET 4.5+), Windows Store 8.1+, Windows Mobile 10.0+.
+* Available on Windows desktops and servers (.NET 4.5+), Windows Store 8.1+ (PC only; technically, it works on Windows Phone 8.1, but the API is unofficial and won't pass [WACK](https://developer.microsoft.com/en-us/windows/develop/app-certification-kit) API test), Windows Mobile 10.0+. Suitable for building both desktop apps, mobile apps (on supported platforms), and servers.
 * Many different column types, ranging from trivial ones like byte or int32, to enums, multi-values, binary streams, arbitrary objects serialized into binary XML.
 * The library is multithreading-aware, concurrent database access by several threads is OK.
-* Suitable for building both desktop apps, mobile apps (on supported platforms), and servers.
-* The recordsets support filtering and sorting by the ESE indexes, and exposes LINQ-like API to sort and filter.
+* The recordsets support filtering and sorting by the ESE indexes, and since version 3.0 exposes LINQ-like API to sort and filter.
 * The database return records as IEnumerable<tRow> (where tRow is your record class that has the [EseTable] attribute applied) suitable for lazy evaluation, making it possible to sequentially process a huge dataset that does not even fit in your RAM. 
-* DB schema upgrade mechanism is provided.
-* Just like the Managed ESENT, the DLL is architecture-neutral ("Any CPU").
+* The library provides DB schema upgrade mechanism,to upgrade DB schema while retaining user's data.
+* Just like Managed ESENT, the library is architecture-neutral ("Any CPU").
 * Good documentation, several demo projects are provided.
