@@ -52,6 +52,8 @@ namespace EsentSerialization
 						appData = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #else
 						appData = Environment.GetFolderPath( Environment.SpecialFolder.LocalApplicationData );
+						// Use entry-point assembly name to construct the application's data folder.
+						appData = Path.Combine( appData, Assembly.GetEntryAssembly().GetName().Name );
 #endif
 					}
 					return Path.Combine( appData, folderName );
