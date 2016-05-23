@@ -46,9 +46,9 @@ namespace PerfVsSqlite
 					double rps = (double)res.Item1 / res.Item2.TotalSeconds;
 					return String.Format( "[{0}] Completed OK\nTime spent: {1} seconds\nRecords affected: {2}\nAverage records / second: {3}",
 						title,
-						res.Item2.TotalSeconds.RoundToSignificantDigits( 3 ),
+						res.Item2.TotalSeconds.RoundToSignificantDigits( 4 ),
 						res.Item1,
-						rps.RoundToSignificantDigits( 3 ) );
+						rps.RoundToSignificantDigits( 4 ) );
 				}
 				catch( Exception ex )
 				{
