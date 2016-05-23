@@ -174,6 +174,7 @@ namespace EsentSerialization
 		public static bool seek<tRow>( this Recordset<tRow> rs, Expression<Func<tRow, bool>> exp ) where tRow : new()
 		{
 			Query<tRow> q = filter( rs.cursor.serializer, exp );
+			q.query( rs );
 			return rs.applyFilter();
 		}
 
