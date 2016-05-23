@@ -1,0 +1,41 @@
+﻿<Page
+		x:Class="PerfVsSqlite.MainPage"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="using:PerfVsSqlite"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d">
+
+	<Page.Resources>
+		<Style TargetType="Button">
+			<Setter Property="Margin" Value="0,5" />
+		</Style>
+	</Page.Resources>
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup x:Name="vsg">
+				<VisualState x:Name="normal"/>
+				<VisualState x:Name="pending">
+					<VisualState.Setters>
+						<Setter Target="btnEngine.(Control.IsEnabled)" Value="False"/>
+						<Setter Target="populate.(Control.IsEnabled)" Value="False"/>
+						<Setter Target="count.(Control.IsEnabled)" Value="False"/>
+						<Setter Target="fetch.(Control.IsEnabled)" Value="False"/>
+						<Setter Target="pBar.(ProgressBar.IsIndeterminate)" Value="True"/>
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+		<StackPanel Margin="20">
+			<Button x:Name="btnEngine" Content="ESENT" VerticalAlignment="Top" HorizontalAlignment="Stretch" Click="btnEngine_Click" />
+			<Border Height="10" />
+			<Button x:Name="populate" Content="Add Records" HorizontalAlignment="Stretch" Click="Test1_Click"/>
+			<Button x:Name="count" Content="Count" HorizontalAlignment="Stretch" Click="Count_Click"/>
+			<Button x:Name="fetch" Content="Fetch" HorizontalAlignment="Stretch" Click="Fetch_Click"/>
+			<ProgressBar x:Name="pBar" Height="10" VerticalAlignment="Stretch"/>
+		</StackPanel>
+
+	</Grid>
+</Page>
