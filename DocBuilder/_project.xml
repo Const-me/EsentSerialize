@@ -22,7 +22,7 @@
 				As of version 3.0, the library supports 3 targets:
 				<ul>
 					<li>Windows desktops &amp; servers; it require .NET 4.5.0 or above. Due to the limitations of Managed ESENT, some APIs like backup/restore are only available on this platform.</li>
-					<li>Windows 8.1 Store</li>
+					<li>Windows 8.1 Store.</li>
 					<li>Windows 10 Universal, including Windows Mobile 10.</li>
 				</ul>
 				Technically, it also works on Windows Phone 8.1, however ESENT isn't part of the official API surface there,
@@ -61,9 +61,6 @@
 					In this case, you must properly dispose the recordset/cursor.
 					Unless you've used the Cursor.CreateOwnCopy or Recordset.CreateOwnCursor API,
 					it's not necessary to dispose the cursors / recordsets.
-				</para>
-				<para>
-					<b>NB!</b> Due to the limitation of Managed ESENT API, cursor duplication is only supported in the desktop version of the library.
 				</para>
 
 				<para>
