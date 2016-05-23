@@ -26,7 +26,11 @@ namespace EsentSerialization
 			/// Two of them should be enough for most WSA applications: one session for the GUI thread, another one for some background uploading/downloading/processing.</remarks>
 			public int maxConcurrentSessions = 2;
 
-			/// <summary>Database location. The default is null, which translates to SpecialFolder.LocalApplicationData on desktop, or ApplicationData.LocalFolder on WinRT.</summary>
+			/// <summary>Database location. The default is null.</summary>
+			/// <remarks>
+			/// <para><b>Desktop &amp; server:</b> when the value is null, the database is placed in %LOCALAPPDATA%\&lt;AppName&gt; where &lt;AppName&gt; is the name of the entry-point assembly.</para>
+			/// <para><b>Store &amp; phone:</b> when the value is null, the database is placed in <a href="https://msdn.microsoft.com/en-us/windows.storage.applicationdata.localfolder" target="_blank">ApplicationData.LocalFolder</a>.</para>
+			/// </remarks>
 			public string folderLocation = null;
 
 			/// <summary>Absolute path of the database folder.</summary>

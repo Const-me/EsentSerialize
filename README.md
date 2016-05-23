@@ -1,7 +1,9 @@
 # EsentSerialize
 ESENT Serialization class library is built above Managed ESENT. It allows you to store your objects in the underlying extensible storage engine database. [Wikipedia has nice article](https://en.wikipedia.org/wiki/Extensible_Storage_Engine) outlining what’s so special about the extensible storage engine.
 
-The binaries are [published in NuGet](https://www.nuget.org/packages/EsentSerialize), the compiled documentation [here on the "Releases" page](https://github.com/Const-me/EsentSerialize/releases).
+The binaries are [published in NuGet](https://www.nuget.org/packages/EsentSerialize), the compiled documentation is [here on the "Releases" page](https://github.com/Const-me/EsentSerialize/releases).
+
+If the text in the CHM is too small for you, [here's a simple fix](http://superuser.com/a/204783/31483).
 
 ## Features
 * Serializes and deserializes objects. To mark the object to be your database record type, apply [EseTable] attribute to your record class, and column attributes to the class members.
@@ -14,10 +16,9 @@ The binaries are [published in NuGet](https://www.nuget.org/packages/EsentSerial
 * The library provides DB schema upgrade mechanism, to upgrade DB schema while retaining user's data.
 * On desktops and servers, the library supports hot backups.
 * Just like Managed ESENT, the library is architecture-neutral ("Any CPU"), and very small because the DB engine is a part of Windows.
-* Several demo projects are provided.
+* Several demo projects are provided, including [client-server demo](https://github.com/Const-me/EsentSerialize/tree/master/Demos/ClientServer), and some performance benchmark versus SQLite.
 * Good documentation.
 
 ## Shortcomings
-* Insufficient API to configure database parameters. The default settings are acceptable for a mobile or desktop app. If you’ll use the library to build a high-loaded server, you will need to recompile the library changing those DB parameters.
 * Not all functionality was ported from version 2.x. Missing features include table-granular import/export, and raw read/write API.
 * Not all parts of the library are tested equally well.
