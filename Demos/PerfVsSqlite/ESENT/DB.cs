@@ -19,8 +19,8 @@ namespace PerfVsSqlite.ESENT
 			// That's not normally done: usually, the database is initialized only once when application is launched.
 			// To optimize for such unusual use case, we're tuning a few advanced DB parameters here.
 			EsentDatabase.Settings settings = new EsentDatabase.Settings();
-			settings.advanced.EnableFileCache = true;	// Use Windows file cache
-			settings.advanced.EnableViewCache = true;	// Read directly from the memory-mapped DB
+			settings.advanced.EnableFileCache = true;   // Use Windows file cache
+			settings.advanced.EnableViewCache = true;   // Read directly from the memory-mapped DB
 
 			pool = EsentDatabase.open( settings, typeof( Record ) );
 
@@ -58,7 +58,7 @@ namespace PerfVsSqlite.ESENT
 
 		public int fetchAll( int from, int to )
 		{
-			int c=0;
+			int c = 0;
 			using( var sess = pool.GetSession() )
 			using( var trans = sess.BeginTransaction() )
 			{
@@ -66,6 +66,27 @@ namespace PerfVsSqlite.ESENT
 					c++;
 			}
 			return c;
+		}
+
+		int iDatabase.countAll()
+		{
+			using( var sess = pool.GetSession() )
+			using( var trans = sess.BeginTransaction() )
+			{
+				return sess.Recordset<Record>().Count();
+			}
+		}
+
+		int iDatabase.fetchAll()
+		{
+			int res = 0;
+			using( var sess = pool.GetSession() )
+			using( var trans = sess.BeginTransaction() )
+			{
+				foreach( var r in sess.Recordset<Record>().all() )
+					res++;
+			}
+			return res;
 		}
 	}
 }

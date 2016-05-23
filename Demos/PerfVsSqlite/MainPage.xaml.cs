@@ -38,9 +38,18 @@ namespace PerfVsSqlite
 
 		async void Count_Click( object sender, RoutedEventArgs e )
 		{
-			await runTest( Tests.count );
+			await runTest( Tests.count0 );
 		}
 		async void Fetch_Click( object sender, RoutedEventArgs e )
+		{
+			await runTest( Tests.fetch0 );
+		}
+
+		async void CountWhere_Click( object sender, RoutedEventArgs e )
+		{
+			await runTest( Tests.count );
+		}
+		async void FetchWhere_Click( object sender, RoutedEventArgs e )
 		{
 			await runTest( Tests.fetch );
 		}

@@ -69,5 +69,34 @@ namespace PerfVsSqlite.SQLite
 				conn.Rollback();
 			}
 		}
+
+		int iDatabase.countAll()
+		{
+			conn.BeginTransaction();
+			try
+			{
+				return conn.Table<Record>().Count();
+			}
+			finally
+			{
+				conn.Rollback();
+			}
+		}
+
+		int iDatabase.fetchAll()
+		{
+			conn.BeginTransaction();
+			try
+			{
+				int res = 0;
+				foreach( var rec in conn.Table<Record>() )
+					res++;
+				return res;
+			}
+			finally
+			{
+				conn.Rollback();
+			}
+		}
 	}
 }

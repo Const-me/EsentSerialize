@@ -10,5 +10,8 @@ namespace PerfVsSqlite.Database
 		int count( int from, int to );
 
 		int fetchAll( int from, int to );
+
+		int countAll();
+		int fetchAll();
 	}
 }

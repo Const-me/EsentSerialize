@@ -21,6 +21,8 @@
 					<VisualState.Setters>
 						<Setter Target="btnEngine.(Control.IsEnabled)" Value="False"/>
 						<Setter Target="populate.(Control.IsEnabled)" Value="False"/>
+						<Setter Target="count0.(Control.IsEnabled)" Value="False"/>
+						<Setter Target="fetch0.(Control.IsEnabled)" Value="False"/>
 						<Setter Target="count.(Control.IsEnabled)" Value="False"/>
 						<Setter Target="fetch.(Control.IsEnabled)" Value="False"/>
 						<Setter Target="pBar.(ProgressBar.IsIndeterminate)" Value="True"/>
@@ -32,8 +34,10 @@
 			<Button x:Name="btnEngine" Content="ESENT" VerticalAlignment="Top" HorizontalAlignment="Stretch" Click="btnEngine_Click" />
 			<Border Height="10" />
 			<Button x:Name="populate" Content="Add Records" HorizontalAlignment="Stretch" Click="Test1_Click"/>
-			<Button x:Name="count" Content="Count" HorizontalAlignment="Stretch" Click="Count_Click"/>
-			<Button x:Name="fetch" Content="Fetch" HorizontalAlignment="Stretch" Click="Fetch_Click"/>
+			<Button x:Name="count0" Content="Count( all )" HorizontalAlignment="Stretch" Click="Count_Click"/>
+			<Button x:Name="fetch0" Content="Fetch( all )" HorizontalAlignment="Stretch" Click="Fetch_Click"/>
+			<Button x:Name="count" Content="Count( Where )" HorizontalAlignment="Stretch" Click="CountWhere_Click"/>
+			<Button x:Name="fetch" Content="Fetch( Where )" HorizontalAlignment="Stretch" Click="FetchWhere_Click"/>
 			<ProgressBar x:Name="pBar" Height="10" VerticalAlignment="Stretch"/>
 		</StackPanel>
 

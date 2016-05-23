@@ -12,6 +12,17 @@ namespace PerfVsSqlite
 			return Task.Run( () => runTestImpl( SQLite, act ) );
 		}
 
+
+		static double RoundToSignificantDigits( this double d, int digits )
+		{
+			// http://stackoverflow.com/a/374470/126995
+			if( d == 0 )
+				return 0;
+
+			double scale = Math.Pow( 10, Math.Floor( Math.Log10( Math.Abs( d ) ) ) + 1 );
+			return scale * Math.Round( d / scale, digits );
+		}
+
 		static string runTestImpl( bool SQLite, Func<iDatabase, Tuple<int, TimeSpan>> act )
 		{
 			iDatabase db;
@@ -33,8 +44,11 @@ namespace PerfVsSqlite
 				{
 					Tuple<int, TimeSpan> res = act( db );
 					double rps = (double)res.Item1 / res.Item2.TotalSeconds;
-					return String.Format( "[{0}] Completed OK in {1} seconds; {2} records / second average.",
-						title, res.Item2.TotalSeconds, rps );
+					return String.Format( "[{0}] Completed OK\nTime spent: {1} seconds\nRecords affected: {2}\nAverage records / second: {3}",
+						title,
+						res.Item2.TotalSeconds.RoundToSignificantDigits( 3 ),
+						res.Item1,
+						rps.RoundToSignificantDigits( 3 ) );
 				}
 				catch( Exception ex )
 				{
@@ -103,6 +117,19 @@ namespace PerfVsSqlite
 				res += sw.Elapsed;
 			}
 			return Tuple.Create( records, res );
+		}
+
+		public static Tuple<int, TimeSpan> count0( iDatabase db )
+		{
+			Stopwatch sw = Stopwatch.StartNew();
+			int r = db.countAll();
+			return Tuple.Create( r, sw.Elapsed );
+		}
+		public static Tuple<int, TimeSpan> fetch0( iDatabase db )
+		{
+			Stopwatch sw = Stopwatch.StartNew();
+			int r = db.fetchAll();
+			return Tuple.Create( r, sw.Elapsed );
 		}
 	}
 }
