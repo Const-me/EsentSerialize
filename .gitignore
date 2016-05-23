@@ -7,3 +7,7 @@ project.lock.json
 *.nupkg
 /Documentation/
 /EsentSerialize.chm
+/EsentSerialize.chw
+/Demos/QuickStart/.vs/
+/Demos/QuickStart/packages/
+
