@@ -15,7 +15,7 @@ namespace EsentSerialization
 			string m_BaseName = "j11";
 
 			/// <summary>This parameter sets the three letter prefix used for many of the files used by the database engine.
-			/// For example, the checkpoint file is called EDB.CHK by default because EDB is the default base name. </summary>
+			/// For example, the checkpoint file is called j11.chk by default because "j11" is the default base name. </summary>
 			public string BaseName
 			{
 				get { return m_BaseName; }
@@ -90,7 +90,7 @@ namespace EsentSerialization
 
 			/// <summary>The size of the transaction log files</summary>
 			/// <remarks>
-			/// <para>The default in ESENT is 5120 = 5MB. The default in this library however is only 521 kb, to improve startup time assuming the DB isn't written too much.</para>
+			/// <para>The default in ESENT is 5120 = 5MB. The default in this library however is only 512 kb, to improve startup time assuming the DB isn't written too much.</para>
 			/// <para>If you'll use this library to build a high-loaded server, you'll definitely want to increase this value to at least 5MB.</para>
 			/// </remarks>
 			public int kbLogFileSize
