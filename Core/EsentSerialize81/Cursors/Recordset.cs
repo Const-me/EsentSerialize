@@ -536,12 +536,12 @@ namespace EsentSerialization
 				.Select( rs => rs.idTable )
 				.ToArray();
 
-
 			Cursor<tRow> cur = null;
 			foreach( byte[] bk in Api.IntersectIndexes( idSession, tableIds ) )
 			{
 				if( null == cur )
 				{
+					// First element: prepare the first cursor to be reused.
 					cur = recordsets[ 0 ].cursor;
 					cur.ResetIndex();
 				}

@@ -21,4 +21,5 @@ If the text in the CHM is too small for you, [here's a simple fix](http://superu
 
 ## Shortcomings
 * Not all functionality was ported from version 2.x. Missing features include table-granular import/export, and raw read/write API.
+* Those LINQ-like queries are limited to a single index. If you'll try to query multiple indices, expression compiler will throw an exception. You can only do that manually, using Recordset<tRow>.IntersectIndices API.
 * Not all parts of the library are tested equally well.
