@@ -504,9 +504,14 @@ namespace EsentSerialization
 		public static IEnumerable<tRow> IntersectIndices( params Recordset<tRow>[] recordsets )
 		{
 			if( 0 == recordsets.Length )
-				return nothing();
+				yield break;
+
 			if( 1 == recordsets.Length )
-				return recordsets[ 0 ].all();
+			{
+				foreach( var r in recordsets[ 0 ].all() )
+					yield return r;
+				yield break;
+			}
 
 			// Verify all recordset have own cursors and are from the same session
 			HashSet<JET_TABLEID> tables = new HashSet<JET_TABLEID>();
@@ -522,7 +527,7 @@ namespace EsentSerialization
 					throw new ArgumentException( "All input recordsets must have some filter set." );
 
 				if( !rs.applyFilter() )
-					return nothing();
+					yield break;
 				tables.Add( id );
 			}
 			tables = null;
@@ -531,15 +536,18 @@ namespace EsentSerialization
 				.Select( rs => rs.idTable )
 				.ToArray();
 
-			recordsets[ 0 ].cursor.ResetIndex();
-			Cursor<tRow> cur = recordsets[ 0 ].cursor;
 
-			return Api.IntersectIndexes( idSession, tableIds )
-				.Select( bk =>
+			Cursor<tRow> cur = null;
+			foreach( byte[] bk in Api.IntersectIndexes( idSession, tableIds ) )
+			{
+				if( null == cur )
 				{
-					cur.gotoBookmark( bk );
-					return cur.getCurrent();
-				} );
+					cur = recordsets[ 0 ].cursor;
+					cur.ResetIndex();
+				}
+				cur.gotoBookmark( bk );
+				yield return cur.getCurrent();
+			}
 		}
 	}
 }
