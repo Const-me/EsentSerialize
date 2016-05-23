@@ -470,7 +470,6 @@ namespace EsentSerialization
 				.LastOrDefault();
 		}
 
-#if !NETFX_CORE
 		/// <summary>Duplicate the ESENT cursor to get the own copy for this recordset.</summary>
 		/// <remarks>This is required e.g. when you're fetching records from the recordset, and process them in a way that requires another query to the same table.<br/>
 		/// This operation also clears the search/sort filter.<br/>
@@ -478,7 +477,7 @@ namespace EsentSerialization
 		/// <code>            rsAux.CreateOwnCursor();
 		///using( rsAux )
 		///{
-		///	// Use rsAux to query the table.
+		///	// Use rsAux to query the table, intersect indices, whatever..
 		///}</code>
 		///</remarks>
 		public void CreateOwnCursor()
@@ -490,8 +489,7 @@ namespace EsentSerialization
 			filterClear( m_filter.bInverse );
 		}
 
-		/// <summary>The function computes the intersection between multiple sets of index entries
-		/// from different secondary indices over the same table.</summary>
+		/// <summary>The function computes the intersection between multiple sets of index entries from different secondary indices over the same table.</summary>
 		/// <remarks><para>This operation is useful for finding the set of records in a table that match two or more criteria
 		/// that can be expressed using filterFind*-family methods of the Recordset&lt;&gt; generic class.</para>
 		/// <para>All recordsets must be with non-empty filter set (i.e. you have to call a filterFind* method on each of them).</para>
@@ -512,12 +510,12 @@ namespace EsentSerialization
 
 			// Verify all recordset have own cursors and are from the same session
 			HashSet<JET_TABLEID> tables = new HashSet<JET_TABLEID>();
-			JET_SESID idSession = recordsets[0].idSession;
+			JET_SESID idSession = recordsets[ 0 ].idSession;
 			foreach( var rs in recordsets )
 			{
 				var id = rs.idTable;
 				if( tables.Contains( id ) )
-					throw new ArgumentException( "All input recordsets must have own cursors" );
+					throw new ArgumentException( "Input recordsets must have unique cursors" );
 				if( idSession != rs.idSession )
 					throw new ArgumentException( "All input recordsets must be within the same session" );
 				if( rs.m_filter is FilterAllRecords )
@@ -527,7 +525,6 @@ namespace EsentSerialization
 					return nothing();
 				tables.Add( id );
 			}
-			tables.Clear();
 			tables = null;
 
 			JET_TABLEID[] tableIds = recordsets
@@ -536,6 +533,7 @@ namespace EsentSerialization
 
 			recordsets[ 0 ].cursor.ResetIndex();
 			Cursor<tRow> cur = recordsets[ 0 ].cursor;
+
 			return Api.IntersectIndexes( idSession, tableIds )
 				.Select( bk =>
 				{
@@ -543,6 +541,5 @@ namespace EsentSerialization
 					return cur.getCurrent();
 				} );
 		}
-#endif
 	}
 }

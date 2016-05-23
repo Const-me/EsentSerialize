@@ -10,6 +10,9 @@ namespace EsentSerialization
 		/// <summary>Get the [EseTable] attribute instance.</summary>
 		Attributes.EseTableAttribute tableAttribute { get; }
 
+		/// <summary>Name of the table.</summary>
+		string tableName { get; }
+
 		/// <summary>Get the columns indexed by the specified index.</summary>
 		/// <param name="strIndexName">Name of the index.</param>
 		/// <returns>Array of indexed columns.</returns>

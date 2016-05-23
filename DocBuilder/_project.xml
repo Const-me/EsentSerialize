@@ -21,8 +21,7 @@
 				<para>This documentation is for version 3.x of the library.
 				As of version 3.0, the library supports 3 targets:
 				<ul>
-					<li>Windows desktops, requires .NET 4.5.0 or above.
-					Due to the limitations of Managed ESENT, some APIs like backup/restore and cursor duplication are only available in the desktop version of the library.</li>
+					<li>Windows desktops &amp; servers; it require .NET 4.5.0 or above. Due to the limitations of Managed ESENT, some APIs like backup/restore are only available on this platform.</li>
 					<li>Windows 8.1 Store</li>
 					<li>Windows 10 Universal, including Windows Mobile 10.</li>
 				</ul>

@@ -170,7 +170,6 @@ namespace EsentSerialization
 			return new Recordset<tRow>( this );
 		}
 
-#if !NETFX_CORE
 		/// <summary>Duplicate the cursor within the session, so the returned copy has its own position, selected index, index range.</summary>
 		public Cursor<tRow> CreateOwnCopy()
 		{
@@ -178,6 +177,5 @@ namespace EsentSerialization
 			res.Duplicate();
 			return res;
 		}
-#endif
 	}
 }

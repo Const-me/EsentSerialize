@@ -185,18 +185,21 @@ namespace EsentSerialization
 			return m_serializer.GetColumnId( this, fName );
 		}
 
-#if !NETFX_CORE
 		/// <summary>Duplicate the cursor, and take the ownership of the copy.</summary>
 		/// <remarks><b>NB:</b> this can only be done for a non-table owning cursor.</remarks>
 		protected void Duplicate()
 		{
 			Debug.Assert( !m_bOwnsTable );
 			JET_TABLEID idNewTable = JET_TABLEID.Nil;
-
+#if NETFX_CORE
+			// JetDupCursor is unavailable on WinRT
+			OpenTableGrbit flags = ( bReadOnly ) ? OpenTableGrbit.ReadOnly : OpenTableGrbit.None;
+			Api.JetOpenTable( idSession, m_session.idDatabase, m_serializer.tableName, null, 0, flags, out idNewTable );
+#else
 			Api.JetDupCursor( idSession, idTable, out idNewTable, DupCursorGrbit.None );
+#endif
 			m_idTable = idNewTable;
 			m_bOwnsTable = true;
 		}
-#endif
 	}
 }
