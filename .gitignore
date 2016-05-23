@@ -6,4 +6,4 @@ project.lock.json
 *.user
 *.nupkg
 /Documentation/
-/EsentSerialization.chm
+/EsentSerialize.chm

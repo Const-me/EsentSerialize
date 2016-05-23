@@ -63,5 +63,5 @@ XslTransform /xsl:%DXROOT%\ProductionTransforms\ReflectionToChmIndex.xsl reflect
 Echo 12. Run HTML Help Compiler to generate Chm
 %HHW%\hhc.exe output\test.hhp
 
-copy /y output\EsentSerialization.chm ..\EsentSerialization.chm
+copy /y output\EsentSerialize.chm ..\EsentSerialize.chm
 pause

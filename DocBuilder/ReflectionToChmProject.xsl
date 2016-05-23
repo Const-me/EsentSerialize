@@ -24,7 +24,7 @@
 	<xsl:template match="/">
 		<xsl:text>[OPTIONS]&#x0a;</xsl:text>
 		<xsl:text>Compatibility=1.1 or later&#x0a;</xsl:text>
-		<xsl:text>Compiled file=EsentSerialization.chm&#x0a;</xsl:text>
+		<xsl:text>Compiled file=EsentSerialize.chm&#x0a;</xsl:text>
 		<xsl:text>Contents file=</xsl:text>
 		<xsl:value-of select="$project" />
 		<xsl:text>.hhc&#x0a;</xsl:text>
