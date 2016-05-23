@@ -1,6 +1,5 @@
 ﻿using Microsoft.Isam.Esent.Interop;
 using System;
-using System.Diagnostics;
 
 namespace EsentSerialization
 {
@@ -24,6 +23,8 @@ namespace EsentSerialization
 		{
 			Open( session );
 		}
+
+		public iSerializerSession session { get { return m_session; } }
 
 		void Commit( CommitTransactionGrbit flags )
 		{

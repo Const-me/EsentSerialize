@@ -169,6 +169,14 @@ namespace EsentSerialization
 			return rs.all( q );
 		}
 
+		/// <summary>Run the query, and move the cursor to the first matching record.</summary>
+		/// <returns>False if no matching records found on the table.</returns>
+		public static bool seek<tRow>( this Recordset<tRow> rs, Expression<Func<tRow, bool>> exp ) where tRow : new()
+		{
+			Query<tRow> q = filter( rs.cursor.serializer, exp );
+			return rs.applyFilter();
+		}
+
 		/// <summary>When encountered in queries, this static method is equal to "&lt;=" operator.</summary>
 		/// <remarks>You need that if you want to query by string column, or binary column, or some other column type that doesn't have comparison operators in the .NET type mapped to that column.</remarks>
 		public static bool lessOrEqual( object a, object b )

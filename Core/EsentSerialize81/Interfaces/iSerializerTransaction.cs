@@ -7,6 +7,9 @@ namespace EsentSerialization
 	/// otherwise the unmanaged resources will leak enormously fast.</remarks>
 	public interface iSerializerTransaction : IDisposable
 	{
+		/// <summary>Get the session that owns this transaction.</summary>
+		iSerializerSession session { get; }
+
 		/// <summary>Commit the transaction and flush the transaction log. Doing so will close this transaction.</summary>
 		void Commit();
 
