@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "ManagedEsent": "1.9.3.3",
+    "ManagedEsent": "1.9.4",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0"
   },
   "frameworks": {
