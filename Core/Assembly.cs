@@ -12,4 +12,4 @@ using System.Runtime.InteropServices;
 [assembly: NeutralResourcesLanguage( "en" )]
 [assembly: ComVisible( false )]
 
-[assembly: AssemblyVersion( "3.1.2.0" )]
+[assembly: AssemblyVersion( "3.1.3.0" )]

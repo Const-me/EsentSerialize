@@ -3,7 +3,7 @@
 	<metadata>
 		<id>EsentSerialize</id>
 		<title>ESENT Serialize</title>
-		<version>3.1.2</version>
+		<version>3.1.3</version>
 		<authors>const.me</authors>
 		<licenseUrl>https://opensource.org/licenses/MS-PL</licenseUrl>
 		<projectUrl>https://github.com/Const-me/EsentSerialize</projectUrl>
@@ -15,7 +15,7 @@
 
 		<dependencies>
 			<group>
-				<dependency id="ManagedEsent" version="1.9.3.3" />
+				<dependency id="ManagedEsent" version="1.9.4" />
 			</group>
 		</dependencies>
 		
