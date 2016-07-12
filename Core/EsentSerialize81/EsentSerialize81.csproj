@@ -107,7 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Esent.Interop.Wsa, Version=1.9.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ManagedEsent.1.9.3.3\lib\netcore45\Esent.Interop.Wsa.dll</HintPath>
+      <HintPath>..\..\packages\ManagedEsent.1.9.4\lib\netcore45\Esent.Interop.Wsa.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
