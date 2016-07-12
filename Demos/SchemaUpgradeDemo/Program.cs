@@ -31,7 +31,8 @@ namespace SchemaUpgradeDemo
 		static void Main( string[] args )
 		{
 			string strDatabasePath = Environment.ExpandEnvironmentVariables( @"%APPDATA%\EsentSchemaUpgradeDemo" );
-			using( var serializer = new EseSerializer( strDatabasePath, null ) )
+			EsentDatabase.Settings settings = new EsentDatabase.Settings(strDatabasePath);
+			using( var serializer = new EseSerializer( settings, 1, null ) )
 			using( var sess = serializer.OpenDatabase( false ) )
 			{
 				if( serializer.isNewDatabase )
