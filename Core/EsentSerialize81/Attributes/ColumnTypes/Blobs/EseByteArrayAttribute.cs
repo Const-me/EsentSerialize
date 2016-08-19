@@ -1,6 +1,5 @@
-﻿using System;
-using System.IO;
-using Microsoft.Isam.Esent.Interop;
+﻿using Microsoft.Isam.Esent.Interop;
+using System;
 using System.Runtime.Serialization;
 
 namespace EsentSerialization.Attributes
