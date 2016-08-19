@@ -1,5 +1,5 @@
-﻿using Microsoft.Isam.Esent.Interop;
-using EsentSerialization.Attributes;
+﻿using EsentSerialization.Attributes;
+using Microsoft.Isam.Esent.Interop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
