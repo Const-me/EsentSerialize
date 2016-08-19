@@ -28,9 +28,7 @@ namespace EsentSerialization
 		/// <param name="cur">The table cursor.</param>
 		/// <param name="fName">ESE column name to load from the table.</param>
 		/// <returns>The field value.</returns>
-		/// <remarks>This method was implemented because sometimes,
-		/// e.g. while traversing the DB-backed tree searching for something,
-		/// you only need the value of a single field.</remarks>
+		/// <remarks>This method was implemented because sometimes, e.g. while traversing the DB-backed tree searching for something, you only need the value of a single field.</remarks>
 		object FetchSingleField( EseCursorBase cur, string fName );
 
 		/// <summary>Update the value of the specific field of the current record.</summary>

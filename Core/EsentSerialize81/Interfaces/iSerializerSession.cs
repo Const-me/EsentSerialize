@@ -16,7 +16,7 @@ namespace EsentSerialization
 
 		/// <summary>The EseSerializer who owns this session.</summary>
 		EseSerializer serializer { get; }
-		/// <summary>Native session ID</summary>
+		/// <summary>Native session ID.</summary>
 		JET_SESID idSession { get; }
 		/// <summary>Native database ID.</summary>
 		JET_DBID idDatabase { get; }
@@ -31,18 +31,12 @@ namespace EsentSerialization
 		BookmarkedRecordset<tRow> BookmarkedRecordset<tRow>() where tRow : new();
 
 		/// <summary>Begins a transaction.</summary>
-		/// <remarks><para>You must ( commit or rollback ) and/or Dispose() the returned transaction,
-		/// otherwise the unmanaged resources will leak pretty fast.</para>
-		/// <para>In support of snapshot isolation,
-		/// the database engine stores all versions of all modified data in memory
-		/// since the time when the oldest active transaction on any session was first started.
+		/// <remarks><para>You must ( commit or rollback ) and/or Dispose() the returned transaction, otherwise the unmanaged resources will leak pretty fast.</para>
+		/// <para>In support of snapshot isolation, the database engine stores all versions of all modified data in memory since the time when the oldest active transaction on any session was first started.
 		/// It is important to make transactions as short in duration as possible under high load scenarios.
-		/// The class library provides <see cref="iSerializerTransaction.LazyCommitAndReopen">the method</see>
-		/// to "pulse" the transaction.</para>
-		/// <para>It is highly recommended that the application always be in the context of a transaction
-		/// when calling ESE APIs that retrieve or update data. If this is not done,
-		/// the database engine will automatically wrap each ESE API call of this type
-		/// in a transaction on behalf of the application.
+		/// The class library provides <see cref="iSerializerTransaction.LazyCommitAndReopen">the method</see> to "pulse" the transaction.</para>
+		/// <para>It is highly recommended that the application always be in the context of a transaction when calling ESE APIs that retrieve or update data.
+		/// If this is not done, the database engine will automatically wrap each ESE API call of this type in a transaction on behalf of the application.
 		/// The cost of these very short transactions can add up quickly in some cases.</para>
 		/// </remarks>
 		iSerializerTransaction BeginTransaction();

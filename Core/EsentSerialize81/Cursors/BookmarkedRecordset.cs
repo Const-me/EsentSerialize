@@ -3,8 +3,7 @@ using System.Linq;
 
 namespace EsentSerialization
 {
-	/// <summary>This class represents a subset of records from the <see cref="Cursor{tRow}" />,
-	/// with records kept together with its bookmarks, allowing to modify the records.</summary>
+	/// <summary>This class represents a subset of records from the <see cref="Cursor{tRow}" />, with records kept together with its bookmarks, allowing to modify the records.</summary>
 	/// <remarks>The class is pretty much the same as <see cref="Recordset{tRow}" />.
 	/// The only difference is it enumerates <see cref="BookmarkedRow{tRow}" /> instead of just tRow, thus allowing to modify or remove records that dont have primary key defined.</remarks>
 	/// <typeparam name="tRow">Record type.</typeparam>

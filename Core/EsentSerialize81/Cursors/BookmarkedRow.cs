@@ -14,8 +14,7 @@ namespace EsentSerialization
 		public Cursor<tRow> cursor { get { return m_cursor; } }
 
 		byte[] m_bookmark;
-		/// <summary>The bookmark.
-		/// If this object represents a record that was not yet added to the database, this field will be empty.</summary>
+		/// <summary>The bookmark. If this object represents a record that was not yet added to the database, this field will be empty.</summary>
 		public byte[] bookmark { get { return m_bookmark; } }
 
 		/// <summary>The record.</summary>
