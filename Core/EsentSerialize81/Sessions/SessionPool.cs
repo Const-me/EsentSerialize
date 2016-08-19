@@ -9,10 +9,10 @@ namespace EsentSerialization
 	/// <summary>Concurrent behavior of the sessions.</summary>
 	public enum eSessionCooperativeLevel : byte
 	{
-		/// <summary>No locking is performed (fastest way)</summary>
+		/// <summary>The session can co-exist with anything, even with eSessionCooperativeLevel.Exclusive sessions. The performance is the best for this case.</summary>
 		Free = 0,
 
-		/// <summary>This session is OK to co-exist with others sessions.</summary>
+		/// <summary>This session is OK to co-exist with others sessions, but not with eSessionCooperativeLevel.Exclusive sessions.</summary>
 		NonExclusive,
 
 		/// <summary>This session can't coexist with others because it performs some exclusive operation on the DB.</summary>
