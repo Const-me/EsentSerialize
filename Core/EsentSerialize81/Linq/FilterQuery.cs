@@ -12,21 +12,17 @@ namespace EsentSerialization.Linq
 	{
 		enum eOperation : byte
 		{
-			// LessThan,
 			LessThanOrEqual,
 			Equal,
 			GreaterThanOrEqual,
-			// GreaterThan,
 		}
 
 		/// <summary>Dictionary to map ExpressionType to ESENT operation.</summary>
 		static readonly Dictionary<ExpressionType, eOperation> dictTypes = new Dictionary<ExpressionType, eOperation>()
 		{
-			// { ExpressionType.LessThan, eOperation.LessThan },
 			{ ExpressionType.LessThanOrEqual, eOperation.LessThanOrEqual },
 			{ ExpressionType.Equal, eOperation.Equal },
 			{ ExpressionType.GreaterThanOrEqual, eOperation.GreaterThanOrEqual },
-			// { ExpressionType.GreaterThan, eOperation.GreaterThan },
 		};
 
 		/// <summary>Dictionary to invert ESENT operation, used to invert "1 &gt;= record.column" to "record.column &lt;= 1"</summary>
