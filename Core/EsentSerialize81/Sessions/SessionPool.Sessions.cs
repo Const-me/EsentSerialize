@@ -164,7 +164,7 @@ namespace EsentSerialization
 
 			void iSerializerSession.recreateTable<tRow>()
 			{
-				if( this.cooperativeLevel != eSessionCooperativeLevel.Exclusive )
+				if( cooperativeLevel != eSessionCooperativeLevel.Exclusive )
 					throw new Exception( "To call recreateTable API, this session must be opened with eSessionCooperativeLevel.Exclusive option" );
 
 				SerializerSession.eTableState stateInThisSession = this.session.closeTable<tRow>();
@@ -191,6 +191,18 @@ namespace EsentSerialization
 					else
 						actAfterRelease += actReopenInOtherSessions;
 				}
+			}
+
+			void iSerializerSession.importTable( Type tRecord, Stream stm, ImportExportFormat fmt )
+			{
+				if( cooperativeLevel != eSessionCooperativeLevel.Exclusive )
+					throw new Exception( "To call importTable API, this session must be opened with eSessionCooperativeLevel.Exclusive option" );
+				session.importTable( tRecord, stm, fmt );
+			}
+
+			void iSerializerSession.exportTable( Type tRecord, Stream stm, ImportExportFormat fmt )
+			{
+				session.exportTable( tRecord, stm, fmt );
 			}
 
 			/// <summary>An action to be delayed to the moment immediately after this session is released to the pool.</summary>

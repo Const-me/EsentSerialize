@@ -89,6 +89,7 @@
     <Compile Include="Serializer\TypeSerializer.cs" />
     <Compile Include="Serializer\TypeSerializer.IndexInfo.cs" />
     <Compile Include="Sessions\iSerializerSessionImpl.cs" />
+    <Compile Include="Sessions\SerializerSession.BackupRestore.cs" />
     <Compile Include="Sessions\SerializerSession.cs" />
     <Compile Include="Sessions\SerializerTransaction.cs" />
     <Compile Include="Sessions\SessionPool.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Utils\ByteArray.cs" />
     <Compile Include="Utils\ColumnStreamWithPulse.cs" />
     <Compile Include="Utils\Directory.cs" />
+    <Compile Include="Utils\TSV.cs" />
     <Compile Include="Utils\Ext.cs" />
     <Compile Include="Utils\File.cs" />
     <Compile Include="Utils\FileIO\FileApi.cs" />
@@ -106,6 +108,8 @@
     <Compile Include="Utils\FileIO\WIN32_FILE_ATTRIBUTE_DATA.cs" />
     <Compile Include="Utils\FileIO\WIN32_FIND_DATA.cs" />
     <Compile Include="Utils\Global.cs" />
+    <Compile Include="Utils\ImportExport.cs" />
+    <Compile Include="Utils\ImportExportTSV.cs" />
     <Compile Include="Utils\MiscUtils.cs" />
     <Compile Include="Utils\ReflectionUtils.cs" />
   </ItemGroup>

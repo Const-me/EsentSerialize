@@ -1,9 +1,17 @@
 ﻿using Microsoft.Isam.Esent.Interop;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace EsentSerialization
 {
+	/// <summary>Tables import/export format.</summary>
+	public enum ImportExportFormat: byte
+	{
+		/// <summary>Mostly human-readable UTF8 tab-separated data.</summary>
+		TSV = 1,
+	}
+
 	/// <summary>This interface represents a database session.</summary>
 	/// <remarks><para>The session object allows you to begin transactions, and obtain the cached table objects.</para>
 	/// <para>If your application is multi-threaded, you should use separate session for every thread.</para>
@@ -75,5 +83,17 @@ namespace EsentSerialization
 		/// </remarks>
 		/// <typeparam name="tRow"></typeparam>
 		void recreateTable<tRow>() where tRow : new();
+
+		/// <summary>Import the table from a stream.</summary>
+		/// <param name="tRecord"></param>
+		/// <param name="stm"></param>
+		/// <param name="fmt">Import format</param>
+		void importTable( Type tRecord, Stream stm, ImportExportFormat fmt );
+
+		/// <summary>Export the whole table to the specified stream.</summary>
+		/// <param name="tRecord"></param>
+		/// <param name="stm"></param>
+		/// <param name="fmt">Export format.</param>
+		void exportTable( Type tRecord, Stream stm, ImportExportFormat fmt );
 	}
 }

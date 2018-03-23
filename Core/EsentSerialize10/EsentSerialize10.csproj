@@ -195,6 +195,9 @@
     <Compile Include="..\EsentSerialize81\Sessions\iSerializerSessionImpl.cs">
       <Link>Sessions\iSerializerSessionImpl.cs</Link>
     </Compile>
+    <Compile Include="..\EsentSerialize81\Sessions\SerializerSession.BackupRestore.cs">
+      <Link>Sessions\SerializerSession.BackupRestore.cs</Link>
+    </Compile>
     <Compile Include="..\EsentSerialize81\Sessions\SerializerSession.cs">
       <Link>Sessions\SerializerSession.cs</Link>
     </Compile>
@@ -219,11 +222,20 @@
     <Compile Include="..\EsentSerialize81\Utils\Global.cs">
       <Link>Utils\Global.cs</Link>
     </Compile>
+    <Compile Include="..\EsentSerialize81\Utils\ImportExport.cs">
+      <Link>Utils\ImportExport.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Utils\ImportExportTSV.cs">
+      <Link>Utils\ImportExportTSV.cs</Link>
+    </Compile>
     <Compile Include="..\EsentSerialize81\Utils\MiscUtils.cs">
       <Link>Utils\MiscUtils.cs</Link>
     </Compile>
     <Compile Include="..\EsentSerialize81\Utils\ReflectionUtils.cs">
       <Link>Utils\ReflectionUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Utils\TSV.cs">
+      <Link>Utils\TSV.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\FindFiles.cs" />
