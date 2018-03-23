@@ -193,16 +193,28 @@ namespace EsentSerialization
 				}
 			}
 
-			void iSerializerSession.importTable( Type tRecord, Stream stm, ImportExportFormat fmt )
+			void iSerializerSession.exportTable( Stream stm, Type tRecord, ImportExportFormat fmt )
+			{
+				session.exportTable( stm, tRecord, fmt );
+			}
+
+			void iSerializerSession.importTable( Stream stm, Type tRecord, ImportExportFormat fmt )
 			{
 				if( cooperativeLevel != eSessionCooperativeLevel.Exclusive )
 					throw new Exception( "To call importTable API, this session must be opened with eSessionCooperativeLevel.Exclusive option" );
-				session.importTable( tRecord, stm, fmt );
+				session.importTable( stm, tRecord, fmt );
 			}
 
-			void iSerializerSession.exportTable( Type tRecord, Stream stm, ImportExportFormat fmt )
+			void iSerializerSession.exportTables( Stream stm, Type[] tRecords )
 			{
-				session.exportTable( tRecord, stm, fmt );
+				session.exportTables( stm, tRecords );
+			}
+
+			void iSerializerSession.importTables( Stream stm )
+			{
+				if( cooperativeLevel != eSessionCooperativeLevel.Exclusive )
+					throw new Exception( "To call importTables API, this session must be opened with eSessionCooperativeLevel.Exclusive option" );
+				session.importTables( stm );
 			}
 
 			/// <summary>An action to be delayed to the moment immediately after this session is released to the pool.</summary>

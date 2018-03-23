@@ -84,16 +84,27 @@ namespace EsentSerialization
 		/// <typeparam name="tRow"></typeparam>
 		void recreateTable<tRow>() where tRow : new();
 
-		/// <summary>Import the table from a stream.</summary>
-		/// <param name="tRecord"></param>
-		/// <param name="stm"></param>
-		/// <param name="fmt">Import format</param>
-		void importTable( Type tRecord, Stream stm, ImportExportFormat fmt );
-
 		/// <summary>Export the whole table to the specified stream.</summary>
 		/// <param name="tRecord"></param>
 		/// <param name="stm"></param>
 		/// <param name="fmt">Export format.</param>
-		void exportTable( Type tRecord, Stream stm, ImportExportFormat fmt );
+		void exportTable( Stream stm, Type tRecord, ImportExportFormat fmt );
+
+		/// <summary>Import the table from a stream.</summary>
+		/// <param name="tRecord"></param>
+		/// <param name="stm"></param>
+		/// <param name="fmt">Import format</param>
+		void importTable( Stream stm, Type tRecord, ImportExportFormat fmt );
+
+		/// <summary>Export the specified tables into the ZIP file.</summary>
+		/// <param name="tRecords">Record types to export.</param>
+		/// <param name="stm">ZIP file to write.</param>
+		void exportTables( Stream stm, params Type[] tRecords );
+
+		/// <summary>Import all tables contained inside the ZIP file.</summary>
+		/// <remarks>All existing data in those tables will be erased.
+		/// You must open all table types in this session before this call.</remarks>
+		/// <param name="stm">ZIP file to read.</param>
+		void importTables( Stream stm );
 	}
 }
