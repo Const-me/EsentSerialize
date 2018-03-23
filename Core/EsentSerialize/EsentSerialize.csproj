@@ -70,6 +70,9 @@
     <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Misc\DateTime.cs">
       <Link>Attributes\ColumnTypes\Misc\DateTime.cs</Link>
     </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Misc\Guid.cs">
+      <Link>Attributes\ColumnTypes\Misc\Guid.cs</Link>
+    </Compile>
     <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Misc\ShortText.cs">
       <Link>Attributes\ColumnTypes\Misc\ShortText.cs</Link>
     </Compile>
@@ -81,6 +84,9 @@
     </Compile>
     <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\byte.cs">
       <Link>Attributes\ColumnTypes\Numeric\byte.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\Decimal.cs">
+      <Link>Attributes\ColumnTypes\Numeric\Decimal.cs</Link>
     </Compile>
     <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\double.cs">
       <Link>Attributes\ColumnTypes\Numeric\double.cs</Link>
@@ -94,8 +100,14 @@
     <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\Int32Array.cs">
       <Link>Attributes\ColumnTypes\Numeric\Int32Array.cs</Link>
     </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\Int64.cs">
+      <Link>Attributes\ColumnTypes\Numeric\Int64.cs</Link>
+    </Compile>
     <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\uint32.cs">
       <Link>Attributes\ColumnTypes\Numeric\uint32.cs</Link>
+    </Compile>
+    <Compile Include="..\EsentSerialize81\Attributes\ColumnTypes\Numeric\Version.cs">
+      <Link>Attributes\ColumnTypes\Numeric\Version.cs</Link>
     </Compile>
     <Compile Include="..\EsentSerialize81\Attributes\EseColumnAttrubuteBase.cs">
       <Link>Attributes\EseColumnAttrubuteBase.cs</Link>
