@@ -53,6 +53,10 @@ namespace EsentSerialization
 			else
 				m_tableName = recordType.Name;
 
+			if( m_tableName == "EsentSerializerSchema" )
+				if( recordType != typeof( DatabaseSchemaUpdater.DatabaseSchema ) )
+					throw new SerializationException( "\"EsentSerializerSchema\" table name is reserved for internal use, please pick another name for your table." );
+
 			if( !s_reName.IsMatch( m_tableName ) )
 				throw new SerializationException( "Invalid table name. " + s_strNameError );
 
