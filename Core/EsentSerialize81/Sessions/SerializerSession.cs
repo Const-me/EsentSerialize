@@ -59,6 +59,9 @@ namespace EsentSerialization
 
 		public void AddType( Type tRecord )
 		{
+			if( isInTransaction )
+				throw new NotSupportedException( "Can't add serialized types from within a transaction." );	// Because the DB engine will close tables when the transaction ends
+
 			iTypeSerializer ts = m_serializer.FindSerializerForType( tRecord );
 			if( null == ts )
 			{
