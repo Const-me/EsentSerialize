@@ -284,6 +284,30 @@ namespace EsentSerialization
 			this.actUpgrade += act;
 		}
 
+		/// <summary>Modify data in the table, e.g. add, remove or change rows.</summary>
+		/// <typeparam name="tRow">Record type</typeparam>
+		/// <param name="actModify">Action to modify the table.</param>
+		/// <remarks>Handle with care. The DB has old schema, yet the cursor will be constructed from the new metadata.</remarks>
+		public void ModifyRows<tRow>( Action<Cursor<tRow>> actModify ) where tRow : new()
+		{
+			TypeSerializer ser = serializerForType( typeof( tRow ) );
+			Action act = () =>
+			{
+				JET_TABLEID idTable;
+				Api.JetOpenTable( session.idSession, session.idDatabase, ser.tableName, null, 0, OpenTableGrbit.None, out idTable );
+				try
+				{
+					var cur = new Cursor<tRow>( session, ser, idTable, false );
+					actModify( cur );
+				}
+				finally
+				{
+					Api.JetCloseTable( session.idSession, idTable );
+				}
+			};
+			this.actUpgrade += act;
+		}
+
 		/// <summary>Drop the complete table from the DB.</summary>
 		/// <param name="name">Table name.</param>
 		/// <remarks>The table name need not to be a valid [EseTable] class, the name is directly passed to the ESENT API.</remarks>
