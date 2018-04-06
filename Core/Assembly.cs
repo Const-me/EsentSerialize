@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "const.me" )]
 [assembly: AssemblyProduct( "EsentSerialization" )]
-[assembly: AssemblyCopyright( "Copyright © const.me, 2010-2016" )]
+[assembly: AssemblyCopyright( "Copyright © const.me, 2010-2018" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 [assembly: NeutralResourcesLanguage( "en" )]
 [assembly: ComVisible( false )]
 
-[assembly: AssemblyVersion( "3.1.4.0" )]
+[assembly: AssemblyVersion( "3.1.5.0" )]
