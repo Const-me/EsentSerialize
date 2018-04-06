@@ -156,6 +156,10 @@ namespace EsentSerialization
 			{
 				this.session.AddType( tRecord );
 			}
+			bool iSerializerSession.RemoveType(Type tRecord)
+			{
+				return session.RemoveType( tRecord );
+			}
 
 			Type iSerializerSession.GetType( string strTableName )
 			{

@@ -68,6 +68,10 @@ namespace EsentSerialization
 		/// it will be added by this method. So, be ready for SerializationException about wrong DB schema.</remarks>
 		void AddType( Type tRecord );
 
+		/// <summary>Remove serialized type and close the table.</summary>
+		/// <returns>True if the table was closed</returns>
+		bool RemoveType( Type tRecord );
+
 		/// <summary>Resolve table name into the record's type.</summary>
 		/// <remarks>This function only looks through the tables opened in this session.</remarks>
 		/// <param name="strTableName">The table name; the value is case-sensitive.</param>

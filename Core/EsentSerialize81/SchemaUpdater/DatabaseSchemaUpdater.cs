@@ -61,7 +61,7 @@ namespace EsentSerialization
 	///}</code>
 	/// </para>
 	/// </remarks>
-	public class DatabaseSchemaUpdater
+	public class DatabaseSchemaUpdater: IDisposable
 	{
 		/// <summary>The internal table to hold schema version.</summary>
 		[EseTable( "EsentSerializerSchema" )]
@@ -90,6 +90,12 @@ namespace EsentSerialization
 				this.DatabaseSchemaVersion = cursor.getCurrent().schemaVersion;
 			else
 				this.DatabaseSchemaVersion = 0;
+		}
+
+		public void Dispose()
+		{
+			if( session != null )
+				session.RemoveType( typeof( DatabaseSchema ) );
 		}
 
 		/// <summary>Get/set the DB schema version.</summary>

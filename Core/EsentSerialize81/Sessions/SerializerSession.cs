@@ -72,6 +72,16 @@ namespace EsentSerialization
 			this.addType( ts as TypeSerializer, false );
 		}
 
+		public bool RemoveType( Type tRecord )
+		{
+			sTable table;
+			if( !m_tables.TryGetValue( tRecord, out table ) )
+				return false;
+			Api.JetCloseTable( m_idSession, table.idTable );
+			m_tables.Remove( tRecord );
+			return true;
+		}
+
 		public bool addType( TypeSerializer ts, bool bOpenAsReadonly )
 		{
 			Type t = ts.recordType;
